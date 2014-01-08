@@ -93,7 +93,7 @@ int main(int argc, char **argv)
 
     // TODO: where to put this? Module activator?? There must be a more Qt-style place..
     qmlRegisterType<QmlMitkRenderWindowItem>("QmlMitk", 1, 0, "QmlMitkRenderWindowItem");
-    qmlRegisterType<QmlMitkFourRenderWindowWidget>("QmlMitk", 1, 0, "QmlMitkFourRenderWindowWidget");
+    qmlRegisterType<QmlMitkFourRenderWindowWidget>("QmlMitk", 1, 0, "QmlMitkFourRenderWindowWidgetCpp");
     QQuickView view;
 
     view.setSource(QUrl("qrc:///MITK/Examples/QuickRender/QuickRender.qml"));

@@ -45,6 +45,7 @@ QmlMitkFourRenderWindowWidget::QmlMitkFourRenderWindowWidget(QQuickItem* parent)
   }
   else
   {
+    MITK_ERROR << component.errorString().toStdString();
     throw std::logic_error("Initialization of QmlMitkFourRenderWindowWidget went dead wrong. Check code...");
   }
 }

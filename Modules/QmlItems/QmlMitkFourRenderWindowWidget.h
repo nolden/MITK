@@ -47,6 +47,17 @@ public:
 signals:
 
 public slots:
+  /**
+   * Just for testing purposes.
+   */
+  void setFrontalBorder(QColor color)
+  {
+      this->m_RenderItemFrontal->SetFrameColor(color);
+  }
+  void setFrontalBorderPlane(QColor color)
+  {
+    this->m_RenderItemFrontal->GetRenderer()->GetCurrentWorldGeometry2DNode()->SetColor(color.redF(),color.greenF(),color.blueF());
+  }
 
 protected slots:
 

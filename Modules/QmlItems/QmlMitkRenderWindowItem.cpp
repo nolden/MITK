@@ -1,4 +1,43 @@
 /*===================================================================
+=======
+**
+** Copyright (C) 2013 Digia Plc and/or its subsidiary(-ies).
+** Contact: http://www.qt-project.org/legal
+**
+** This file is part of the demonstration applications of the Qt Toolkit.
+**
+** $QT_BEGIN_LICENSE:LGPL$
+** Commercial License Usage
+** Licensees holding valid commercial Qt licenses may use this file in
+** accordance with the commercial license agreement provided with the
+** Software or, alternatively, in accordance with the terms contained in
+** a written agreement between you and Digia.  For licensing terms and
+** conditions see http://qt.digia.com/licensing.  For further information
+** use the contact form at http://qt.digia.com/contact-us.
+**
+** GNU Lesser General Public License Usage
+** Alternatively, this file may be used under the terms of the GNU Lesser
+** General Public License version 2.1 as published by the Free Software
+** Foundation and appearing in the file LICENSE.LGPL included in the
+** packaging of this file.  Please review the following information to
+** ensure the GNU Lesser General Public License version 2.1 requirements
+** will be met: http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+**
+** In addition, as a special exception, Digia gives you certain additional
+** rights.  These rights are described in the Digia Qt LGPL Exception
+** version 1.1, included in the file LGPL_EXCEPTION.txt in this package.
+**
+** GNU General Public License Usage
+** Alternatively, this file may be used under the terms of the GNU
+** General Public License version 3.0 as published by the Free Software
+** Foundation and appearing in the file LICENSE.GPL included in the
+** packaging of this file.  Please review the following information to
+** ensure the GNU General Public License version 3.0 requirements will be
+** met: http://www.gnu.org/copyleft/gpl.html.
+**
+**
+** $QT_END_LICENSE$
+**
 
 The Medical Imaging Interaction Toolkit (MITK)
 
@@ -14,6 +53,7 @@ See LICENSE.txt or http://www.mitk.org for details.
 
 ===================================================================*/
 
+#include <QQmlEngine>
 #include "QmlMitkRenderWindowItem.h"
 
 #include <vtkOpenGLExtensionManager.h>
@@ -53,7 +93,7 @@ QmlMitkRenderWindowItem
                           const QString& name,
                           mitk::VtkPropRenderer* /*renderer*/,
                           mitk::RenderingManager* renderingManager)
-: QVTKQuickItem(parent)
+: QVTKQuickItem(parent),m_PlaneNodeColorObserver(0)
 {
   mitk::RenderWindowBase::Initialize( renderingManager, name.toStdString().c_str() );
 
@@ -63,6 +103,16 @@ QmlMitkRenderWindowItem
   */
 
   GetInstances()[QVTKQuickItem::GetRenderWindow()] = this;
+
+  QQmlEngine engine;
+  QQmlComponent component(&engine);
+  component.setData("import QtQuick 2.0 \nRectangle { objectName: \"colorFrame\" \n color: Qt.rgba(1, 1, 1, 0.0) ; \n radius: 1; \n border.width: 3; border.color: 'magenta';  anchors.fill: parent;}",QUrl());
+  std::cout << qPrintable( component.errorString() );
+  QQuickItem *item = qobject_cast<QQuickItem *>(component.create());
+  //this->property("data").toList().append();
+  item->setParentItem(this);
+  item->setParent(this);
+  // QObject *rectangleInstance = component.create();
 }
 
 // called from QVTKQuickItem when window is painted for the first time!
@@ -96,6 +146,7 @@ void QmlMitkRenderWindowItem::init()
       default:
         planeNode->SetColor(1.0,1.0,0.0);
     }
+
     planeNode->SetProperty("layer", mitk::IntProperty::New(1000) );
     planeNode->SetProperty("visible", mitk::BoolProperty::New(true) );
     planeNode->SetProperty("helper object", mitk::BoolProperty::New(true) );
@@ -104,6 +155,9 @@ void QmlMitkRenderWindowItem::init()
     planeNode->SetMapper( mitk::BaseRenderer::Standard2D, mapper );
 
     m_DataStorage->Add( planeNode );
+    itk::SimpleMemberCommand<QmlMitkRenderWindowItem>::Pointer cmd = itk::SimpleMemberCommand<QmlMitkRenderWindowItem>::New();
+    cmd->SetCallbackFunction(this,&QmlMitkRenderWindowItem::UpdateFrameColor);
+    m_PlaneNodeColorObserver = planeNode->GetProperty("color")->AddObserver(itk::ModifiedEvent(),cmd);
   }
 }
 
@@ -274,7 +328,15 @@ void QmlMitkRenderWindowItem::wheelEvent(QWheelEvent *we)
   QVTKQuickItem::wheelEvent(we);
 
 //  if (m_ResendQtEvents)
-//    we->ignore();
+  //    we->ignore();
+}
+
+void QmlMitkRenderWindowItem::UpdateFrameColor()
+{
+  mitk::DataNode::Pointer planeNode = mitk::RenderWindowBase::GetRenderer()->GetCurrentWorldGeometry2DNode();
+  float rgb[3];
+  planeNode->GetColor(rgb);
+  SetFrameColor(QColor(rgb[0]*255,rgb[1]*255,rgb[2]*255));
 }
 
 
@@ -291,6 +353,54 @@ void QmlMitkRenderWindowItem::cleanupAfterRender()
   QmlMitkBigRenderLock::GetMutex().unlock();
 }
 
+void QmlMitkRenderWindowItem::SetCrossHairPositioningOnClick(bool enabled)
+{
+  if (enabled)
+  {
+    mitk::GlobalInteraction::GetInstance()->AddListener( mitk::RenderWindowBase::GetSliceNavigationController() );
+  }
+  else
+  {
+    mitk::GlobalInteraction::GetInstance()->RemoveListener( mitk::RenderWindowBase::GetSliceNavigationController() );
+  }
+}
+
+void QmlMitkRenderWindowItem::SetFrameColor(QColor frameColor)
+{
+  if (frameColor != m_FrameColor)
+  {
+    this->m_FrameColor = frameColor;
+
+    QQuickItem* frame = this->findChild<QQuickItem*>("colorFrame");
+    if (frame)
+    {
+      QQmlProperty::write( frame, "border.color", frameColor );
+    }
+    else
+    {
+      MITK_ERROR << "No frame child!";
+    }
+
+    mitk::DataNode::Pointer planeNode = mitk::RenderWindowBase::GetRenderer()->GetCurrentWorldGeometry2DNode();
+    planeNode->SetColor(frameColor.redF(),frameColor.greenF(),frameColor.blueF());
+    emit FrameColorChanged(frameColor);
+  }
+}
+
+QColor QmlMitkRenderWindowItem::GetFrameColor()
+{
+  return this->m_FrameColor;
+}
+
+void QmlMitkRenderWindowItem::SetPlaneNodeParent( mitk::DataNode::Pointer node )
+{
+  m_PlaneNodeParent = node;
+}
+
+void QmlMitkRenderWindowItem::SetReferenceLineVisibility(mitk::BaseRenderer *renderer, bool visible)
+{
+
+}
 
 void QmlMitkRenderWindowItem::geometryChanged(const QRectF & newGeometry, const QRectF & oldGeometry)
 {

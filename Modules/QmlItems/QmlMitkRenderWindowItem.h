@@ -22,6 +22,8 @@ See LICENSE.txt or http://www.mitk.org for details.
 #include "mitkRenderWindowBase.h"
 
 #include <QTimer>
+#include <QQmlProperty>
+
 
 #include "MitkQmlItemsExports.h"
 
@@ -36,6 +38,7 @@ See LICENSE.txt or http://www.mitk.org for details.
 class MITKQMLITEMS_EXPORT QmlMitkRenderWindowItem : public QVTKQuickItem, public mitk::RenderWindowBase
 {
     Q_OBJECT
+    Q_PROPERTY(QColor frameColor READ GetFrameColor WRITE SetFrameColor NOTIFY FrameColorChanged)
 
 public:
     static QmlMitkRenderWindowItem* GetInstanceForVTKRenderWindow( vtkRenderWindow* rw );
@@ -53,8 +56,17 @@ public:
     void InitView( mitk::BaseRenderer::MapperSlotId mapperID,
                    mitk::SliceNavigationController::ViewDirection viewDirection );
 
+    void SetPlaneNodeParent( mitk::DataNode::Pointer node );
+    void SetReferenceLineVisibility(mitk::BaseRenderer* renderer, bool visible);
+
+    void SetCrossHairPositioningOnClick(bool enabled);
+
+    void SetFrameColor(QColor frameColor);
+
+    QColor GetFrameColor();
 
 signals:
+    void FrameColorChanged(QColor color);
 
 public slots:
 
@@ -79,7 +91,9 @@ protected:
   virtual void mouseMoveEvent(QMouseEvent* e) override;
   virtual void wheelEvent(QWheelEvent* e) override;
 
+
 private slots:
+  void UpdateFrameColor();
 
 private:
     mitk::DataStorage::Pointer m_DataStorage;
@@ -87,6 +101,8 @@ private:
     mitk::BaseRenderer::MapperSlotId m_MapperID;
     mitk::SliceNavigationController::ViewDirection m_ViewDirection;
 
+    QColor m_FrameColor;
+    unsigned long m_PlaneNodeColorObserver;
 
     QTimer m_Animation;
 

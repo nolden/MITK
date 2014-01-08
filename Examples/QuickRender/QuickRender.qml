@@ -1,23 +1,42 @@
-import QtQuick 2.0
+import QtQuick 2.1
 import QmlMitk 1.0
+import QtQuick.Layouts 1.0
+import QtQuick.Controls 1.0
 
 Item {
 
   width: 800
   height: 600
 
-     Rectangle {
-        id: topbar
+     RowLayout {
+         id: topbar
+         anchors.top : parent.top
+         anchors.left : parent.left
+         anchors.right : parent.right
+         height: 30
+       Button {
+           text: "BlueQML"
+           onClicked: mitkMultiWidget.setFrontalBorder("blue")
+       }
+       Button {
+           text: "RedQML"
+           onClicked: mitkMultiWidget.setFrontalBorder("red")
+       }
+       Button {
+           text: "BlueMITK"
+           onClicked: mitkMultiWidget.setFrontalBorderPlane("blue")
+       }
+       Button {
+           text: "RedMITK"
+           onClicked: mitkMultiWidget.setFrontalBorderPlane("red")
+       }
 
-        color: "papayawhip"
-
-        height: 30
-
-        anchors.top : parent.top
-        anchors.left : parent.left
-        anchors.right : parent.right
+       Rectangle {
+           color: "papayawhip"
+           Layout.fillWidth: true
+           Layout.fillHeight: true
+      }
     }
-
     Rectangle {
         id: leftbar
 
@@ -56,7 +75,7 @@ Item {
 
 
 
-    QmlMitkFourRenderWindowWidget {
+    QmlMitkFourRenderWindowWidgetCpp {
         id : mitkMultiWidget
         objectName : "mitkMultiWidget"
 

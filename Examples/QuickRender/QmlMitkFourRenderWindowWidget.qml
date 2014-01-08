@@ -1,9 +1,11 @@
 import QtQuick 2.0
 import QmlMitk 1.0
 
-Item {
-    anchors.fill: parent
 
+
+Item {
+
+    anchors.fill: parent
     QmlMitkRenderWindowItem {
         id : renderwindownodeAxial
         objectName : "mitkRenderItemAxial"
@@ -13,14 +15,8 @@ Item {
         anchors.top : parent.top
         anchors.bottom : parent.verticalCenter
         anchors.margins : 0
+        frameColor: "red"
     }
-
-    Rectangle {
-        color: Qt.rgba(1, 1, 1, 0.0)
-        radius: 1; border.width: 3; border.color: "red"
-        anchors.fill: renderwindownodeAxial
-    }
-
 
     QmlMitkRenderWindowItem {
         id : renderwindownodeSagittal
@@ -31,13 +27,7 @@ Item {
         anchors.top : parent.top
         anchors.bottom : parent.verticalCenter
         anchors.margins : 0
-
-    }
-
-    Rectangle {
-        color: Qt.rgba(1, 1, 1, 0.0)
-        radius: 1; border.width: 3; border.color: "green"
-        anchors.fill: renderwindownodeSagittal
+        frameColor: "green"
     }
 
     QmlMitkRenderWindowItem {
@@ -49,13 +39,7 @@ Item {
         anchors.top : parent.verticalCenter
         anchors.bottom : parent.bottom
         anchors.margins : 0
-
-    }
-
-    Rectangle {
-        color: Qt.rgba(1, 1, 1, 0.0)
-        radius: 1; border.width: 3; border.color: "blue"
-        anchors.fill: renderwindownodeFrontal
+        frameColor: "blue"
     }
 
     QmlMitkRenderWindowItem {
@@ -67,13 +51,7 @@ Item {
         anchors.top : parent.verticalCenter
         anchors.bottom : parent.bottom
         anchors.margins : 0
-
+        frameColor: "yellow"
     }
-
-    Rectangle {
-        color: Qt.rgba(1, 1, 1, 0.0)
-        radius: 1; border.width: 3; border.color: "yellow"
-        anchors.fill: renderwindownode3D
-    }
-
 }
+

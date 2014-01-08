@@ -1,8 +1,9 @@
 <RCC>
-    <qresource prefix="/MITK/Examples/QuickRender/">
+    <qresource prefix="/MITK/Examples/QuickRender">
         <file>QuickRender.qml</file>
     </qresource>
-    <qresource prefix="/MITK/Modules/QmlMitk/">
+    <qresource prefix="/MITK/Modules/QmlMitk">
         <file>QmlMitkFourRenderWindowWidget.qml</file>
+        <file>QmlBorder.qml</file>
     </qresource>
 </RCC>
