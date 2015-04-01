@@ -102,7 +102,7 @@ public:
      * Updates the output information of the current object by calling
      * updateOutputInformation of the data objects source object.
      */
-  virtual void UpdateOutputInformation( );
+  virtual void UpdateOutputInformation( ) override;
 
   /**
      * Sets the requested Region to the largest possible region.
@@ -110,26 +110,26 @@ public:
      * behaviour of the itk pipeline and we do not support the
      * requested-region mechanism for lookup-tables
      */
-  virtual void SetRequestedRegionToLargestPossibleRegion( );
+  virtual void SetRequestedRegionToLargestPossibleRegion( ) override;
 
   /**
      * Checks, if the requested region lies outside of the buffered region by
      * calling verifyRequestedRegion().
      */
-  virtual bool RequestedRegionIsOutsideOfTheBufferedRegion( );
+  virtual bool RequestedRegionIsOutsideOfTheBufferedRegion( ) override;
 
   /**
      * Checks if the requested region is completely contained in
      * the buffered region. Since we always want to process the lookup
      * table as a whole, this method always returns true
      */
-  virtual bool VerifyRequestedRegion( );
+  virtual bool VerifyRequestedRegion( ) override;
 
   /**
      * This method has no effect for lookup tables, since we do
      * not support the region-mechanism
      */
-  virtual void SetRequestedRegion(const itk::DataObject *data );
+  virtual void SetRequestedRegion(const itk::DataObject *data ) override;
 
   LookupTable();
   virtual ~LookupTable();
@@ -202,7 +202,7 @@ public:
   virtual const std::string GetActiveTypeAsString();
 protected:
 
-  void PrintSelf(std::ostream &os, itk::Indent indent) const;
+  void PrintSelf(std::ostream &os, itk::Indent indent) const override;
 
   LookupTable(const LookupTable& other);
 
@@ -228,7 +228,7 @@ protected:
 
 private:
 
-  virtual itk::LightObject::Pointer InternalClone() const;
+  virtual itk::LightObject::Pointer InternalClone() const override;
 };
 } // namespace mitk
 

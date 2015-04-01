@@ -407,7 +407,7 @@ namespace mitk {
 
     //##Documentation
     //## @brief Prints the contents of the DataStorage to os. Do not call directly, call ->Print() instead
-    virtual void PrintSelf(std::ostream& os, itk::Indent indent) const;
+    virtual void PrintSelf(std::ostream& os, itk::Indent indent) const override;
   };
 } // namespace mitk
 

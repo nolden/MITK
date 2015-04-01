@@ -36,8 +36,8 @@ public:
   mitkClassMacro(CoreObjectFactory,CoreObjectFactoryBase)
   itkFactorylessNewMacro(CoreObjectFactory)
 
-  virtual Mapper::Pointer CreateMapper(mitk::DataNode* node, MapperSlotId slotId);
-  virtual void SetDefaultProperties(mitk::DataNode* node);
+  virtual Mapper::Pointer CreateMapper(mitk::DataNode* node, MapperSlotId slotId) override;
+  virtual void SetDefaultProperties(mitk::DataNode* node) override;
 
   virtual void MapEvent(const mitk::Event* event, const int eventID);
 
@@ -82,7 +82,7 @@ public:
    * @return the defined (save) file extension map
    * @deprecatedSince{2014_10} See mitk::FileWriterRegistry and QmitkIOUtil
    */
-  virtual MultimapType GetSaveFileExtensionsMap();
+  virtual MultimapType GetSaveFileExtensionsMap() override;
 
   /**
    * @deprecatedSince{2014_10} See mitk::FileWriterRegistry
