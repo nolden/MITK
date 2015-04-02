@@ -142,7 +142,7 @@ void JobListeners::HandleException(const std::exception& e)
   //but in-lined here for performance reasons
   try
   {
-    dynamic_cast<const OperationCanceledException&> (e);
+    Q_UNUSED(dynamic_cast<const OperationCanceledException&> (e));
     return;
   }
   catch (const std::bad_cast&)

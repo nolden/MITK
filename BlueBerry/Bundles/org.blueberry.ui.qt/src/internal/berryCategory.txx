@@ -162,7 +162,7 @@ bool Category<T>::HasElements() const
 }
 
 template<class T>
-T* Category<T>::GetParent(const ElementType& o)
+T* Category<T>::GetParent(const ElementType&)
 {
   return 0;
 }
