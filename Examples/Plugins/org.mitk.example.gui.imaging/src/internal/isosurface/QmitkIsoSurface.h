@@ -42,9 +42,9 @@ private:
   /**
    * \brief method for creating the widget containing the application   controls, like sliders, buttons etc.
    */
-  virtual void CreateQtPartControl(QWidget *parent);
+  virtual void CreateQtPartControl(QWidget *parent) override;
 
-  virtual void SetFocus();
+  virtual void SetFocus() override;
 
   /**
    * \brief method for creating the connections of main and control widget

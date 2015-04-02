@@ -34,7 +34,7 @@ public:
   explicit QmitkOrbitAnimationWidget(QWidget* parent = NULL);
   ~QmitkOrbitAnimationWidget();
 
-  void SetAnimationItem(QmitkAnimationItem* orbitAnimationItem);
+  void SetAnimationItem(QmitkAnimationItem* orbitAnimationItem) override;
 
 private slots:
   void OnStartAngleChanged(int angle);

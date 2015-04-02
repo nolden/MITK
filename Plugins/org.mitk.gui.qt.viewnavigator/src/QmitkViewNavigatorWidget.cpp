@@ -75,7 +75,7 @@ private :
     bool displayElement(const QModelIndex index) const;
 public:
     ClassFilterProxyModel(QObject *parent = NULL);
-    bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const;
+    bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override;
 };
 ClassFilterProxyModel::ClassFilterProxyModel(QObject *parent):
     QSortFilterProxyModel(parent)
@@ -172,7 +172,7 @@ public:
     {
     }
 
-    Events::Types GetPerspectiveEventTypes() const
+    Events::Types GetPerspectiveEventTypes() const override
     {
         return Events::ACTIVATED | Events::SAVED_AS | Events::DEACTIVATED
                 // remove the following line when command framework is finished
@@ -180,32 +180,32 @@ public:
     }
 
     void PerspectiveActivated(const berry::IWorkbenchPage::Pointer& /*page*/,
-                              const berry::IPerspectiveDescriptor::Pointer& /*perspective*/)
+                              const berry::IPerspectiveDescriptor::Pointer& /*perspective*/) override
     {
         parentWidget->UpdateTreeList();
     }
 
     void PerspectiveSavedAs(const berry::IWorkbenchPage::Pointer& /*page*/,
                             const berry::IPerspectiveDescriptor::Pointer& /*oldPerspective*/,
-                            const berry::IPerspectiveDescriptor::Pointer& /*newPerspective*/)
+                            const berry::IPerspectiveDescriptor::Pointer& /*newPerspective*/) override
     {
 
     }
 
     void PerspectiveDeactivated(const berry::IWorkbenchPage::Pointer& /*page*/,
-                                const berry::IPerspectiveDescriptor::Pointer& /*perspective*/)
+                                const berry::IPerspectiveDescriptor::Pointer& /*perspective*/) override
     {
         parentWidget->UpdateTreeList();
     }
 
     void PerspectiveOpened(const berry::IWorkbenchPage::Pointer& /*page*/,
-                           const berry::IPerspectiveDescriptor::Pointer& /*perspective*/)
+                           const berry::IPerspectiveDescriptor::Pointer& /*perspective*/) override
     {
         parentWidget->UpdateTreeList();
     }
 
     void PerspectiveClosed(const berry::IWorkbenchPage::Pointer& /*page*/,
-                           const berry::IPerspectiveDescriptor::Pointer& /*perspective*/)
+                           const berry::IPerspectiveDescriptor::Pointer& /*perspective*/) override
     {
         parentWidget->UpdateTreeList();
     }
@@ -233,7 +233,7 @@ struct ViewNavigatorWindowListener : public berry::IWindowListener
         , m_Done(false)
     {}
 
-    virtual void WindowOpened(const berry::IWorkbenchWindow::Pointer& window)
+    virtual void WindowOpened(const berry::IWorkbenchWindow::Pointer& window) override
     {
         if (m_Done)
             return;
@@ -245,7 +245,7 @@ struct ViewNavigatorWindowListener : public berry::IWindowListener
         }
     }
 
-    virtual void WindowActivated(const berry::IWorkbenchWindow::Pointer& window)
+    virtual void WindowActivated(const berry::IWorkbenchWindow::Pointer& window) override
     {
         if (m_Done)
             return;

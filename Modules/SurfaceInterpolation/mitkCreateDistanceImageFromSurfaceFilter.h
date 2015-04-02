@@ -140,8 +140,8 @@ namespace mitk {
   protected:
     CreateDistanceImageFromSurfaceFilter();
     virtual ~CreateDistanceImageFromSurfaceFilter();
-    virtual void GenerateData();
-    virtual void GenerateOutputInformation();
+    virtual void GenerateData() override;
+    virtual void GenerateOutputInformation() override;
 
 
   private:

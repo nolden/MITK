@@ -28,7 +28,7 @@ public:
   ~Step8() {}
 
 protected:
-  virtual void SetupWidgets();
+  virtual void SetupWidgets() override;
 protected slots:
 };
 #endif // DOXYGEN_IGNORE

@@ -75,7 +75,7 @@ public:
    * @see IAdaptable#getAdapter
    * @see Platform#getAdapterManager
    */
-  Object* GetAdapter(const QString& adapter);
+  Object* GetAdapter(const QString& adapter) override;
 
 };
 

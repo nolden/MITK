@@ -68,11 +68,11 @@ SmartPointer<IContributionManagerOverrides> ContributionManager::GetOverrides()
   if (overrides.IsNull())
   {
     struct _DefaultOverride : public IContributionManagerOverrides {
-      int GetEnabled(const IContributionItem* /*item*/) const {
+      int GetEnabled(const IContributionItem* /*item*/) const override {
         return -1;
       }
 
-      int GetVisible(const IContributionItem* /*item*/) const {
+      int GetVisible(const IContributionItem* /*item*/) const override {
         return -1;
       }
     };

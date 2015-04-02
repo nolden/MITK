@@ -64,7 +64,7 @@ public:
    *
    * @see ISafeRunnable#HandleException(const std::exception&)
    */
-  void HandleException(const std::exception& e);
+  void HandleException(const std::exception& e) override;
 
   /**
    * Flag to avoid interactive error dialogs during automated testing.

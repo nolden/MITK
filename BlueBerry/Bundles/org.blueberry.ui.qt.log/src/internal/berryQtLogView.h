@@ -39,7 +39,7 @@ public:
 private:
     Ui::QtLogViewClass ui;
 
-    void showEvent ( QShowEvent * event );
+    void showEvent ( QShowEvent * event ) override;
 
 protected slots:
     void slotFilterChange( const QString& );

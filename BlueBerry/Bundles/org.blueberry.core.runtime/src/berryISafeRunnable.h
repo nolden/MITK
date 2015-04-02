@@ -78,12 +78,12 @@ struct SafeRunnableDelegate: public ISafeRunnable
   {
   }
 
-  void Run()
+  void Run() override
   {
     m_Runnable->*m_RunFunc();
   }
 
-  void HandleException(const std::exception& exception)
+  void HandleException(const std::exception& exception) override
   {
     if (m_HandleExcFunc)
       m_Runnable->*m_HandleExcFunc(exception);

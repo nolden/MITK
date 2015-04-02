@@ -31,11 +31,11 @@ public:
 
   HelpEditorInput(const QUrl& url = QUrl());
 
-  bool Exists() const;
-  QString GetName() const;
-  QString GetToolTipText() const;
+  bool Exists() const override;
+  QString GetName() const override;
+  QString GetToolTipText() const override;
 
-  bool operator==(const berry::Object*) const;
+  bool operator==(const berry::Object*) const override;
 
   QUrl GetUrl() const;
 

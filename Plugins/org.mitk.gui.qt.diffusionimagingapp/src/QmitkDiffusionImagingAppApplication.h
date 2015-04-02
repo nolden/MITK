@@ -29,8 +29,8 @@ public:
   QmitkDiffusionImagingAppApplication() {}
   ~QmitkDiffusionImagingAppApplication() {}
 
-  int Start();
-  void Stop();
+  int Start() override;
+  void Stop() override;
 };
 
 #endif /*QMITKDiffusionImagingAppAPPLICATION_H_*/

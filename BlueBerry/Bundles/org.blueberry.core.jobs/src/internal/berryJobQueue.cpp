@@ -27,7 +27,7 @@ class DummyJob: public InternalJob
 
 public:
 
-  IStatus::Pointer Run(IProgressMonitor::Pointer)
+  IStatus::Pointer Run(IProgressMonitor::Pointer) override
   {
     return Status::OK_STATUS(BERRY_STATUS_LOC);
   }

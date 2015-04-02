@@ -203,7 +203,7 @@ protected:
 
     virtual ~LabelSet();
 
-    void PrintSelf(std::ostream &os, itk::Indent indent) const;
+    void PrintSelf(std::ostream &os, itk::Indent indent) const override;
 
     LabelContainerType m_LabelContainer;
 

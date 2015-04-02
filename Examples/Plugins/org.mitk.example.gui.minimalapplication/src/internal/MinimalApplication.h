@@ -36,8 +36,8 @@ public:
   MinimalApplication();
   ~MinimalApplication();
 
-  int Start();
-  void Stop();
+  int Start() override;
+  void Stop() override;
 };
 
 #endif /*MINIMALAPPLICATION_H_*/

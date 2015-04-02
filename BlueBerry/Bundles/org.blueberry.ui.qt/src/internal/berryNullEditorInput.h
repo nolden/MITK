@@ -48,7 +48,7 @@ public:
     /* (non-Javadoc)
      * @see org.blueberry.ui.IEditorInput#exists()
      */
-   bool Exists() const;
+   bool Exists() const override;
 
     /* (non-Javadoc)
      * @see org.blueberry.ui.IEditorInput#getImageDescriptor()
@@ -60,14 +60,14 @@ public:
     /* (non-Javadoc)
      * @see org.blueberry.ui.IEditorInput#getName()
      */
-    QString GetName() const;
+    QString GetName() const override;
 
     /* (non-Javadoc)
      * @see org.blueberry.ui.IEditorInput#getToolTipText()
      */
-    QString GetToolTipText() const;
+    QString GetToolTipText() const override;
 
-    bool operator==(const Object* o) const;
+    bool operator==(const Object* o) const override;
 
 };
 

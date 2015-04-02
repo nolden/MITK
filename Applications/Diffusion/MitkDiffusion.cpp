@@ -44,7 +44,7 @@ public:
    * @param event
    * @return
    */
-  bool notify(QObject* receiver, QEvent* event)
+  bool notify(QObject* receiver, QEvent* event) override
   {
     QString msg;
     try

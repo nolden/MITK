@@ -31,10 +31,10 @@ public:
   /// \brief Returns the kept ctkXnatObject.
   ctkXnatObject* GetXnatObject() const;
 
-  virtual bool Exists() const;
-  virtual QString GetName() const;
-  virtual QString GetToolTipText() const;
-  virtual bool operator==(const berry::Object* o) const;
+  virtual bool Exists() const override;
+  virtual QString GetName() const override;
+  virtual QString GetToolTipText() const override;
+  virtual bool operator==(const berry::Object* o) const override;
 
 private:
 

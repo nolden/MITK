@@ -168,9 +168,9 @@ protected:
 
   TransferFunction(const TransferFunction& other);
 
-  virtual itk::LightObject::Pointer InternalClone() const;
+  virtual itk::LightObject::Pointer InternalClone() const override;
 
-  void PrintSelf(std::ostream &os, itk::Indent indent) const;
+  void PrintSelf(std::ostream &os, itk::Indent indent) const override;
 
   /** Wrapped VTK scalar opacity transfer function */
   vtkSmartPointer<vtkPiecewiseFunction> m_ScalarOpacityFunction;

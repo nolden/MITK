@@ -30,7 +30,7 @@ public:
   static const QString DEFAULT_PERSPECTIVE_ID;
 
   berry::WorkbenchWindowAdvisor* CreateWorkbenchWindowAdvisor(
-      berry::IWorkbenchWindowConfigurer::Pointer configurer)
+      berry::IWorkbenchWindowConfigurer::Pointer configurer) override
   {
     // Set an individual initial size
     configurer->SetInitialSize(QPoint(600,400));
@@ -43,7 +43,7 @@ public:
     return wwAdvisor.data();
   }
 
-  QString GetInitialWindowPerspectiveId()
+  QString GetInitialWindowPerspectiveId() override
   {
     return DEFAULT_PERSPECTIVE_ID;
   }

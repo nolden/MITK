@@ -36,14 +36,14 @@ public:
 
   UITestApplication();
 
-  int Start();
+  int Start() override;
 
-  void Stop();
+  void Stop() override;
 
   /*
    * @see berry#ITestHarness#RunTests()
    */
-  void RunTests();
+  void RunTests() override;
 
 private:
 
@@ -72,7 +72,7 @@ private:
   {
     TestRunnable(UITestApplication* app, const QString& testPlugin);
 
-    void run();
+    void run() override;
 
   private:
     UITestApplication* app;

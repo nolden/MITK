@@ -40,7 +40,7 @@ class QmitkInfoDialog : public QDialog
     void OnCancelButtonClicked ( bool checked = false );
     void KeyWordTextChanged(const QString & text);
   protected:
-    bool eventFilter(QObject *obj, QEvent *event);
+    bool eventFilter(QObject *obj, QEvent *event) override;
   protected:
     QLineEdit* m_KeyWord;
     QPushButton* m_SearchButton;

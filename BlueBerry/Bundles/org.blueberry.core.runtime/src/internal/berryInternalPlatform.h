@@ -87,7 +87,7 @@ private:
 
   void handlePreloadLibraryOption(const std::string &name, const std::string &value);
 
-  int main(const std::vector<std::string>& args);
+  int main(const std::vector<std::string>& args) override;
 
   void uninstallPugin(const QUrl& pluginUrl, ctkPluginContext* pfwContext);
 
@@ -95,7 +95,7 @@ public:
   virtual ~InternalPlatform();
 
   // Poco::Application method overrides
-  void defineOptions(Poco::Util::OptionSet& options);
+  void defineOptions(Poco::Util::OptionSet& options) override;
 
   void PrintHelp(const std::string& name, const std::string& value);
 

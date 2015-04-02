@@ -58,11 +58,11 @@ public:
       {
 
       };
-      virtual void   Execute (itk::Object*, const itk::EventObject&)
+      virtual void   Execute (itk::Object*, const itk::EventObject&) override
       {
         emit m_Receiver->Refetch();
       };
-      virtual void   Execute (const itk::Object*, const itk::EventObject&)
+      virtual void   Execute (const itk::Object*, const itk::EventObject&) override
       {
         emit m_Receiver->Refetch();
       };

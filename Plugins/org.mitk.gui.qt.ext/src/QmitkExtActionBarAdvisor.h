@@ -37,7 +37,7 @@ public:
 
 protected:
 
-  void FillMenuBar(berry::IMenuManager* menuBar);
+  void FillMenuBar(berry::IMenuManager* menuBar) override;
 
 private:
 

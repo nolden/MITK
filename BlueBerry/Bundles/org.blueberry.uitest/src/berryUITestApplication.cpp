@@ -35,7 +35,7 @@ public:
   {
   }
 
-  void run()
+  void run() override
   {
     workbench->Close();
   }

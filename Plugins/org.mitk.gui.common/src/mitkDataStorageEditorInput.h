@@ -41,13 +41,13 @@ public:
   DataStorageEditorInput();
   DataStorageEditorInput(IDataStorageReference::Pointer ref);
 
-  bool Exists() const;
-  QString GetName() const;
-  QString GetToolTipText() const;
+  bool Exists() const override;
+  QString GetName() const override;
+  QString GetToolTipText() const override;
 
   IDataStorageReference::Pointer GetDataStorageReference();
 
-  bool operator==(const berry::Object*) const;
+  bool operator==(const berry::Object*) const override;
 
 private:
 

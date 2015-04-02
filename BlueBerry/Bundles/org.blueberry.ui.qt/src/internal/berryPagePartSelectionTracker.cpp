@@ -30,12 +30,12 @@ public:
   : tracker(tracker)
   {}
 
-  Events::Types GetPartEventTypes() const
+  Events::Types GetPartEventTypes() const override
   {
     return Events::CLOSED | Events::OPENED;
   }
 
-  void PartClosed(const IWorkbenchPartReference::Pointer& partRef)
+  void PartClosed(const IWorkbenchPartReference::Pointer& partRef) override
   {
     if (tracker->GetPartId(partRef->GetPart(false))
         == tracker->AbstractPartSelectionTracker::GetPartId())
@@ -44,7 +44,7 @@ public:
     }
   }
 
-  void PartOpened(const IWorkbenchPartReference::Pointer& partRef)
+  void PartOpened(const IWorkbenchPartReference::Pointer& partRef) override
   {
     if (tracker->GetPartId(partRef->GetPart(false))
         == tracker->AbstractPartSelectionTracker::GetPartId())
@@ -67,7 +67,7 @@ public:
   : tracker(tracker)
   {}
 
-  IPerspectiveListener::Events::Types GetPerspectiveEventTypes() const
+  IPerspectiveListener::Events::Types GetPerspectiveEventTypes() const override
   {
     return IPerspectiveListener::Events::PART_CHANGED;
   }
@@ -76,7 +76,7 @@ public:
   void PerspectiveChanged(const IWorkbenchPage::Pointer&,
                           const IPerspectiveDescriptor::Pointer&,
                           const IWorkbenchPartReference::Pointer& partRef,
-                          const QString& changeId)
+                          const QString& changeId) override
   {
     if (!partRef)
       return;
@@ -106,7 +106,7 @@ public:
   : tracker(tracker)
   {}
 
-  void SelectionChanged(const SelectionChangedEvent::Pointer& event)
+  void SelectionChanged(const SelectionChangedEvent::Pointer& event) override
   {
     tracker->FireSelection(tracker->GetPart(), event->GetSelection());
   }

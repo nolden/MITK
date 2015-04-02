@@ -32,12 +32,12 @@ public:
 
   TestDescriptor(IConfigurationElement::Pointer elem);
 
-  CppUnit::Test* CreateTest();
-  QString GetId() const;
-  QString GetContributor() const;
-  QString GetDescription() const;
+  CppUnit::Test* CreateTest() override;
+  QString GetId() const override;
+  QString GetContributor() const override;
+  QString GetDescription() const override;
 
-  bool IsUITest() const;
+  bool IsUITest() const override;
 
 private:
 

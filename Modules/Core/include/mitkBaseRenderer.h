@@ -618,7 +618,7 @@ namespace mitk
     bool m_KeepDisplayedRegion;
 
   protected:
-    virtual void PrintSelf(std::ostream& os, itk::Indent indent) const;
+    virtual void PrintSelf(std::ostream& os, itk::Indent indent) const override;
 
     //##Documentation
     //## Data object containing the m_WorldGeometry defined above.

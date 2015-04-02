@@ -206,7 +206,7 @@ struct SaveViewRunnable: public SafeRunnable
   {
   }
 
-  void Run()
+  void Run() override
   {
 
     const QHash<QString, QString>& properties =
@@ -228,7 +228,7 @@ struct SaveViewRunnable: public SafeRunnable
         WorkbenchConstants::TAG_VIEW_STATE));
   }
 
-  void HandleException(const std::exception& /*e*/)
+  void HandleException(const std::exception& /*e*/) override
   {
     //            result
     //            .add(new Status(

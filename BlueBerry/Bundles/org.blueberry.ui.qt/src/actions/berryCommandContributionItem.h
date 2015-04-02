@@ -131,17 +131,17 @@ public:
 
   using ContributionItem::Fill;
 
-  QAction* Fill(QMenu* parent, QAction* before);
+  QAction* Fill(QMenu* parent, QAction* before) override;
 
-  QAction* Fill(QToolBar* parent, QAction* before);
+  QAction* Fill(QToolBar* parent, QAction* before) override;
 
-  void Update();
+  void Update() override;
 
-  void Update(const QString& id);
+  void Update(const QString& id) override;
 
-  bool IsEnabled() const;
+  bool IsEnabled() const override;
 
-  bool IsVisible() const;
+  bool IsVisible() const override;
 
   void UpdateCommandPropertiesInUI(const SmartPointer<const CommandEvent>& commandEvent);
 
@@ -181,8 +181,8 @@ private:
   void connectNotify(const char *signal);
   void disconnectNotify(const char *signal);
 #else
-  void connectNotify(const QMetaMethod& signal);
-  void disconnectNotify(const QMetaMethod& signal);
+  void connectNotify(const QMetaMethod& signal) override;
+  void disconnectNotify(const QMetaMethod& signal) override;
 #endif
   /**
    * Determines if the selection was on the dropdown affordance and, if so,

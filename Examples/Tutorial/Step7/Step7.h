@@ -28,7 +28,7 @@ public:
   ~Step7() {}
 
 protected slots:
-  virtual void StartRegionGrowing();
+  virtual void StartRegionGrowing() override;
 };
 #endif // DOXYGEN_IGNORE
 

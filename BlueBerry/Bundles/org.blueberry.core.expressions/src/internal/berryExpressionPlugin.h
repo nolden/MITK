@@ -40,7 +40,7 @@ public:
 
   static QString GetPluginId();
 
-  void stop(ctkPluginContext* context);
+  void stop(ctkPluginContext* context) override;
   ctkPluginContext* GetPluginContext() const;
 
 private:

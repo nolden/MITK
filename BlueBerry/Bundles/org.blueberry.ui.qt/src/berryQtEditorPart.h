@@ -31,7 +31,7 @@ public:
 
   berryObjectMacro(QtEditorPart)
 
-  void CreatePartControl(QWidget* parent);
+  void CreatePartControl(QWidget* parent) override;
 
 protected:
 

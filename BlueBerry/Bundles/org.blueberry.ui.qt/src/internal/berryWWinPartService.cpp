@@ -30,47 +30,47 @@ struct WWinListener: public IPartListener
   {
   }
 
-  Events::Types GetPartEventTypes() const
+  Events::Types GetPartEventTypes() const override
   {
     return Events::ALL;
   }
 
-  void PartActivated(const IWorkbenchPartReference::Pointer&  /*ref*/)
+  void PartActivated(const IWorkbenchPartReference::Pointer&  /*ref*/) override
   {
     wwps->UpdateActivePart();
   }
 
-  void PartBroughtToTop(const IWorkbenchPartReference::Pointer& ref)
+  void PartBroughtToTop(const IWorkbenchPartReference::Pointer& ref) override
   {
     wwps->partService.FirePartBroughtToTop(ref);
   }
 
-  void PartClosed(const IWorkbenchPartReference::Pointer& ref)
+  void PartClosed(const IWorkbenchPartReference::Pointer& ref) override
   {
     wwps->partService.FirePartClosed(ref);
   }
 
-  void PartDeactivated(const IWorkbenchPartReference::Pointer& /*ref*/)
+  void PartDeactivated(const IWorkbenchPartReference::Pointer& /*ref*/) override
   {
     wwps->UpdateActivePart();
   }
 
-  void PartOpened(const IWorkbenchPartReference::Pointer& ref)
+  void PartOpened(const IWorkbenchPartReference::Pointer& ref) override
   {
     wwps->partService.FirePartOpened(ref);
   }
 
-  void PartHidden(const IWorkbenchPartReference::Pointer& ref)
+  void PartHidden(const IWorkbenchPartReference::Pointer& ref) override
   {
     wwps->partService.FirePartHidden(ref);
   }
 
-  void PartVisible(const IWorkbenchPartReference::Pointer& ref)
+  void PartVisible(const IWorkbenchPartReference::Pointer& ref) override
   {
     wwps->partService.FirePartVisible(ref);
   }
 
-  void PartInputChanged(const IWorkbenchPartReference::Pointer& ref)
+  void PartInputChanged(const IWorkbenchPartReference::Pointer& ref) override
   {
     wwps->partService.FirePartInputChanged(ref);
   }

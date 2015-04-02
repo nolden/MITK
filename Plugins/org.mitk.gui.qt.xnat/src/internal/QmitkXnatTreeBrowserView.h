@@ -53,7 +53,7 @@ public:
 
   static const std::string VIEW_ID;
 
-  virtual void CreateQtPartControl(QWidget *parent);
+  virtual void CreateQtPartControl(QWidget *parent) override;
 
   protected slots:
 
@@ -68,14 +68,14 @@ public:
 
 protected:
 
-  virtual void SetFocus();
+  virtual void SetFocus() override;
 
   Ui::QmitkXnatTreeBrowserViewControls m_Controls;
 
 private:
 
   berry::QtSelectionProvider::Pointer m_SelectionProvider;
-  void SetSelectionProvider();
+  void SetSelectionProvider() override;
 
   ctkXnatTreeModel* m_TreeModel;
   mitk::XnatSessionTracker* m_Tracker;

@@ -61,20 +61,20 @@ protected:
 
      berryObjectMacro(CONTINUE_);
 
-     bool Handles(const QString&  /*namespaze*/, const QString&  /*method*/) {
+     bool Handles(const QString&  /*namespaze*/, const QString&  /*method*/) override {
        return false;
      }
-     bool IsInstantiated() {
+     bool IsInstantiated() override {
        return true;
      }
-     bool IsDeclaringPluginActive() {
+     bool IsDeclaringPluginActive() override {
        return true;
      }
-     IPropertyTester* Instantiate() {
+     IPropertyTester* Instantiate() override {
        return this;
      }
      bool Test(Object::ConstPointer /*receiver*/, const QString& /*method*/,
-               const QList<Object::Pointer>&  /*args*/, Object::Pointer  /*expectedValue*/) {
+               const QList<Object::Pointer>&  /*args*/, Object::Pointer  /*expectedValue*/) override {
        return false;
      }
    };

@@ -37,9 +37,9 @@ private:
 
 protected:
 
-  void tabRemoved(int index);
-  void mousePressEvent(QMouseEvent* event);
-  void mouseMoveEvent(QMouseEvent* event);
+  void tabRemoved(int index) override;
+  void mousePressEvent(QMouseEvent* event) override;
+  void mouseMoveEvent(QMouseEvent* event) override;
 
 public:
 

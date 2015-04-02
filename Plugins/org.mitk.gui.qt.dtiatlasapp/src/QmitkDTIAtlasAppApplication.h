@@ -29,8 +29,8 @@ public:
   QmitkDTIAtlasAppApplication() {}
   ~QmitkDTIAtlasAppApplication() {}
 
-  int Start();
-  void Stop();
+  int Start() override;
+  void Stop() override;
 };
 
 #endif /*QMITKDTIAtlasAppAPPLICATION_H_*/

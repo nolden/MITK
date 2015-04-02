@@ -38,32 +38,32 @@ public:
 
   }
 
-  Events::Types GetEventTypes() const
+  Events::Types GetEventTypes() const override
   {
     return Events::ALL;
   }
 
-  void ObjectCreated(const Object* obj)
+  void ObjectCreated(const Object* obj) override
   {
     model->ObjectCreated(obj);
   }
 
-  void ObjectDestroyed(const Object* obj)
+  void ObjectDestroyed(const Object* obj) override
   {
     model->ObjectDestroyed(obj);
   }
 
   void ObjectTracingChanged(unsigned int /*traceId*/, bool /*enabled = true*/,
-      const Object*  /*obj*/ = 0)
+      const Object*  /*obj*/ = 0) override
   {
   }
 
-  void SmartPointerCreated(unsigned int id, const Object* obj)
+  void SmartPointerCreated(unsigned int id, const Object* obj) override
   {
     model->SmartPointerCreated(id, obj);
   }
 
-  void SmartPointerDestroyed(unsigned int id, const Object* obj)
+  void SmartPointerDestroyed(unsigned int id, const Object* obj) override
   {
     model->SmartPointerDestroyed(id, obj);
   }

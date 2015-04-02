@@ -27,7 +27,7 @@ public:
   explicit QmitkDataManagerItemDelegate(QObject* parent = NULL);
   ~QmitkDataManagerItemDelegate();
 
-  void setEditorData(QWidget* editor, const QModelIndex& index) const;
+  void setEditorData(QWidget* editor, const QModelIndex& index) const override;
 };
 
 #endif

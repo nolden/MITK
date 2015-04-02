@@ -146,7 +146,7 @@ void HelpEditor::DoSetInput(IEditorInput::Pointer input)
         : editor(editor)
       {}
 
-      void run()
+      void run() override
       {
         editor->GetSite()->GetPage()->CloseEditor(editor, false);
         delete this;

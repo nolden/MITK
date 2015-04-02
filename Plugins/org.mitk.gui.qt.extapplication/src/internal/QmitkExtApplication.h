@@ -29,8 +29,8 @@ public:
 
   QmitkExtApplication();
 
-  int Start();
-  void Stop();
+  int Start() override;
+  void Stop() override;
 };
 
 #endif /*QMITKEXTAPPLICATION_H_*/

@@ -335,7 +335,7 @@ public:
     stop.fetchAndStoreOrdered(1);
   }
 
-  void run()
+  void run() override
   {
     while (!stop.fetchAndAddOrdered(0))
     {
@@ -848,7 +848,7 @@ ExtensionRegistry::ExtensionRegistry(RegistryStrategy* registryStrategy, QObject
   {
     struct DebugRegistryListener : public IRegistryEventListener
     {
-      void Added(const QList<IExtension::Pointer>& extensions)
+      void Added(const QList<IExtension::Pointer>& extensions) override
       {
         BERRY_INFO << "Registry extensions ADDED:";
         foreach(IExtension::Pointer extension, extensions)
@@ -858,7 +858,7 @@ ExtensionRegistry::ExtensionRegistry(RegistryStrategy* registryStrategy, QObject
         }
       }
 
-      void Removed(const QList<IExtension::Pointer>& extensions)
+      void Removed(const QList<IExtension::Pointer>& extensions) override
       {
         BERRY_INFO << "Registry extensions REMOVED:";
         foreach(IExtension::Pointer extension, extensions)
@@ -868,7 +868,7 @@ ExtensionRegistry::ExtensionRegistry(RegistryStrategy* registryStrategy, QObject
         }
       }
 
-      void Added(const QList<IExtensionPoint::Pointer>& extensionPoints)
+      void Added(const QList<IExtensionPoint::Pointer>& extensionPoints) override
       {
         BERRY_INFO << "Registry extension-points ADDED:";
         foreach(IExtensionPoint::Pointer extensionPoint, extensionPoints)
@@ -877,7 +877,7 @@ ExtensionRegistry::ExtensionRegistry(RegistryStrategy* registryStrategy, QObject
         }
       }
 
-      void Removed(const QList<IExtensionPoint::Pointer>& extensionPoints)
+      void Removed(const QList<IExtensionPoint::Pointer>& extensionPoints) override
       {
         BERRY_INFO << "Registry extension-points REMOVED:";
         foreach(IExtensionPoint::Pointer extensionPoint, extensionPoints)

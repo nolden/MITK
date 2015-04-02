@@ -85,7 +85,7 @@ public:
    *
    * @param factory the factory used to add views to the perspective
    */
-  void CreateInitialLayout(IPageLayout::Pointer layout);
+  void CreateInitialLayout(IPageLayout::Pointer layout) override;
 };
 
 }

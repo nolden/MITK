@@ -34,8 +34,8 @@ class org_blueberry_uitest_Activator :
 public:
   org_blueberry_uitest_Activator();
 
-  void start(ctkPluginContext* context);
-  void stop(ctkPluginContext* context);
+  void start(ctkPluginContext* context) override;
+  void stop(ctkPluginContext* context) override;
 };
 
 typedef org_blueberry_uitest_Activator PluginActivator;

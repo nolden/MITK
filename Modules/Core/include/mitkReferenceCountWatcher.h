@@ -85,7 +85,7 @@ public:
   //##Documentation
   //## @brief Return the reference count of the watched object or
   //## 0 if it has been destroyed
-  int GetReferenceCount() const
+  int GetReferenceCount() const override
   {
     if(m_Object == NULL) return -1;
     if(m_Deleted) return 0;

@@ -387,7 +387,7 @@ private:
   /**
    * Returns true if perspective with given id contains view with given id
    */
-  bool HasView(const QString& perspectiveId, const QString& viewId);
+  bool HasView(const QString& perspectiveId, const QString& viewId) override;
 
   /**
    * If we're in the process of activating a part, this points to the new part.
@@ -449,7 +449,7 @@ public:
    * @param part
    *            the part to activate
    */
-  void Activate(IWorkbenchPart::Pointer part);
+  void Activate(IWorkbenchPart::Pointer part) override;
 
   /**
    * Activates a part. The part is given focus, the pane is hilighted.
@@ -461,33 +461,33 @@ private:
    * Adds an IPartListener to the part service.
    */
 public:
-  void AddPartListener(IPartListener* l);
+  void AddPartListener(IPartListener* l) override;
 
   /*
    * (non-Javadoc) Method declared on ISelectionListener.
    */
 public:
-  void AddSelectionListener(ISelectionListener* listener);
+  void AddSelectionListener(ISelectionListener* listener) override;
 
   /*
    * (non-Javadoc) Method declared on ISelectionListener.
    */
 public:
   void AddSelectionListener(const QString& partId,
-      ISelectionListener* listener);
+      ISelectionListener* listener) override;
 
   /*
    * (non-Javadoc) Method declared on ISelectionListener.
    */
 public:
-  void AddPostSelectionListener(ISelectionListener* listener);
+  void AddPostSelectionListener(ISelectionListener* listener) override;
 
   /*
    * (non-Javadoc) Method declared on ISelectionListener.
    */
 public:
   void AddPostSelectionListener(const QString& partId,
-      ISelectionListener* listener);
+      ISelectionListener* listener) override;
 
 private:
   ILayoutContainer::Pointer GetContainer(IWorkbenchPart::Pointer part);
@@ -521,7 +521,7 @@ private:
    *            the part to bring to move forward
    */
 public:
-  void BringToTop(IWorkbenchPart::Pointer part);
+  void BringToTop(IWorkbenchPart::Pointer part) override;
 
   /**
    * Resets the layout for the perspective. The active part in the old layout
@@ -550,7 +550,7 @@ private:
    *            identifies the perspective to be removed.
    */
 public:
-  void RemovePerspective(IPerspectiveDescriptor::Pointer desc);
+  void RemovePerspective(IPerspectiveDescriptor::Pointer desc) override;
 
   /**
    * Shows a view.
@@ -577,7 +577,7 @@ private:
    * Closes the perspective.
    */
 public:
-  bool Close();
+  bool Close() override;
 
   /**
    * See IWorkbenchPage
@@ -589,7 +589,7 @@ public:
    * See IWorkbenchPage
    */
 public:
-  bool CloseAllEditors(bool save);
+  bool CloseAllEditors(bool save) override;
 
 private:
   void UpdateActivePart();
@@ -621,7 +621,7 @@ private:
    */
 public:
   bool CloseEditors(const QList<IEditorReference::Pointer>& refArray,
-      bool save);
+      bool save) override;
 
   /**
    * Enables or disables listener notifications. This is used to delay listener notifications until the
@@ -651,7 +651,7 @@ public:
    * See IWorkbenchPage#closeEditor
    */
 public:
-  bool CloseEditor(IEditorPart::Pointer editor, bool save);
+  bool CloseEditor(IEditorPart::Pointer editor, bool save) override;
 
   /**
    * Closes current perspective. If last perspective, then entire page
@@ -663,14 +663,14 @@ public:
    *            whether the page itself should be closed if last perspective
    */
 public:
-  void CloseCurrentPerspective(bool saveParts, bool closePage);
+  void CloseCurrentPerspective(bool saveParts, bool closePage) override;
 
   /**
    * @see IWorkbenchPage#closePerspective(IPerspectiveDescriptor, boolean, boolean)
    */
 public:
   void ClosePerspective(IPerspectiveDescriptor::Pointer desc, bool saveParts,
-      bool closePage);
+      bool closePage) override;
 
   /**
    * Closes the specified perspective. If last perspective, then entire page
@@ -692,7 +692,7 @@ protected:
    * @see IWorkbenchPage#closeAllPerspectives(boolean, boolean)
    */
 public:
-  void CloseAllPerspectives(bool saveEditors, bool closePage);
+  void CloseAllPerspectives(bool saveEditors, bool closePage) override;
 
   /**
    * Creates the client composite.
@@ -766,7 +766,7 @@ public:
    * See IWorkbenchPage@findView.
    */
 public:
-  IViewPart::Pointer FindView(const QString& id);
+  IViewPart::Pointer FindView(const QString& id) override;
 
   /*
    * (non-Javadoc)
@@ -774,7 +774,7 @@ public:
    * @see org.blueberry.ui.IWorkbenchPage
    */
 public:
-  IViewReference::Pointer FindViewReference(const QString& viewId);
+  IViewReference::Pointer FindViewReference(const QString& viewId) override;
 
   /*
    * (non-Javadoc)
@@ -783,7 +783,7 @@ public:
    */
 public:
   IViewReference::Pointer FindViewReference(const QString& viewId,
-      const QString& secondaryId);
+      const QString& secondaryId) override;
 
   /**
    * Notify property change listeners about a property change.
@@ -814,7 +814,7 @@ public:
    * @see IWorkbenchPage
    */
 public:
-  IEditorPart::Pointer GetActiveEditor();
+  IEditorPart::Pointer GetActiveEditor() override;
 
   /**
    * Returns the reference for the active editor, or <code>null</code>
@@ -829,13 +829,13 @@ public:
    * (non-Javadoc) Method declared on IPartService
    */
 public:
-  IWorkbenchPart::Pointer GetActivePart();
+  IWorkbenchPart::Pointer GetActivePart() override;
 
   /*
    * (non-Javadoc) Method declared on IPartService
    */
 public:
-  IWorkbenchPartReference::Pointer GetActivePartReference();
+  IWorkbenchPartReference::Pointer GetActivePartReference() override;
 
   /**
    * Returns the active perspective for the page, <code>null</code> if
@@ -881,10 +881,10 @@ public: PartService* GetPartService();
    * See IWorkbenchPage.
    */
 public:
-  QList<IEditorPart::Pointer> GetEditors();
+  QList<IEditorPart::Pointer> GetEditors() override;
 
 public:
-  QList<IEditorPart::Pointer> GetDirtyEditors();
+  QList<IEditorPart::Pointer> GetDirtyEditors() override;
 
 public:
   QList<ISaveablePart::Pointer> GetDirtyParts();
@@ -893,51 +893,51 @@ public:
    * See IWorkbenchPage.
    */
 public:
-  IEditorPart::Pointer FindEditor(IEditorInput::Pointer input);
+  IEditorPart::Pointer FindEditor(IEditorInput::Pointer input) override;
 
   /**
    * See IWorkbenchPage.
    */
 public:
   QList<IEditorReference::Pointer> FindEditors(
-      IEditorInput::Pointer input, const QString& editorId, int matchFlags);
+      IEditorInput::Pointer input, const QString& editorId, int matchFlags) override;
 
   /**
    * See IWorkbenchPage.
    */
 public:
-  QList<IEditorReference::Pointer> GetEditorReferences();
+  QList<IEditorReference::Pointer> GetEditorReferences() override;
 
   /**
    * @see IWorkbenchPage
    */
 public:
-  IAdaptable* GetInput();
+  IAdaptable* GetInput() override;
 
   /**
    * Returns the page label. This is a combination of the page input and
    * active perspective.
    */
 public:
-  QString GetLabel();
+  QString GetLabel() override;
 
   /**
    * Returns the perspective.
    */
 public:
-  IPerspectiveDescriptor::Pointer GetPerspective();
+  IPerspectiveDescriptor::Pointer GetPerspective() override;
 
   /*
    * (non-Javadoc) Method declared on ISelectionService
    */
 public:
-  ISelection::ConstPointer GetSelection() const;
+  ISelection::ConstPointer GetSelection() const override;
 
   /*
    * (non-Javadoc) Method declared on ISelectionService
    */
 public:
-  ISelection::ConstPointer GetSelection(const QString& partId);
+  ISelection::ConstPointer GetSelection(const QString& partId) override;
 
 //public:
 //  SelectionEvents& GetSelectionEvents(const QString& partId = "");
@@ -952,13 +952,13 @@ public:
    * See IWorkbenchPage.
    */
 public:
-  QList<IViewReference::Pointer> GetViewReferences();
+  QList<IViewReference::Pointer> GetViewReferences() override;
 
   /**
    * See IWorkbenchPage.
    */
 public:
-  QList<IViewPart::Pointer> GetViews();
+  QList<IViewPart::Pointer> GetViews() override;
 
   /**
    * Returns all view parts in the specified perspective
@@ -976,7 +976,7 @@ protected:
    * See IWorkbenchPage.
    */
 public:
-  IWorkbenchWindow::Pointer GetWorkbenchWindow();
+  IWorkbenchWindow::Pointer GetWorkbenchWindow() override;
 
   /*
    * (non-Javadoc)
@@ -984,7 +984,7 @@ public:
    * @see org.blueberry.ui.IWorkbenchPage#hideView(org.blueberry.ui.IViewReference)
    */
 public:
-  void HideView(IViewReference::Pointer ref);
+  void HideView(IViewReference::Pointer ref) override;
 
   /* package */
 protected:
@@ -994,7 +994,7 @@ protected:
    * See IPerspective
    */
 public:
-  void HideView(IViewPart::Pointer view);
+  void HideView(IViewPart::Pointer view) override;
 
   /**
    * Initialize the page.
@@ -1022,7 +1022,7 @@ public:
    * See IWorkbenchPage.
    */
 public:
-  bool IsPartVisible(IWorkbenchPart::Pointer part);
+  bool IsPartVisible(IWorkbenchPart::Pointer part) override;
 
   /**
    * See IWorkbenchPage.
@@ -1086,28 +1086,28 @@ protected:
    */
 public:
   void
-  ReuseEditor(IReusableEditor::Pointer editor, IEditorInput::Pointer input);
+  ReuseEditor(IReusableEditor::Pointer editor, IEditorInput::Pointer input) override;
 
   /**
    * See IWorkbenchPage.
    */
 public:
   IEditorPart::Pointer OpenEditor(IEditorInput::Pointer input,
-      const QString& editorID);
+      const QString& editorID) override;
 
   /**
    * See IWorkbenchPage.
    */
 public:
   IEditorPart::Pointer OpenEditor(IEditorInput::Pointer input,
-      const QString& editorID, bool activate);
+      const QString& editorID, bool activate) override;
 
   /**
    * See IWorkbenchPage.
    */
 public:
   IEditorPart::Pointer OpenEditor(IEditorInput::Pointer input,
-      const QString& editorID, bool activate, int matchFlags);
+      const QString& editorID, bool activate, int matchFlags) override;
 
   /**
    * This is not public API but for use internally.  editorState can be <code>null</code>.
@@ -1174,39 +1174,39 @@ protected:
    * See IWorkbenchPage.
    */
 public:
-  bool IsEditorPinned(IEditorPart::Pointer editor);
+  bool IsEditorPinned(IEditorPart::Pointer editor) override;
 
   /**
    * Removes an IPartListener from the part service.
    */
 public:
-  void RemovePartListener(IPartListener* l);
+  void RemovePartListener(IPartListener* l) override;
 
   /*
    * (non-Javadoc) Method declared on ISelectionListener.
    */
 public:
-  void RemoveSelectionListener(ISelectionListener* listener);
+  void RemoveSelectionListener(ISelectionListener* listener) override;
 
   /*
    * (non-Javadoc) Method declared on ISelectionListener.
    */
 public:
   void RemoveSelectionListener(const QString& partId,
-                               ISelectionListener* listener);
+                               ISelectionListener* listener) override;
 
   /*
    * (non-Javadoc) Method declared on ISelectionListener.
    */
 public:
-  void RemovePostSelectionListener(ISelectionListener* listener);
+  void RemovePostSelectionListener(ISelectionListener* listener) override;
 
   /*
    * (non-Javadoc) Method declared on ISelectionListener.
    */
 public:
   void RemovePostSelectionListener(const QString& partId,
-                                   ISelectionListener* listener);
+                                   ISelectionListener* listener) override;
 
   /**
    * This method is called when a part is activated by clicking within it. In
@@ -1223,7 +1223,7 @@ public:
    * is activated in the new layout for consistent user context.
    */
 public:
-  void ResetPerspective();
+  void ResetPerspective() override;
 
   /**
    * Restore this page from the memento and ensure that the active
@@ -1239,7 +1239,7 @@ public:
    * See IWorkbenchPage
    */
 public:
-  bool SaveAllEditors(bool confirm);
+  bool SaveAllEditors(bool confirm) override;
 
   /**
    * @param confirm
@@ -1267,19 +1267,19 @@ protected:
    *         if the user cancels the command
    */
 public:
-  bool SaveEditor(IEditorPart::Pointer editor, bool confirm);
+  bool SaveEditor(IEditorPart::Pointer editor, bool confirm) override;
 
   /**
    * Saves the current perspective.
    */
 public:
-  void SavePerspective();
+  void SavePerspective() override;
 
   /**
    * Saves the perspective.
    */
 public:
-  void SavePerspectiveAs(IPerspectiveDescriptor::Pointer newDesc);
+  void SavePerspectiveAs(IPerspectiveDescriptor::Pointer newDesc) override;
 
   /**
    * Save the state of the page.
@@ -1327,7 +1327,7 @@ private:
    *            identifies the new perspective.
    */
 public:
-  void SetPerspective(IPerspectiveDescriptor::Pointer desc);
+  void SetPerspective(IPerspectiveDescriptor::Pointer desc) override;
 
   /**
    * Restore the toolbar layout for the active perspective.
@@ -1339,7 +1339,7 @@ protected:
    * See IWorkbenchPage.
    */
 public:
-  IViewPart::Pointer ShowView(const QString& viewID);
+  IViewPart::Pointer ShowView(const QString& viewID) override;
 
   /*
    * (non-Javadoc)
@@ -1349,7 +1349,7 @@ public:
    */
 public:
   IViewPart::Pointer ShowView(const QString& viewID,
-      const QString& secondaryID, int mode);
+      const QString& secondaryID, int mode) override;
 
   /**
    * @param mode the mode to test
@@ -1369,7 +1369,7 @@ public:
    * @see IWorkbenchPage#getOpenPerspectives()
    */
 public:
-  QList<IPerspectiveDescriptor::Pointer> GetOpenPerspectives();
+  QList<IPerspectiveDescriptor::Pointer> GetOpenPerspectives() override;
 
   /**
    * Return all open Perspective objects.
@@ -1398,7 +1398,7 @@ protected:
    * Returns the perspectives in activation order (oldest first).
    */
 public:
-  QList<IPerspectiveDescriptor::Pointer> GetSortedPerspectives();
+  QList<IPerspectiveDescriptor::Pointer> GetSortedPerspectives() override;
 
   /*
    * Returns the parts in activation order (oldest first).
@@ -1415,7 +1415,7 @@ public:
    * to this workbench page
    */
 public:
-  IWorkbenchPartReference::Pointer GetReference(IWorkbenchPart::Pointer part);
+  IWorkbenchPartReference::Pointer GetReference(IWorkbenchPart::Pointer part) override;
 
   //  private: class ActivationList {
   //        //List of parts in the activation order (oldest first)
@@ -1788,7 +1788,7 @@ public:
    * @see org.blueberry.ui.IWorkbenchPage#getPerspectiveShortcuts()
    */
 public:
-  QList<QString> GetPerspectiveShortcuts();
+  QList<QString> GetPerspectiveShortcuts() override;
 
   /*
    * (non-Javadoc)
@@ -1796,7 +1796,7 @@ public:
    * @see org.blueberry.ui.IWorkbenchPage#getShowViewShortcuts()
    */
 public:
-  QList<QString> GetShowViewShortcuts();
+  QList<QString> GetShowViewShortcuts() override;
 
   /**
    * @since 3.1

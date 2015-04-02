@@ -49,7 +49,7 @@ public:
   {
   }
 
-  RegistryObject::Pointer GetValue() const
+  RegistryObject::Pointer GetValue() const override
   {
     return value;
   }
@@ -73,7 +73,7 @@ public:
   {
   }
 
-  RegistryObject::Pointer GetValue() const
+  RegistryObject::Pointer GetValue() const override
   {
     return value.Lock();
   }

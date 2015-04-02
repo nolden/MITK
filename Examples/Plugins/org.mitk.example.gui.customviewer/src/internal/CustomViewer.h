@@ -46,10 +46,10 @@ public:
   ~CustomViewer();
 
 /** Starts the application.*/
-  int Start();
+  int Start() override;
 
 /** Exits the application.*/
-  void Stop();
+  void Stop() override;
 
 private:
 

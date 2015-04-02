@@ -136,12 +136,12 @@ protected:
     /* (non-Javadoc)
      * @see org.blueberry.ui.part.WorkbenchPart#setContentDescription(java.lang.String)
      */
-    virtual void SetContentDescription(const QString& description);
+    virtual void SetContentDescription(const QString& description) override;
 
     /* (non-Javadoc)
      * @see org.blueberry.ui.part.WorkbenchPart#setPartName(java.lang.String)
      */
-    virtual void SetPartName(const QString& partName);
+    virtual void SetPartName(const QString& partName) override;
 
     /**
      * Checks that the given site is valid for this type of part.
@@ -150,7 +150,7 @@ protected:
      * @param site the site to check
      * @since 3.1
      */
-    void CheckSite(IWorkbenchPartSite::Pointer site);
+    void CheckSite(IWorkbenchPartSite::Pointer site) override;
 
 public:
 
@@ -179,19 +179,19 @@ public:
     /* (non-Javadoc)
      * Method declared on IEditorPart.
      */
-  IEditorInput::Pointer GetEditorInput() const;
+  IEditorInput::Pointer GetEditorInput() const override;
 
     /* (non-Javadoc)
      * Method declared on IEditorPart.
      */
-  IEditorSite::Pointer GetEditorSite() const;
+  IEditorSite::Pointer GetEditorSite() const override;
 
     /* (non-Javadoc)
      * Gets the title tool tip text of this part.
      *
      * @return the tool tip text
      */
-  QString GetTitleToolTip() const;
+  QString GetTitleToolTip() const override;
 
     /* (non-Javadoc)
      * Initializes the editor part with a site and input.
@@ -241,7 +241,7 @@ public:
      * (<code>isDirty</code>).
      * </p>
      */
-  virtual bool IsSaveOnCloseNeeded() const;
+  virtual bool IsSaveOnCloseNeeded() const override;
 
 };
 

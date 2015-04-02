@@ -31,13 +31,13 @@ struct QtPerspectiveSwitcherListener : public IPerspectiveListener
   : switcher(switcher)
   {}
 
-  Events::Types GetPerspectiveEventTypes() const
+  Events::Types GetPerspectiveEventTypes() const override
   {
     return Events::ACTIVATED;
   }
 
   void PerspectiveActivated(const IWorkbenchPage::Pointer& /*page*/,
-                            const IPerspectiveDescriptor::Pointer& perspective)
+                            const IPerspectiveDescriptor::Pointer& perspective) override
   {
     QAction* action = switcher->perspIdToActionMap[perspective->GetId()];
     if (action) action->setChecked(true);

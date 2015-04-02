@@ -51,12 +51,12 @@ public:
   /**
    * Clients should overwrite DoSetUp() instead of this method.
    */
-  void setUp();
+  void setUp() override;
 
   /**
    * Clients should overwrite DoSetUp() instead of this method.
    */
-  void tearDown();
+  void tearDown() override;
 
 protected:
 

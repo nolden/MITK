@@ -30,9 +30,9 @@ public:
   UITestWorkbenchAdvisor();
 
   WorkbenchWindowAdvisor* CreateWorkbenchWindowAdvisor(
-      IWorkbenchWindowConfigurer::Pointer configurer);
+      IWorkbenchWindowConfigurer::Pointer configurer) override;
 
-  QString GetInitialWindowPerspectiveId();
+  QString GetInitialWindowPerspectiveId() override;
 
 };
 

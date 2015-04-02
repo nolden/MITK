@@ -33,7 +33,7 @@ class QmitkNodeTableViewKeyFilter : public QObject
 public:
   QmitkNodeTableViewKeyFilter(QObject* _DataManagerView = 0);
 protected:
-  bool eventFilter(QObject *obj, QEvent *event);
+  bool eventFilter(QObject *obj, QEvent *event) override;
 
   ///
   /// The Preferences Service to retrieve and store preferences.

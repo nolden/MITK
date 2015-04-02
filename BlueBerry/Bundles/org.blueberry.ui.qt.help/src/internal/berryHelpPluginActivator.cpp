@@ -40,12 +40,12 @@ class HelpPerspectiveListener : public IPerspectiveListener
 {
 public:
 
-  Events::Types GetPerspectiveEventTypes() const;
+  Events::Types GetPerspectiveEventTypes() const override;
 
   using IPerspectiveListener::PerspectiveChanged;
 
-  void PerspectiveOpened(const SmartPointer<IWorkbenchPage>& page, const IPerspectiveDescriptor::Pointer& perspective);
-  void PerspectiveChanged(const SmartPointer<IWorkbenchPage>& page, const IPerspectiveDescriptor::Pointer& perspective, const QString &changeId);
+  void PerspectiveOpened(const SmartPointer<IWorkbenchPage>& page, const IPerspectiveDescriptor::Pointer& perspective) override;
+  void PerspectiveChanged(const SmartPointer<IWorkbenchPage>& page, const IPerspectiveDescriptor::Pointer& perspective, const QString &changeId) override;
 };
 
 class HelpWindowListener : public IWindowListener
@@ -55,8 +55,8 @@ public:
   HelpWindowListener();
   ~HelpWindowListener();
 
-  void WindowClosed(const IWorkbenchWindow::Pointer& window);
-  void WindowOpened(const IWorkbenchWindow::Pointer& window);
+  void WindowClosed(const IWorkbenchWindow::Pointer& window) override;
+  void WindowOpened(const IWorkbenchWindow::Pointer& window) override;
 
 private:
 
@@ -399,7 +399,7 @@ void HelpContextHandler::handleEvent(const ctkEvent &event)
   {
     _runner(const ctkEvent& ev) : ev(ev) {}
 
-    void run()
+    void run() override
     {
       QUrl helpUrl;
       if (ev.containsProperty("url"))

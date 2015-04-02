@@ -33,7 +33,7 @@ public:
   ~MyApplicationPlugin();
 
   //! [0]
-  void start(ctkPluginContext* context)
+  void start(ctkPluginContext* context) override
   {
     // Get a service reference for the Config Admin service
     ctkServiceReference cmRef = context->getServiceReference<ctkConfigurationAdmin>();
@@ -67,7 +67,7 @@ public:
   }
   //! [0]
 
-  void stop(ctkPluginContext *context);
+  void stop(ctkPluginContext *context) override;
 
   //! [1]
   void requestHelp(ctkPluginContext* context)

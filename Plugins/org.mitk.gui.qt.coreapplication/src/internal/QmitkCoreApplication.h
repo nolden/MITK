@@ -31,8 +31,8 @@ public:
 
   QmitkCoreApplication();
 
-  int Start();
-  void Stop();
+  int Start() override;
+  void Stop() override;
 };
 
 #endif /*QMITKCOREAPPLICATION_H_*/

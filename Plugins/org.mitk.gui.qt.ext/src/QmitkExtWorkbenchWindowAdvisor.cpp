@@ -91,13 +91,13 @@ public:
    {
    }
 
-   Events::Types GetPartEventTypes() const
+   Events::Types GetPartEventTypes() const override
    {
     return Events::ACTIVATED | Events::BROUGHT_TO_TOP | Events::CLOSED
      | Events::HIDDEN | Events::VISIBLE;
    }
 
-   void PartActivated(const berry::IWorkbenchPartReference::Pointer& ref)
+   void PartActivated(const berry::IWorkbenchPartReference::Pointer& ref) override
    {
     if (ref.Cast<berry::IEditorReference> ())
     {
@@ -105,7 +105,7 @@ public:
     }
    }
 
-   void PartBroughtToTop(const berry::IWorkbenchPartReference::Pointer& ref)
+   void PartBroughtToTop(const berry::IWorkbenchPartReference::Pointer& ref) override
    {
     if (ref.Cast<berry::IEditorReference> ())
     {
@@ -113,12 +113,12 @@ public:
     }
    }
 
-   void PartClosed(const berry::IWorkbenchPartReference::Pointer& /*ref*/)
+   void PartClosed(const berry::IWorkbenchPartReference::Pointer& /*ref*/) override
    {
     windowAdvisor->UpdateTitle(false);
    }
 
-   void PartHidden(const berry::IWorkbenchPartReference::Pointer& ref)
+   void PartHidden(const berry::IWorkbenchPartReference::Pointer& ref) override
    {
     if (!windowAdvisor->lastActiveEditor.Expired() &&
      ref->GetPart(false) == windowAdvisor->lastActiveEditor.Lock())
@@ -127,7 +127,7 @@ public:
     }
    }
 
-   void PartVisible(const berry::IWorkbenchPartReference::Pointer& ref)
+   void PartVisible(const berry::IWorkbenchPartReference::Pointer& ref) override
    {
     if (!windowAdvisor->lastActiveEditor.Expired() &&
      ref->GetPart(false) == windowAdvisor->lastActiveEditor.Lock())
@@ -149,13 +149,13 @@ public:
     {
     }
 
-    Events::Types GetPartEventTypes() const
+    Events::Types GetPartEventTypes() const override
     {
         return Events::OPENED | Events::CLOSED | Events::HIDDEN |
                 Events::VISIBLE;
     }
 
-    void PartOpened(const berry::IWorkbenchPartReference::Pointer& ref)
+    void PartOpened(const berry::IWorkbenchPartReference::Pointer& ref) override
     {
         if (ref->GetId()=="org.mitk.views.viewnavigatorview")
         {
@@ -163,7 +163,7 @@ public:
         }
     }
 
-    void PartClosed(const berry::IWorkbenchPartReference::Pointer& ref)
+    void PartClosed(const berry::IWorkbenchPartReference::Pointer& ref) override
     {
         if (ref->GetId()=="org.mitk.views.viewnavigatorview")
         {
@@ -171,7 +171,7 @@ public:
         }
     }
 
-    void PartVisible(const berry::IWorkbenchPartReference::Pointer& ref)
+    void PartVisible(const berry::IWorkbenchPartReference::Pointer& ref) override
     {
         if (ref->GetId()=="org.mitk.views.viewnavigatorview")
         {
@@ -179,7 +179,7 @@ public:
         }
     }
 
-    void PartHidden(const berry::IWorkbenchPartReference::Pointer& ref)
+    void PartHidden(const berry::IWorkbenchPartReference::Pointer& ref) override
     {
         if (ref->GetId()=="org.mitk.views.viewnavigatorview")
         {
@@ -201,13 +201,13 @@ public:
    {
    }
 
-   Events::Types GetPartEventTypes() const
+   Events::Types GetPartEventTypes() const override
    {
     return Events::OPENED | Events::CLOSED | Events::HIDDEN |
      Events::VISIBLE;
    }
 
-   void PartOpened(const berry::IWorkbenchPartReference::Pointer& ref)
+   void PartOpened(const berry::IWorkbenchPartReference::Pointer& ref) override
    {
     if (ref->GetId()=="org.mitk.views.imagenavigator")
     {
@@ -215,7 +215,7 @@ public:
     }
    }
 
-   void PartClosed(const berry::IWorkbenchPartReference::Pointer& ref)
+   void PartClosed(const berry::IWorkbenchPartReference::Pointer& ref) override
    {
     if (ref->GetId()=="org.mitk.views.imagenavigator")
     {
@@ -223,7 +223,7 @@ public:
     }
    }
 
-   void PartVisible(const berry::IWorkbenchPartReference::Pointer& ref)
+   void PartVisible(const berry::IWorkbenchPartReference::Pointer& ref) override
    {
     if (ref->GetId()=="org.mitk.views.imagenavigator")
     {
@@ -231,7 +231,7 @@ public:
     }
    }
 
-   void PartHidden(const berry::IWorkbenchPartReference::Pointer& ref)
+   void PartHidden(const berry::IWorkbenchPartReference::Pointer& ref) override
    {
     if (ref->GetId()=="org.mitk.views.imagenavigator")
     {
@@ -253,7 +253,7 @@ public:
    {
    }
 
-   Events::Types GetPerspectiveEventTypes() const
+   Events::Types GetPerspectiveEventTypes() const override
    {
     return Events::ACTIVATED | Events::SAVED_AS | Events::DEACTIVATED
      // remove the following line when command framework is finished
@@ -261,26 +261,26 @@ public:
    }
 
    void PerspectiveActivated(const berry::IWorkbenchPage::Pointer& /*page*/,
-                             const berry::IPerspectiveDescriptor::Pointer& /*perspective*/)
+                             const berry::IPerspectiveDescriptor::Pointer& /*perspective*/) override
    {
     windowAdvisor->UpdateTitle(false);
    }
 
    void PerspectiveSavedAs(const berry::IWorkbenchPage::Pointer& /*page*/,
                            const berry::IPerspectiveDescriptor::Pointer& /*oldPerspective*/,
-                           const berry::IPerspectiveDescriptor::Pointer& /*newPerspective*/)
+                           const berry::IPerspectiveDescriptor::Pointer& /*newPerspective*/) override
    {
     windowAdvisor->UpdateTitle(false);
    }
 
    void PerspectiveDeactivated(const berry::IWorkbenchPage::Pointer& /*page*/,
-                               const berry::IPerspectiveDescriptor::Pointer& /*perspective*/)
+                               const berry::IPerspectiveDescriptor::Pointer& /*perspective*/) override
    {
     windowAdvisor->UpdateTitle(false);
    }
 
    void PerspectiveOpened(const berry::IWorkbenchPage::Pointer& /*page*/,
-                          const berry::IPerspectiveDescriptor::Pointer& /*perspective*/)
+                          const berry::IPerspectiveDescriptor::Pointer& /*perspective*/) override
    {
     if (perspectivesClosed)
     {
@@ -316,7 +316,7 @@ public:
    }
 
    void PerspectiveClosed(const berry::IWorkbenchPage::Pointer& /*page*/,
-                          const berry::IPerspectiveDescriptor::Pointer& /*perspective*/)
+                          const berry::IPerspectiveDescriptor::Pointer& /*perspective*/) override
    {
     berry::IWorkbenchWindow::Pointer wnd = windowAdvisor->GetWindowConfigurer()->GetWindow();
     bool allClosed = true;
@@ -372,13 +372,13 @@ public:
    {
    }
 
-   Events::Types GetPerspectiveEventTypes() const
+   Events::Types GetPerspectiveEventTypes() const override
    {
     return Events::ACTIVATED | Events::DEACTIVATED;
    }
 
    void PerspectiveActivated(const berry::IWorkbenchPage::Pointer& /*page*/,
-                             const berry::IPerspectiveDescriptor::Pointer& perspective)
+                             const berry::IPerspectiveDescriptor::Pointer& perspective) override
    {
      QAction* action = windowAdvisor->mapPerspIdToAction[perspective->GetId()];
      if (action)
@@ -388,7 +388,7 @@ public:
    }
 
    void PerspectiveDeactivated(const berry::IWorkbenchPage::Pointer& /*page*/,
-                               const berry::IPerspectiveDescriptor::Pointer& perspective)
+                               const berry::IPerspectiveDescriptor::Pointer& perspective) override
    {
      QAction* action = windowAdvisor->mapPerspIdToAction[perspective->GetId()];
      if (action)

@@ -41,7 +41,7 @@ public:
     : ContributionItemFactory("viewsShortlist")
   {}
 
-  IContributionItem::Pointer Create(IWorkbenchWindow* window)
+  IContributionItem::Pointer Create(IWorkbenchWindow* window) override
   {
     if (window == 0)
     {

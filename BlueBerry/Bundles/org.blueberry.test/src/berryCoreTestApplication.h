@@ -34,8 +34,8 @@ public:
   CoreTestApplication();
   CoreTestApplication(const CoreTestApplication& other);
 
-  int Start();
-  void Stop();
+  int Start() override;
+  void Stop() override;
 };
 
 }

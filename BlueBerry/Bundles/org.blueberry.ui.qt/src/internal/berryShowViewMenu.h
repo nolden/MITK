@@ -50,16 +50,16 @@ public:
    */
   ShowViewMenu(IWorkbenchWindow* window, const QString& id);
 
-  bool IsDirty() const;
+  bool IsDirty() const override;
 
   /**
    * Overridden to always return true and force dynamic menu building.
    */
-  bool IsDynamic() const;
+  bool IsDynamic() const override;
 
   using ContributionItem::Fill;
 
-  QAction* Fill(QMenu* menu, QAction *before);
+  QAction* Fill(QMenu* menu, QAction *before) override;
 
 private:
 

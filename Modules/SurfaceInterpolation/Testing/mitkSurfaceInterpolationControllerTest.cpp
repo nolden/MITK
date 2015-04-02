@@ -52,7 +52,7 @@ public:
     return newImage;
   }
 
-  void setUp()
+  void setUp() override
   {
     m_Controller = mitk::SurfaceInterpolationController::GetInstance();
 

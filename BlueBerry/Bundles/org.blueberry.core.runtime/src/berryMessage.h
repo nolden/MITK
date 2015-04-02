@@ -375,12 +375,12 @@ struct MessageExceptionHandler: public AbstractExceptionHandler
   {
   }
 
-  void HandleException(const std::exception& exc)
+  void HandleException(const std::exception& exc) override
   {
     (m_Object->*m_ExceptionCallback)(exc);
   }
 
-  AbstractExceptionHandler* Clone() const
+  AbstractExceptionHandler* Clone() const override
   {
     if (!m_Object) return 0;
     return new MessageExceptionHandler(m_Object, m_ExceptionCallback);

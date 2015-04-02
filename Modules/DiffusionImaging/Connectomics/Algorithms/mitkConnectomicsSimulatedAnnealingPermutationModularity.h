@@ -41,13 +41,13 @@ namespace mitk
     itkCloneMacro(Self)
 
     // Initialize the permutation
-    virtual void Initialize();
+    virtual void Initialize() override;
 
     // Do a permutation for a specific temperature
-    virtual void Permutate( double temperature );
+    virtual void Permutate( double temperature ) override;
 
     // Do clean up necessary after a permutation
-    virtual void CleanUp();
+    virtual void CleanUp() override;
 
     // set the network permutation is to be run upon
     void SetNetwork( mitk::ConnectomicsNetwork::Pointer theNetwork );

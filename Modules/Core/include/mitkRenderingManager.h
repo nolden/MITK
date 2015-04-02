@@ -397,7 +397,7 @@ public:
   itkCloneMacro(Self)
 
 protected:
-  virtual void GenerateRenderingRequestEvent()
+  virtual void GenerateRenderingRequestEvent() override
   {
    // ForceImmediateUpdateAll();
   };

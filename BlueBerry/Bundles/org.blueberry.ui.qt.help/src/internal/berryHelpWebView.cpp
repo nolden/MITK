@@ -90,13 +90,13 @@ public:
   HelpNetworkReply(const QNetworkRequest &request, const QByteArray &fileData,
                    const QString &mimeType);
 
-  virtual void abort();
+  virtual void abort() override;
 
-  virtual qint64 bytesAvailable() const
+  virtual qint64 bytesAvailable() const override
   { return data.length() + QNetworkReply::bytesAvailable(); }
 
 protected:
-  virtual qint64 readData(char *data, qint64 maxlen);
+  virtual qint64 readData(char *data, qint64 maxlen) override;
 
 private:
   QByteArray data;
@@ -140,7 +140,7 @@ public:
 protected:
     virtual QNetworkReply *createRequest(Operation op,
                                          const QNetworkRequest &request,
-                                         QIODevice *outgoingData = 0);
+                                         QIODevice *outgoingData = 0) override;
 };
 
 HelpNetworkAccessManager::HelpNetworkAccessManager(QObject *parent)
@@ -187,12 +187,12 @@ public:
 
 protected:
 
-  virtual QWebPage *createWindow(QWebPage::WebWindowType);
-  virtual void triggerAction(WebAction action, bool checked = false);
+  virtual QWebPage *createWindow(QWebPage::WebWindowType) override;
+  virtual void triggerAction(WebAction action, bool checked = false) override;
 
   virtual bool acceptNavigationRequest(QWebFrame *frame,
                                        const QNetworkRequest &request,
-                                       NavigationType type);
+                                       NavigationType type) override;
 
 private:
 

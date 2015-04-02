@@ -57,7 +57,7 @@ public:
    * The default implementation does nothing.
    * Subclasses may extend.
    */
-  virtual void DoSetUp();
+  virtual void DoSetUp() override;
 
   /**
    * Tears down the fixture, for example, close a network connection.
@@ -66,7 +66,7 @@ public:
    * and after doing so.
    * Subclasses may extend.
    */
-  virtual void DoTearDown();
+  virtual void DoTearDown() override;
 
   /**
    * Fails the test due to the given throwable.
@@ -121,14 +121,14 @@ protected:
    * from overriding this method to maintain logging consistency.
    * DoSetUp() should be overriden instead.
    */
-  void setUp();
+  void setUp() override;
 
   /**
    * Simple implementation of tearDown.  Subclasses are prevented
    * from overriding this method to maintain logging consistency.
    * DoTearDown() should be overriden instead.
    */
-  void tearDown();
+  void tearDown() override;
 
   static void ProcessEvents();
 
@@ -160,13 +160,13 @@ protected:
 
     void SetEnabled(bool enabled);
 
-    void WindowActivated(const IWorkbenchWindow::Pointer& window);
+    void WindowActivated(const IWorkbenchWindow::Pointer& window) override;
 
-    void WindowDeactivated(const IWorkbenchWindow::Pointer& window);
+    void WindowDeactivated(const IWorkbenchWindow::Pointer& window) override;
 
-    void WindowClosed(const IWorkbenchWindow::Pointer& window);
+    void WindowClosed(const IWorkbenchWindow::Pointer& window) override;
 
-    void WindowOpened(const IWorkbenchWindow::Pointer& window);
+    void WindowOpened(const IWorkbenchWindow::Pointer& window) override;
   };
 
   IWorkbench* fWorkbench;

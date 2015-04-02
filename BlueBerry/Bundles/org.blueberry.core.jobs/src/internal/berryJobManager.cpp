@@ -33,8 +33,8 @@ namespace berry
  */
 struct NullRule: public ISchedulingRule
 {
-  bool Contains(ISchedulingRule::Pointer myRule) const;
-  bool IsConflicting(ISchedulingRule::Pointer myRule) const;
+  bool Contains(ISchedulingRule::Pointer myRule) const override;
+  bool IsConflicting(ISchedulingRule::Pointer myRule) const override;
 };
 
 bool NullRule::IsConflicting(ISchedulingRule::Pointer dummyRule) const

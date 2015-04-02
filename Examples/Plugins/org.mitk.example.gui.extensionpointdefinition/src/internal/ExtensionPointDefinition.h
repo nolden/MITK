@@ -36,8 +36,8 @@ public:
   ExtensionPointDefinition();
   ~ExtensionPointDefinition();
 
-  int Start();
-  void Stop();
+  int Start() override;
+  void Stop() override;
 
 private:
 

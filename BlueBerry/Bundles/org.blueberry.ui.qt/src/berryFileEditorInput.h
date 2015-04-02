@@ -35,15 +35,15 @@ public:
 
   FileEditorInput(const QString& path);
 
-  QString GetPath() const;
+  QString GetPath() const override;
 
-  bool Exists() const;
+  bool Exists() const override;
 
-  QString GetName() const ;
+  QString GetName() const override ;
 
-  QString GetToolTipText() const;
+  QString GetToolTipText() const override;
 
-  bool operator==(const Object* o) const;
+  bool operator==(const Object* o) const override;
 
 private:
 
