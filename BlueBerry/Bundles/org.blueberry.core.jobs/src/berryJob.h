@@ -631,7 +631,7 @@ protected:
    * @see #ASYNC_FINISH
    * @see #Done(IStatus)
    */
-  virtual IStatus::Pointer Run(IProgressMonitor::Pointer myProgressMonitor) = 0;
+  virtual IStatus::Pointer Run(IProgressMonitor::Pointer myProgressMonitor) override = 0;
 
 };
 

@@ -49,7 +49,7 @@ public:
 
   ~CoreException() throw();
 
-  const char* name() const throw(); override
+  const char* name() const throw() override;
 
   CoreException* clone() const override;
 

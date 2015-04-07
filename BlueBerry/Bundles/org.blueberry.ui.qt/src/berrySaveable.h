@@ -142,7 +142,7 @@ public:
    * @param object
    * @return true if this Saveable is equal to the given object
    */
-  virtual bool operator<(const Object* object) const = 0;
+  virtual bool operator<(const Object* object) const override = 0;
 
   /**
    * Clients must implement equals and hashCode as defined in

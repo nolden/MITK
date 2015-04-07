@@ -199,7 +199,7 @@ public:
    * @param parent the parent control
    * @see IWorkbenchPart
    */
-  virtual void CreatePartControl(QWidget* parent) = 0;
+  virtual void CreatePartControl(QWidget* parent) override = 0;
 
   /* (non-Javadoc)
      * Asks this part to take focus within the workbench.
@@ -210,7 +210,7 @@ public:
      *
      * @see IWorkbenchPart
      */
-  virtual void SetFocus() = 0;
+  virtual void SetFocus() override = 0;
 
   /*
    * Method declared on IWorkbenchPart.

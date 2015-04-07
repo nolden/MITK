@@ -207,7 +207,7 @@ public:
      *    setInput(input);
      * </pre>
      */
-  virtual void Init(IEditorSite::Pointer site, IEditorInput::Pointer input) = 0;
+  virtual void Init(IEditorSite::Pointer site, IEditorInput::Pointer input) override = 0;
 
 
     /* (non-Javadoc)
@@ -220,7 +220,7 @@ public:
      *
      * @see IEditorPart
      */
-  virtual bool IsDirty() const = 0;
+  virtual bool IsDirty() const override = 0;
 
     /* (non-Javadoc)
      * Returns whether the "save as" operation is supported by this editor.

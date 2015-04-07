@@ -554,7 +554,7 @@ namespace mitk {
     //##  newGeometry->UnRegister();
     //##  return newGeometry.GetPointer();
     //## \endcode
-    virtual itk::LightObject::Pointer InternalClone() const = 0;
+    virtual itk::LightObject::Pointer InternalClone() const override = 0;
 
     virtual void PrintSelf(std::ostream& os, itk::Indent indent) const override;
 
