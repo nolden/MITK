@@ -48,10 +48,10 @@ foreach(_demo_config_file ${_demo_configurations})
   set(DESCRIPTION )
   include(${_demo_config_file})
   get_filename_component(_name ${_demo_config_file} NAME_WE)
-  FunctionCreateProvisioningFile(FILE ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME}_${_name}.provisioning
-                                 PLUGINS ${REQUIRED_PLUGINS} ${_plugins_for_all_demos}
-                                 NO_INSTALL
-                                )
+  mitkFunctionCreateProvisioningFile(FILE ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME}_${_name}.provisioning
+                                     PLUGINS ${REQUIRED_PLUGINS} ${_plugins_for_all_demos}
+                                     NO_INSTALL
+                                    )
   if(DESCRIPTION)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/BlueBerryExampleDescription.txt
                    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME}_${_name}.txt @ONLY)
@@ -72,7 +72,7 @@ endforeach()
 # Create the example launcher
 #-----------------------------------------------------------------------------
 
-FunctionCreateBlueBerryApplication(
+mitkFunctionCreateBlueBerryApplication(
   NAME ${PROJECT_NAME}
   DESCRIPTION "MITK Application Framework Demo"
   SOURCES ${_source_files}

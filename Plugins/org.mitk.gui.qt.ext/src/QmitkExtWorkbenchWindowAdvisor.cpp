@@ -38,6 +38,7 @@ See LICENSE.txt or http://www.mitk.org for details.
 #include <berryIPreferencesService.h>
 #include <berryIPerspectiveRegistry.h>
 #include <berryIPerspectiveDescriptor.h>
+#include <berryIProduct.h>
 #include <berryIWorkbenchPartConstants.h>
 #include <berryQtPreferences.h>
 
@@ -1209,13 +1210,16 @@ QString QmitkExtWorkbenchWindowAdvisor::ComputeTitle()
  }
 
  QString title;
- //TODO Product
- //    IProduct product = Platform.getProduct();
- //    if (product != null) {
- //      title = product.getName();
- //    }
- // instead of the product name, we use a custom variable for now
- title = productName;
+ berry::IProduct::Pointer product = berry::Platform::GetProduct();
+ if (product.IsNotNull())
+ {
+   title = product->GetName();
+ }
+ if (title.isEmpty())
+ {
+   // instead of the product name, we use a custom variable for now
+   title = productName;
+ }
 
  if(showMitkVersionInfo)
  {

@@ -22,7 +22,7 @@ set(_exclude_plugins
   org.mitk.gui.qt.diffusionimagingapp
 )
 
-FunctionCreateBlueBerryApplication(
+mitkFunctionCreateBlueBerryApplication(
   NAME MitkWorkbench
   DESCRIPTION "MITK Workbench"
   EXCLUDE_PLUGINS ${_exclude_plugins}

@@ -70,7 +70,7 @@ else()
   qt5_add_resources(_src_files splashscreen.qrc)
 endif()
 
-FunctionCreateBlueBerryApplication(
+mitkFunctionCreateBlueBerryApplication(
   NAME ${DIFFUSIONAPP_NAME}
   DESCRIPTION "MITK Diffusion"
   PLUGINS ${_plugins}

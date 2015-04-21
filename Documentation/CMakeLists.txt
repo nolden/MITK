@@ -2,12 +2,12 @@
 # Variables:
 #  MITK_DOXYGEN_OUTPUT_DIR: doxygen output directory (optional)
 
+# Needed early on for redirecting the BlueBerry documentation output dir
+set(MITK_DOXYGEN_OUTPUT_DIR ${PROJECT_BINARY_DIR}/Documentation/Doxygen CACHE PATH
+    "Output directory for doxygen generated documentation." )
+
 # Compile source code snippets
 #add_subdirectory(Snippets)
-
-find_package(Doxygen)
-
-if(DOXYGEN_FOUND)
 
 # Different doxygen versions produce significantly different behaviour in the MITK documentation
 # especially in regards to the MITK Qt assistant help files and markdown files.
@@ -40,7 +40,7 @@ set(MITK_DOXYGEN_TAGFILE_NAME ${MITK_DOXYGEN_OUTPUT_DIR}/MITK.tag CACHE INTERNAL
 # This is relative to the working directory of the doxygen command
 set(MITK_DOXYGEN_STYLESHEET mitk_doxygen_extra.css)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/${MITK_DOXYGEN_STYLESHEET}
-               ${CMAKE_CURRENT_BINARY_DIR}/${MITK_DOXYGEN_STYLESHEET} @COPYONLY)
+               ${CMAKE_CURRENT_BINARY_DIR}/${MITK_DOXYGEN_STYLESHEET} COPYONLY)
 
 # Create QCH files for MITK and external projects
 set(MITK_DOXYGEN_GENERATE_QHP "NO")
@@ -182,14 +182,13 @@ if(MITK_USE_BLUEBERRY)
 
     file(GLOB_RECURSE _plugin_xmls ${MITK_XP_GLOB_EXPRESSIONS})
 
-    MACRO_CONVERT_SCHEMA(INPUT ${_plugin_xmls}
-                         OUTPUT_DIR "${MITK_DOXYGEN_OUTPUT_DIR}/html/extension-points/html"
-                         TARGET_NAME mitkXPDoc
-                         )
+    mitkFunctionConvertXPSchema(INPUT ${_plugin_xmls}
+                                OUTPUT_DIR "${MITK_DOXYGEN_OUTPUT_DIR}/html/extension-points/html"
+                                TARGET_NAME mitkXPDoc
+                               )
 
-    add_dependencies(doc mitkXPDoc BlueBerryXPDoc)
+    add_dependencies(doc mitkXPDoc)
   endif(ANT_FOUND AND BLUEBERRY_DOC_TOOLS_DIR)
-  add_dependencies(doc BlueBerryDoc)
 endif(MITK_USE_BLUEBERRY)
 
 #if(MITK_DOXYGEN_GENERATE_ITK_QCH_FILE)
@@ -205,19 +204,4 @@ endif(MITK_USE_BLUEBERRY)
 #                    COMMAND ${DOXYGEN} ${CMAKE_CURRENT_BINARY_DIR}/doxygen.vtk.conf)
 #  add_dependencies(doc doc-vtk)
 #endif()
-
-else(DOXYGEN_FOUND)
-
-# copy blank documentation page to prevent QtHelp from being shown
-# copy the .qhc and .qch files to $MITK_BIN/mitk/bin/ExtBundles/resources/
-
-configure_file(pregenerated/MITKBlankPage.qch
-               ${MITK_BINARY_DIR}/bin/ExtBundles/org.mitk.gui.qt.extapplication/resources/MITKBlankPage.qch
-               COPYONLY)
-
-configure_file(pregenerated/MitkExtQtHelpCollection.qhc
-               ${MITK_BINARY_DIR}/bin/ExtBundles/org.mitk.gui.qt.extapplication/resources/MitkExtQtHelpCollection.qhc
-               COPYONLY)
-
-endif(DOXYGEN_FOUND)
 

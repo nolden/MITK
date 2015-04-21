@@ -17,9 +17,6 @@ See LICENSE.txt or http://www.mitk.org for details.
 #include <application/berryStarter.h>
 #include <Poco/Util/MapConfiguration.h>
 
-#include <QApplication>
-#include <QMessageBox>
-#include <QtSingleApplication>
 #include <QtGlobal>
 #include <QTime>
 #include <QDir>
@@ -33,75 +30,6 @@ See LICENSE.txt or http://www.mitk.org for details.
 
 #include <mitkCommon.h>
 #include <mitkException.h>
-
-class QtSafeApplication : public QtSingleApplication
-{
-
-public:
-
-  QtSafeApplication(int& argc, char** argv) : QtSingleApplication(argc, argv)
-  {}
-
-  /**
-   * Reimplement notify to catch unhandled exceptions and open an error message.
-   *
-   * @param receiver
-   * @param event
-   * @return
-   */
-  bool notify(QObject* receiver, QEvent* event)
-  {
-    QString msg;
-    try
-    {
-      return QApplication::notify(receiver, event);
-    }
-    catch (mitk::Exception& e)
-    {
-      msg = QString("MITK Exception:\n\n")
-            + QString("Description: ")
-            + QString(e.GetDescription()) + QString("\n\n")
-            + QString("Filename: ") + QString(e.GetFile()) + QString("\n\n")
-            + QString("Line: ") + QString::number(e.GetLine());
-    }
-    catch (Poco::Exception& e)
-    {
-      msg = QString::fromStdString(e.displayText());
-    }
-    catch (std::exception& e)
-    {
-      msg = e.what();
-    }
-    catch (...)
-    {
-      msg = "Unknown exception";
-    }
-    MITK_ERROR << "An error occurred: " << msg.toStdString();
-
-    QMessageBox msgBox;
-    msgBox.setText("An error occurred. You should save all data and quit the program to prevent possible data loss.");
-    msgBox.setDetailedText(msg);
-    msgBox.setIcon(QMessageBox::Critical);
-    msgBox.addButton(trUtf8("Exit immediately"), QMessageBox::YesRole);
-    msgBox.addButton(trUtf8("Ignore"), QMessageBox::NoRole);
-
-    int ret = msgBox.exec();
-
-    switch(ret)
-      {
-      case 0:
-        MITK_ERROR << "The program was closed.";
-        this->closeAllWindows();
-        break;
-      case 1:
-        MITK_ERROR << "The error was ignored by the user. The program may be in a corrupt state and don't behave like expected!";
-        break;
-      }
-
-    return false;
-  }
-
-};
 
 
 int main(int argc, char** argv)

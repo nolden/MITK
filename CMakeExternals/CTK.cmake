@@ -74,8 +74,9 @@ if(MITK_USE_CTK)
 
     ExternalProject_Add(${proj}
       LIST_SEPARATOR ${sep}
-      URL ${MITK_THIRDPARTY_DOWNLOAD_PREFIX_URL}/CTK_${revision_tag}.tar.gz
-      URL_MD5 2f1255494de6ae19aae3d4dc5f2ea6de
+      #URL ${MITK_THIRDPARTY_DOWNLOAD_PREFIX_URL}/CTK_${revision_tag}.tar.gz
+      #URL_MD5 2f1255494de6ae19aae3d4dc5f2ea6de
+      SOURCE_DIR /home/sascha/git/CTK
       UPDATE_COMMAND ""
       INSTALL_COMMAND ""
       CMAKE_GENERATOR ${gen}
