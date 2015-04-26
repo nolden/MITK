@@ -78,6 +78,9 @@ public:
   void setSafeMode(bool safeMode);
   bool getSafeMode() const;
 
+  void setPreloadLibraries(const QStringList& libraryBaseNames);
+  QStringList getPreloadLibraries() const;
+
   void setProperty(const QString& property, const QVariant& value);
   QVariant getProperty(const QString& property) const;
 

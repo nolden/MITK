@@ -31,6 +31,8 @@ See LICENSE.txt or http://www.mitk.org for details.
 #include <mitkRenderingManager.h>
 #include <mitkIOUtil.h>
 
+#include <mitkBaseApplication.h>
+
 #include <berryPlatformUI.h>
 #include <berryIPreferencesService.h>
 #include <berryPlatform.h>
@@ -132,9 +134,9 @@ void QmitkCommonExtPlugin::startNewInstance(const QStringList &args, const QStri
 {
   QStringList newArgs(args);
 #ifdef Q_OS_UNIX
-  newArgs << QString("--") +berry::Platform::ARG_NEWINSTANCE;
+  newArgs << QString("--") + mitk::BaseApplication::ARG_NEWINSTANCE;
 #else
-  newArgs << QString("/") + berry::Platform::ARG_NEWINSTANCE;
+  newArgs << QString("/") + mitk::BaseApplication::ARG_NEWINSTANCE;
 #endif
   newArgs << files;
   QProcess::startDetached(qApp->applicationFilePath(), newArgs);

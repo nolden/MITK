@@ -76,7 +76,7 @@ if(MITK_USE_CTK)
       LIST_SEPARATOR ${sep}
       #URL ${MITK_THIRDPARTY_DOWNLOAD_PREFIX_URL}/CTK_${revision_tag}.tar.gz
       #URL_MD5 2f1255494de6ae19aae3d4dc5f2ea6de
-      SOURCE_DIR /home/sascha/git/CTK
+      SOURCE_DIR /home/sascha/git/CTK-sascha
       UPDATE_COMMAND ""
       INSTALL_COMMAND ""
       CMAKE_GENERATOR ${gen}
