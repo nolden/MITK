@@ -47,7 +47,7 @@ static const QString XP_APPLICATIONS = "org.blueberry.osgi.applications";
 ctkPluginContext* org_blueberry_core_runtime_Activator::context = 0;
 QScopedPointer<ApplicationContainer> org_blueberry_core_runtime_Activator::appContainer;
 
-const bool org_blueberry_core_runtime_Activator::DEBUG = true;
+const bool org_blueberry_core_runtime_Activator::DEBUG = false;
 
 void org_blueberry_core_runtime_Activator::start(ctkPluginContext* context)
 {

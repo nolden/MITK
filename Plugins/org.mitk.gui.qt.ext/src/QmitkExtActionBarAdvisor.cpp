@@ -259,7 +259,7 @@ void QmitkExtActionBarAdvisor::AddPerspectiveActions(berry::MenuManager* menu)
   }
   menu->Add(berry::IContributionItem::Pointer(new berry::Separator()));
   //menu.add(editActionSetAction);
-  menu->Add(GetItem(berry::IWorkbenchCommandConstants::WINDOW_SAVE_PERSPECTIVE_AS, "Save Serspective &As..."));
+  menu->Add(GetItem(berry::IWorkbenchCommandConstants::WINDOW_SAVE_PERSPECTIVE_AS, "Save Perspective &As..."));
   menu->Add(GetItem(berry::IWorkbenchCommandConstants::WINDOW_RESET_PERSPECTIVE, "&Reset Perspective..."));
   menu->Add(GetItem(berry::IWorkbenchCommandConstants::WINDOW_CLOSE_PERSPECTIVE, "&Close Perspective"));
   menu->Add(GetItem(berry::IWorkbenchCommandConstants::WINDOW_CLOSE_ALL_PERSPECTIVES, "Close All Perspectives"));

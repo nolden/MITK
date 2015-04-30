@@ -135,7 +135,7 @@ bool Policy::DEBUG_CONTRIBUTIONS()
 
 QString Policy::DEBUG_HANDLERS_VERBOSE_COMMAND_ID()
 {
-  static QString s = Platform::GetDebugOption(PlatformUI::PLUGIN_ID() + "/trace/handlers.verbose.commandId").toString();
+  static QString s = Platform::GetDebugOption("/trace/handlers.verbose.commandId").toString();
   return s;
 }
 

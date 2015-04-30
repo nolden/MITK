@@ -26,6 +26,8 @@ See LICENSE.txt or http://www.mitk.org for details.
 #include <ctkPluginFrameworkLauncher.h>
 #include <ctkPluginFramework_global.h>
 
+#include <usModuleSettings.h>
+
 #include <Poco/Util/HelpFormatter.h>
 
 #include <QTime>
@@ -33,6 +35,7 @@ See LICENSE.txt or http://www.mitk.org for details.
 #include <QDesktopServices>
 #include <QStringList>
 #include <QCoreApplication>
+#include <QDebug>
 
 #include <iostream>
 
@@ -59,6 +62,18 @@ QString BaseApplication::ARG_REGISTRY_MULTI_LANGUAGE = "BlueBerry.registryMultiL
 
 QString BaseApplication::ARG_XARGS = "xargs";
 
+
+QString BaseApplication::PROP_NEWINSTANCE = BaseApplication::ARG_NEWINSTANCE;
+QString BaseApplication::PROP_FORCE_PLUGIN_INSTALL = BaseApplication::ARG_FORCE_PLUGIN_INSTALL;
+QString BaseApplication::PROP_NO_REGISTRY_CACHE = BaseApplication::ARG_NO_REGISTRY_CACHE;
+QString BaseApplication::PROP_NO_LAZY_REGISTRY_CACHE_LOADING = BaseApplication::ARG_NO_LAZY_REGISTRY_CACHE_LOADING;
+QString BaseApplication::PROP_REGISTRY_MULTI_LANGUAGE = BaseApplication::ARG_REGISTRY_MULTI_LANGUAGE;
+
+QString BaseApplication::PROP_APPLICATION = "blueberry.application";
+QString BaseApplication::PROP_TESTPLUGIN = "BlueBerry.testplugin";
+QString BaseApplication::PROP_TESTAPPLICATION = "BlueBerry.testapplication";
+
+
 struct BaseApplication::Impl
 {
   ctkProperties m_FWProps;
@@ -76,6 +91,7 @@ struct BaseApplication::Impl
   bool m_SafeMode;
 
   QStringList m_PreloadLibs;
+  QString m_ProvFile;
 
   Impl(int argc, char** argv)
     : m_Argc(argc)
@@ -83,6 +99,13 @@ struct BaseApplication::Impl
     , m_SingleMode(false)
     , m_SafeMode(true)
   {}
+
+  QVariant getProperty(const QString& property) const
+  {
+    auto iter = m_FWProps.find(property);
+    return iter == m_FWProps.end() ? QVariant() : iter.value();
+  }
+
 
   void handleBooleanOption(const std::string& name, const std::string& /*value*/)
   {
@@ -94,22 +117,150 @@ struct BaseApplication::Impl
       fwKey = ctkPluginFrameworkLauncher::PROP_CONSOLE_LOG;
     }
 
+    // For all other options we use the command line option name as the
+    // framework property key.
     m_FWProps[fwKey] = true;
   }
 
   void handlePreloadLibraryOption(const std::string& /*name*/, const std::string& value)
   {
-    QString oldVal;
-    if (m_FWProps.contains(BaseApplication::ARG_PRELOAD_LIBRARY))
-    {
-      oldVal = m_FWProps[BaseApplication::ARG_PRELOAD_LIBRARY].toString();
-    }
-    m_FWProps[BaseApplication::ARG_PRELOAD_LIBRARY] = oldVal + "," + QString::fromStdString(value);
+    m_PreloadLibs.push_back(QString::fromStdString(value));
   }
 
   void handleClean(const std::string& /*name*/, const std::string& /*value*/)
   {
     m_FWProps[ctkPluginConstants::FRAMEWORK_STORAGE_CLEAN] = ctkPluginConstants::FRAMEWORK_STORAGE_CLEAN_ONFIRSTINIT;
+  }
+
+  void initializeCTKPluginFrameworkProperties(Poco::Util::LayeredConfiguration& configuration)
+  {
+    // add all configuration key / value pairs as framework properties
+    Poco::Util::LayeredConfiguration::Keys keys;
+    Poco::Util::LayeredConfiguration::Keys keyStack;
+    configuration.keys(keyStack);
+    std::vector<std::string> keyChain;
+    while(!keyStack.empty())
+    {
+      std::string currSubKey = keyStack.back();
+      if (!keyChain.empty() && keyChain.back() == currSubKey)
+      {
+        keyChain.pop_back();
+        keyStack.pop_back();
+        continue;
+      }
+      Poco::Util::LayeredConfiguration::Keys subKeys;
+      configuration.keys(currSubKey, subKeys);
+      if (subKeys.empty())
+      {
+        keyStack.pop_back();
+        std::string finalKey;
+        for (auto k = keyChain.begin(); k != keyChain.end(); ++k)
+        {
+          finalKey += *k + ".";
+        }
+        finalKey += currSubKey;
+        keys.push_back(finalKey);
+      }
+      else
+      {
+        keyChain.push_back(currSubKey);
+        for (auto s : subKeys)
+        {
+          keyStack.push_back(s);
+        }
+      }
+    }
+
+    for (auto key : keys)
+    {
+      QString qKey = QString::fromStdString(key);
+      if (!m_FWProps.contains(qKey) && configuration.hasProperty(key))
+      {
+        m_FWProps[qKey] = QString::fromStdString(configuration.getString(key));
+      }
+    }
+  }
+
+  void parseProvisioningFile(const QString& filePath)
+  {
+    // Skip parsing if the file path is empty
+    if (filePath.isEmpty()) return;
+
+    bool consoleLog = this->getProperty(ctkPluginFrameworkLauncher::PROP_CONSOLE_LOG).toBool();
+
+    // read initial plugins from a provisioning file
+    QStringList pluginsToStart;
+
+    QFileInfo appFilePath(QCoreApplication::applicationFilePath());
+    QDir basePath(QCoreApplication::applicationDirPath());
+    QFileInfo provFile(basePath.absoluteFilePath(appFilePath.baseName() + ".provisioning"));
+
+    if (provFile.exists())
+    {
+      MITK_INFO(consoleLog) << "Using provisioning file: " << qPrintable(provFile.absoluteFilePath());
+      ProvisioningInfo provInfo(provFile.absoluteFilePath());
+      // it can still happen, that the encoding is not compatible with the fromUtf8 function ( i.e. when manipulating the LANG variable
+      // in such case, the QStringList in provInfo is empty which we can easily check for
+      if( provInfo.getPluginDirs().empty() )
+      {
+        MITK_ERROR << "Cannot search for provisioning file, the retrieved directory list is empty.\n" <<
+                      "This can occur if there are some special (non-ascii) characters in the install path.";
+      }
+      else
+      {
+        foreach(QString pluginPath, provInfo.getPluginDirs())
+        {
+          ctkPluginFrameworkLauncher::addSearchPath(pluginPath);
+        }
+
+        //bool forcePluginOverwrite = this->getProperty(ARG_FORCE_PLUGIN_INSTALL).toBool();
+        QList<QUrl> pluginUrlsToStart = provInfo.getPluginsToStart();
+        for(auto url : pluginUrlsToStart)
+        {
+          pluginsToStart.push_back(url.toString());
+        }
+        //foreach(QUrl pluginUrl, provInfo.getPluginsToInstall())
+        //{
+          // TODO for "uninstall", we need a proper configuration agent, e.g. a dedicated
+          // plug-in for provisioning of the platform
+          /*
+          if (forcePluginOverwrite)
+          {
+            uninstallPugin(pluginUrl, context);
+          }
+          */
+          //try
+          //{
+            //MITK_INFO(consoleLog) << "Installing CTK plug-in from: " << pluginUrl.toString().toStdString();
+            /*
+            QSharedPointer<ctkPlugin> plugin = context->installPlugin(pluginUrl);
+            if (pluginsToStart.contains(pluginUrl))
+            {
+              m_CTKPluginsToStart << plugin->getPluginId();
+            }
+            */
+            /*
+          }
+          catch (const ctkPluginException& e)
+          {
+            QString errorMsg;
+            QDebug dbg(&errorMsg);
+            dbg << e.printStackTrace();
+            BERRY_ERROR << qPrintable(errorMsg);
+          }
+          */
+        //}
+      }
+    }
+    else
+    {
+      MITK_INFO(consoleLog) << "No provisioning file set.";
+    }
+
+    if(!pluginsToStart.isEmpty())
+    {
+      m_FWProps[ctkPluginFrameworkLauncher::PROP_PLUGINS] = pluginsToStart;
+    }
   }
 
 };
@@ -210,51 +361,6 @@ bool BaseApplication::getSafeMode() const
 
 void BaseApplication::setPreloadLibraries(const QStringList& libraryBaseNames)
 {
-  QMap<QString, QString> preloadLibVersion;
-
-#ifdef Q_OS_MAC
-  const QString libSuffix = ".dylib";
-#elif defined(Q_OS_UNIX)
-  const QString libSuffix = ".so";
-#elif defined(Q_OS_WIN)
-  const QString libSuffix = ".dll";
-#else
-  const QString libSuffix;
-#endif
-
-  for (QStringList::Iterator preloadLibIter = preloadLibs.begin(),
-       iterEnd = preloadLibs.end(); preloadLibIter != iterEnd; ++preloadLibIter)
-  {
-    QString& preloadLib = *preloadLibIter;
-    // In case the application is started from an install directory
-    QString tempLibraryPath = basePath.absoluteFilePath("plugins/" + preloadLib + libSuffix);
-    QFile preloadLibrary (tempLibraryPath);
-#ifdef Q_OS_MAC
-    if (!preloadLibrary.exists())
-    {
-      // In case the application is started from a build tree
-      QString relPath = "../../../plugins/" + preloadLib + libSuffix;
-      tempLibraryPath = QDir::cleanPath(basePath.absoluteFilePath(relPath));
-      preloadLibrary.setFileName(tempLibraryPath);
-    }
-#endif
-    if(preloadLibrary.exists())
-    {
-      preloadLib = tempLibraryPath;
-    }
-    // Else fall back to the QLibrary search logic
-  }
-
-  QString preloadConfig;
-  Q_FOREACH(const QString& preloadLib, preloadLibs)
-  {
-    preloadConfig += preloadLib + preloadLibVersion[preloadLib] + ",";
-  }
-  preloadConfig.chop(1);
-
-  extConfig->setString(berry::Platform::ARG_PRELOAD_LIBRARY.toStdString(), preloadConfig.toStdString());
-
-
   d->m_PreloadLibs = libraryBaseNames;
 }
 
@@ -263,152 +369,86 @@ QStringList BaseApplication::getPreloadLibraries() const
   return d->m_PreloadLibs;
 }
 
-void BaseApplication::initialize(Poco::Util::Application& self)
+void BaseApplication::setProvisioningFilePath(const QString& filePath)
 {
-  Poco::Util::Application::initialize(self);
+  d->m_ProvFile = filePath;
+}
 
-  // The CTK PluginFramework needs a QCoreApplication
-  if (!qApp)
+QString BaseApplication::getProvisioningFilePath() const
+{
+  QString provFilePath = d->m_ProvFile;
+
+  // A null QString means look up a default provisioning file
+  if (provFilePath.isNull() && qApp)
   {
-    if (getSingleMode())
+    QFileInfo appFilePath(QCoreApplication::applicationFilePath());
+    QDir basePath(QCoreApplication::applicationDirPath());
+    QString provFileName = appFilePath.baseName() + ".provisioning";
+    QFileInfo provFile(basePath.absoluteFilePath(provFileName));
+
+    if (provFile.exists())
     {
-      d->m_QApp.reset(new QmitkSingleApplication(d->m_Argc, d->m_Argv, getSafeMode()));
-    }
-    else
-    {
-      QmitkSafeApplication* safeApp = new QmitkSafeApplication(d->m_Argc, d->m_Argv);
-      safeApp->setSafeMode(d->m_SafeMode);
-      d->m_QApp.reset(safeApp);
+      provFilePath = provFile.absoluteFilePath();
     }
   }
+  return provFilePath;
+}
 
-  this->loadConfiguration();
+void BaseApplication::initializeQt()
+{
+  if (qApp) return;
 
-  // Seed the random number generator, once at startup.
+  // Create a QCoreApplication instance
+  this->getQApplication();
+}
+
+void BaseApplication::initialize(Poco::Util::Application& self)
+{
+  // 1. Call the super-class method
+  Poco::Util::Application::initialize(self);
+
+  // 2. Initialize the Qt framework (by creating a QCoreApplication)
+  this->initializeQt();
+
+  // 3. Seed the random number generator, once at startup.
   QTime time = QTime::currentTime();
   qsrand((uint)time.msec());
 
-  // Initialize the CTK Plugin Framework
+  // 4. Load the "default" configuration, which involves parsing
+  //    an optional <executable-name>.ini file and parsing any
+  //    command line arguments
+  this->loadConfiguration();
 
-  // add all configuration key / value pairs as framework properties
-  Poco::Util::LayeredConfiguration& configuration = this->config();
-  Poco::Util::LayeredConfiguration::Keys keys;
-  Poco::Util::LayeredConfiguration::Keys keyStack;
-  configuration.keys(keyStack);
-  std::vector<std::string> keyChain;
-  while(!keyStack.empty())
+  // 5. Add configuration data from the command line and the
+  //    optional <executable-name>.ini file as CTK plugin
+  //    framework properties.
+  d->initializeCTKPluginFrameworkProperties(this->config());
+
+  // 6. Set the custom CTK Plugin Framework storage directory
+  QString storageDir = this->getCTKFrameworkStorageDir();
+  if (!storageDir.isEmpty())
   {
-    std::string currSubKey = keyStack.back();
-    if (!keyChain.empty() && keyChain.back() == currSubKey)
-    {
-      keyChain.pop_back();
-      keyStack.pop_back();
-      continue;
-    }
-    Poco::Util::LayeredConfiguration::Keys subKeys;
-    configuration.keys(currSubKey, subKeys);
-    if (subKeys.empty())
-    {
-      keyStack.pop_back();
-      std::string finalKey;
-      for (auto k = keyChain.begin(); k != keyChain.end(); ++k)
-      {
-        finalKey += *k + ".";
-      }
-      finalKey += currSubKey;
-      keys.push_back(finalKey);
-    }
-    else
-    {
-      keyChain.push_back(currSubKey);
-      for (auto s : subKeys)
-      {
-        keyStack.push_back(s);
-      }
-    }
+    d->m_FWProps[ctkPluginConstants::FRAMEWORK_STORAGE] = storageDir;
   }
 
-  for (auto key : keys)
+  // 7. Set the library search paths and the pre-load library property
+  this->initializeLibraryPaths();
+  QStringList preloadLibs = this->getPreloadLibraries();
+  qDebug() << "***** " << preloadLibs;
+  if (!preloadLibs.isEmpty())
   {
-    QString qKey = QString::fromStdString(key);
-    if (!d->m_FWProps.contains(qKey) && configuration.hasProperty(key))
-    {
-      d->m_FWProps[qKey] = QString::fromStdString(configuration.getString(key));
-    }
+    d->m_FWProps[ctkPluginConstants::FRAMEWORK_PRELOAD_LIBRARIES] = preloadLibs.join(',');
   }
 
-  bool consoleLog = this->getProperty(ctkPluginFrameworkLauncher::PROP_CONSOLE_LOG).toBool();
+  // 8. Initialize the CppMicroServices library.
+  //    The initializeCppMicroServices() method reuses the
+  //    FRAMEWORK_STORAGE property, so we call it after the
+  //    getCTKFrameworkStorageDir method.
+  this->initializeCppMicroServices();
 
-  // read initial plugins from a provisioning file
-  QStringList pluginsToStart;
-
-  QString provisioningFile = this->getProperty(ARG_PROVISIONING).toString();
-  if (!provisioningFile.isEmpty())
-  {
-    MITK_INFO(consoleLog) << "Using provisioning file: " << provisioningFile.toStdString();
-    ProvisioningInfo provInfo(provisioningFile);
-    // it can still happen, that the encoding is not compatible with the fromUtf8 function ( i.e. when manipulating the LANG variable
-    // in such case, the QStringList in provInfo is empty which we can easily check for
-    if( provInfo.getPluginDirs().empty() )
-    {
-      MITK_ERROR << "Cannot search for provisioning file, the retrieved directory list is empty.\n" <<
-                    "This can occur if there are some special (non-ascii) characters in the install path.";
-    }
-    else
-    {
-      foreach(QString pluginPath, provInfo.getPluginDirs())
-      {
-        ctkPluginFrameworkLauncher::addSearchPath(pluginPath);
-      }
-
-      //bool forcePluginOverwrite = this->getProperty(ARG_FORCE_PLUGIN_INSTALL).toBool();
-      QList<QUrl> pluginUrlsToStart = provInfo.getPluginsToStart();
-      for(auto url : pluginUrlsToStart)
-      {
-        pluginsToStart.push_back(url.toString());
-      }
-      //foreach(QUrl pluginUrl, provInfo.getPluginsToInstall())
-      //{
-        // TODO for "uninstall", we need a proper configuration agent, e.g. a dedicated
-        // plug-in for provisioning of the platform
-        /*
-        if (forcePluginOverwrite)
-        {
-          uninstallPugin(pluginUrl, context);
-        }
-        */
-        //try
-        //{
-          //MITK_INFO(consoleLog) << "Installing CTK plug-in from: " << pluginUrl.toString().toStdString();
-          /*
-          QSharedPointer<ctkPlugin> plugin = context->installPlugin(pluginUrl);
-          if (pluginsToStart.contains(pluginUrl))
-          {
-            m_CTKPluginsToStart << plugin->getPluginId();
-          }
-          */
-          /*
-        }
-        catch (const ctkPluginException& e)
-        {
-          QString errorMsg;
-          QDebug dbg(&errorMsg);
-          dbg << e.printStackTrace();
-          BERRY_ERROR << qPrintable(errorMsg);
-        }
-        */
-      //}
-    }
-  }
-  else
-  {
-    MITK_INFO(consoleLog) << "No provisioning file set.";
-  }
-
-  if(!pluginsToStart.isEmpty())
-  {
-    d->m_FWProps[ctkPluginFrameworkLauncher::PROP_PLUGINS] = pluginsToStart;
-  }
+  // 9. Parse the (optional) provisioning file and set the
+  //    correct framework properties.
+  d->parseProvisioningFile(this->getProvisioningFilePath());
 
   // Finally, set the CTK Plugin Framework properties
   ctkPluginFrameworkLauncher::setFrameworkProperties(d->m_FWProps);
@@ -426,6 +466,117 @@ void BaseApplication::uninitialize()
   }
 
   Poco::Util::Application::uninitialize();
+}
+
+int BaseApplication::getArgc() const
+{
+  return d->m_Argc;
+}
+
+char**BaseApplication::getArgv() const
+{
+  return d->m_Argv;
+}
+
+QString BaseApplication::getCTKFrameworkStorageDir() const
+{
+  QString storageDir;
+  if (this->getSingleMode())
+  {
+    // This function checks if an instance is already running
+    // and either sends a message to it (containing the command
+    // line arguments) or checks if a new instance was forced by
+    // providing the BlueBerry.newInstance command line argument.
+    // In the latter case, a path to a temporary directory for
+    // the new application's storage directory is returned.
+    storageDir = handleNewAppInstance(static_cast<QtSingleApplication*>(d->m_QApp.data()),
+                                      d->m_Argc,
+                                      d->m_Argv,
+                                      ARG_NEWINSTANCE);
+  }
+
+  if (storageDir.isEmpty())
+  {
+    // This is a new instance and no other instance is already running. We specify
+    // the storage directory here (this is the same code as in berryInternalPlatform.cpp
+    // so that we can re-use the location for the persistent data location of the
+    // the CppMicroServices library.
+
+    // Append a hash value of the absolute path of the executable to the data location.
+    // This allows to start the same application from different build or install trees.
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    storageDir = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + '_';
+#else
+    storageDir = QDesktopServices::storageLocation(QDesktopServices::DataLocation) + '_';
+#endif
+    storageDir += QString::number(qHash(QCoreApplication::applicationDirPath())) + QDir::separator();
+  }
+  return storageDir;
+}
+
+void BaseApplication::initializeCppMicroServices()
+{
+  QString storageDir = this->getProperty(ctkPluginConstants::FRAMEWORK_STORAGE).toString();
+
+  if (!storageDir.isEmpty())
+  {
+    us::ModuleSettings::SetStoragePath((storageDir +
+                                        QString("us") +
+                                        QDir::separator()).toStdString());
+  }
+}
+
+QCoreApplication* BaseApplication::getQApplication() const
+{
+  QCoreApplication* qCoreApp = qApp;
+  if (!qCoreApp)
+  {
+    if (getSingleMode())
+    {
+      qCoreApp = new QmitkSingleApplication(d->m_Argc, d->m_Argv, getSafeMode());
+    }
+    else
+    {
+      QmitkSafeApplication* safeApp = new QmitkSafeApplication(d->m_Argc, d->m_Argv);
+      safeApp->setSafeMode(d->m_SafeMode);
+      qCoreApp = safeApp;
+    }
+    d->m_QApp.reset(qCoreApp);
+  }
+  return qCoreApp;
+}
+
+void BaseApplication::initializeLibraryPaths()
+{
+  QStringList suffixes;
+  suffixes << "plugins";
+#ifdef Q_OS_WINDOWS
+  suffixes << "bin/plugins";
+#ifdef CMAKE_INTDIR
+  suffixes << "bin/" CMAKE_INTDIR "/plugins";
+#endif
+#else
+  suffixes << "lib/plugins";
+#ifdef CMAKE_INTDIR
+  suffixes << "lib/" CMAKE_INTDIR "/plugins";
+#endif
+#endif
+
+#ifdef Q_OS_MAC
+  suffixes << "../../plugins";
+#endif
+
+  // we add a couple of standard library search paths for plug-ins
+  QDir appDir(QCoreApplication::applicationDirPath());
+
+  // walk one directory up and add bin and lib sub-dirs; this
+  // might be redundant
+  appDir.cdUp();
+
+  foreach(QString suffix, suffixes)
+  {
+    ctkPluginFrameworkLauncher::addSearchPath(appDir.absoluteFilePath(suffix));
+  }
 }
 
 int BaseApplication::main(const std::vector<std::string>& /*args*/)
@@ -450,7 +601,7 @@ void BaseApplication::defineOptions(Poco::Util::OptionSet& options)
   options.addOption(cleanOption);
 
   Poco::Util::Option appOption(ARG_APPLICATION.toStdString(), "", "the id of the application extension to be executed");
-  appOption.argument("<id>").binding("blueberry.application");
+  appOption.argument("<id>").binding(PROP_APPLICATION.toStdString());
   options.addOption(appOption);
 
   Poco::Util::Option provOption(ARG_PROVISIONING.toStdString(), "", "the location of a provisioning file");
@@ -478,11 +629,11 @@ void BaseApplication::defineOptions(Poco::Util::OptionSet& options)
   options.addOption(preloadLibsOption);
 
   Poco::Util::Option testPluginOption(ARG_TESTPLUGIN.toStdString(), "", "the plug-in to be tested");
-  testPluginOption.argument("<id>").binding(ARG_TESTPLUGIN.toStdString());
+  testPluginOption.argument("<id>").binding(PROP_TESTPLUGIN.toStdString());
   options.addOption(testPluginOption);
 
   Poco::Util::Option testAppOption(ARG_TESTAPPLICATION.toStdString(), "", "the application to be tested");
-  testAppOption.argument("<id>").binding(ARG_TESTAPPLICATION.toStdString());
+  testAppOption.argument("<id>").binding(PROP_TESTAPPLICATION.toStdString());
   options.addOption(testAppOption);
 
   Poco::Util::Option noRegistryCacheOption(ARG_NO_REGISTRY_CACHE.toStdString(), "", "do not use a cache for the registry");
@@ -517,41 +668,14 @@ ctkPluginContext* BaseApplication::getFrameworkContext() const
   return nullptr;
 }
 
+QHash<QString, QVariant> BaseApplication::getFrameworkProperties() const
+{
+  return d->m_FWProps;
+}
+
 int BaseApplication::run()
 {
   this->init(d->m_Argc, d->m_Argv);
-
-  if (d->m_SingleMode)
-  {
-    // This function checks if an instance is already running
-    // and either sends a message to it (containing the command
-    // line arguments) or checks if a new instance was forced by
-    // providing the BlueBerry.newInstance command line argument.
-    // In the latter case, a path to a temporary directory for
-    // the new application's storage directory is returned.
-    QString storageDir = handleNewAppInstance(&qSafeApp, argc, argv, "BlueBerry.newInstance");
-
-    if (storageDir.isEmpty())
-    {
-      // This is a new instance and no other instance is already running. We specify
-      // the storage directory here (this is the same code as in berryInternalPlatform.cpp
-      // so that we can re-use the location for the persistent data location of the
-      // the CppMicroServices library.
-
-      // Append a hash value of the absolute path of the executable to the data location.
-      // This allows to start the same application from different build or install trees.
-  #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-      storageDir = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + '_';
-  #else
-      storageDir = QDesktopServices::storageLocation(QDesktopServices::DataLocation) + '_';
-  #endif
-      storageDir += QString::number(qHash(QCoreApplication::applicationDirPath())) + QDir::separator();
-    }
-  }
-
-  us::ModuleSettings::SetStoragePath((storageDir + QString("us") + QDir::separator()).toStdString());
-
-
   return Application::run();
 }
 
@@ -562,8 +686,7 @@ void BaseApplication::setProperty(const QString& property, const QVariant& value
 
 QVariant BaseApplication::getProperty(const QString& property) const
 {
-  auto iter = d->m_FWProps.find(property);
-  return iter == d->m_FWProps.end() ? QVariant() : iter.value();
+  return d->getProperty(property);
 }
 
 }
