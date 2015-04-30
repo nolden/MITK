@@ -37,7 +37,7 @@ namespace mitk
 class MITKCORE_EXPORT DataNodeSource : public itk::ProcessObject
 {
 public:
-    mitkClassMacro( DataNodeSource, itk::ProcessObject )
+    mitkClassMacroItkParent( DataNodeSource, itk::ProcessObject )
 
     itkFactorylessNewMacro(Self)
     itkCloneMacro(Self)

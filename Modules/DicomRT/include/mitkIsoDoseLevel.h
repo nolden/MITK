@@ -43,7 +43,7 @@ namespace mitk
     typedef ::itk::RGBPixel<float> ColorType;
     typedef DoseValueRel DoseValueType;
 
-    mitkClassMacro(IsoDoseLevel, itk::Object);
+    mitkClassMacroItkParent(IsoDoseLevel, itk::Object);
     itkNewMacro(Self);
     mitkNewMacro4Param(Self,DoseValueType, ColorType, bool, bool);
 

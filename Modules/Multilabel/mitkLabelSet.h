@@ -39,7 +39,7 @@ class MITKMULTILABEL_EXPORT LabelSet : public itk::Object
 {
 public:
 
-    mitkClassMacro( LabelSet, itk::Object );
+    mitkClassMacroItkParent( LabelSet, itk::Object );
     itkNewMacro(Self);
 
     typedef mitk::Label::PixelType PixelType;

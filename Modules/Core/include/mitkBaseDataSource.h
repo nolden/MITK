@@ -78,7 +78,7 @@ class MITKCORE_EXPORT BaseDataSource : public itk::ProcessObject
 {
 public:
 
-  mitkClassMacro(BaseDataSource, itk::ProcessObject)
+  mitkClassMacroItkParent(BaseDataSource, itk::ProcessObject)
 
   typedef BaseData OutputType;
   typedef itk::DataObject::DataObjectIdentifierType DataObjectIdentifierType;

@@ -38,7 +38,7 @@ namespace mitk {
       Difference
     };
 
-    mitkClassMacro(BoundingObjectGroup, mitk::BoundingObject);// itk::VectorContainer<unsigned int ,mitk::BoundingObject::Pointer>);
+    mitkClassMacroItkParent(BoundingObjectGroup, mitk::BoundingObject);// itk::VectorContainer<unsigned int ,mitk::BoundingObject::Pointer>);
     itkFactorylessNewMacro(Self)
     itkCloneMacro(Self)
 

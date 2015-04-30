@@ -66,7 +66,7 @@ class MITKCORE_EXPORT PropertyList : public itk::Object
 
   public:
 
-    mitkClassMacro(PropertyList, itk::Object)
+    mitkClassMacroItkParent(PropertyList, itk::Object)
 
     /**
      * Method for creation through the object factory.

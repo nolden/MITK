@@ -79,7 +79,7 @@ public:
 
   typedef itk::RegularStepGradientDescentOptimizer OptimizerType;
 
-  mitkClassMacro(PyramidOptControlCommand<RegistrationType>, itk::Command)
+  mitkClassMacroItkParent(PyramidOptControlCommand<RegistrationType>, itk::Command)
   itkFactorylessNewMacro(Self)
   itkCloneMacro(Self)
 
@@ -123,7 +123,7 @@ public:
 
   typedef itk::GradientDescentLineSearchOptimizerv4 OptimizerType;
 
-  mitkClassMacro(PyramidOptControlCommandv4<RegistrationType>, itk::Command)
+  mitkClassMacroItkParent(PyramidOptControlCommandv4<RegistrationType>, itk::Command)
   itkFactorylessNewMacro(Self)
   itkCloneMacro(Self)
 
@@ -161,7 +161,7 @@ template <typename OptimizerType>
 class OptimizerIterationCommand : public itk::Command
 {
 public:
-  mitkClassMacro(OptimizerIterationCommand<OptimizerType>, itk::Command)
+  mitkClassMacroItkParent(OptimizerIterationCommand<OptimizerType>, itk::Command)
   itkFactorylessNewMacro(Self)
   itkCloneMacro(Self)
 

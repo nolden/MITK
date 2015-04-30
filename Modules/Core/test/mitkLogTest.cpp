@@ -64,7 +64,7 @@ class mitkTestLoggingThread : public itk::Object
 {
 public:
 
-mitkClassMacro(mitkTestLoggingThread,itk::Object);
+mitkClassMacroItkParent(mitkTestLoggingThread,itk::Object);
 mitkNewMacro1Param(mitkTestLoggingThread,itk::MultiThreader::Pointer);
 
 int NumberOfMessages;

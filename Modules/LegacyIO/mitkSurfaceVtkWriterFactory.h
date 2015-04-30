@@ -32,7 +32,7 @@ class DEPRECATED() MITKLEGACYIO_EXPORT SurfaceVtkWriterFactory : public itk::Obj
 {
 public:
 
-  mitkClassMacro( mitk::SurfaceVtkWriterFactory, itk::ObjectFactoryBase )
+  mitkClassMacroItkParent( mitk::SurfaceVtkWriterFactory, itk::ObjectFactoryBase )
 
   /** Class methods used to interface with the registered factories. */
   virtual const char* GetITKSourceVersion(void) const override;

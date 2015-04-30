@@ -39,7 +39,7 @@ namespace mitk
 class MITKCORE_EXPORT Material : public itk::Object
 {
 public:
-    mitkClassMacro( Material, itk::Object );
+    mitkClassMacroItkParent( Material, itk::Object );
 
     typedef itk::RGBPixel<double> Color;
 

@@ -36,7 +36,7 @@ namespace mitk
   {
     public:
 
-      mitkClassMacro(DICOMGDCMImageFrameInfo, itk::LightObject);
+      mitkClassMacroItkParent(DICOMGDCMImageFrameInfo, itk::LightObject);
       itkNewMacro( DICOMGDCMImageFrameInfo );
       mitkNewMacro1Param( DICOMGDCMImageFrameInfo, const std::string&);
       mitkNewMacro2Param( DICOMGDCMImageFrameInfo, const std::string&, unsigned int );

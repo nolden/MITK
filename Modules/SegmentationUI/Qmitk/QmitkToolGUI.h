@@ -38,7 +38,7 @@ class MITKSEGMENTATIONUI_EXPORT QmitkToolGUI : public QWidget, public itk::Objec
   Q_OBJECT
 
   public:
-    mitkClassMacro(QmitkToolGUI, itk::Object);
+    mitkClassMacroItkParent(QmitkToolGUI, itk::Object);
 
     void SetTool( mitk::Tool* tool );
 

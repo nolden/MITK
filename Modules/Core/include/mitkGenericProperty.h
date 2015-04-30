@@ -132,14 +132,14 @@ protected:                                                    \
   PropertyName(const PropertyName&);                          \
   PropertyName(Type x);                                       \
 private:                                                      \
-  itk::LightObject::Pointer InternalClone() const;            \
+  itk::LightObject::Pointer InternalClone() const override;   \
 };
 
 #define mitkDefineGenericProperty(PropertyName,Type,DefaultValue)            \
   mitk::PropertyName::PropertyName()  : Superclass(DefaultValue) { }         \
   mitk::PropertyName::PropertyName(const PropertyName& other) : GenericProperty< Type >(other) {} \
   mitk::PropertyName::PropertyName(Type x) : Superclass(x) {}                \
-  itk::LightObject::Pointer mitk::PropertyName::InternalClone() const {      \
+  itk::LightObject::Pointer mitk::PropertyName::InternalClone() const { \
     itk::LightObject::Pointer result(new Self(*this));                       \
     result->UnRegister();                                                    \
     return result;                                                           \

@@ -27,7 +27,7 @@ class UnstructuredGridVtkWriterFactory : public itk::ObjectFactoryBase
 {
 public:
 
-  mitkClassMacro( mitk::UnstructuredGridVtkWriterFactory, itk::ObjectFactoryBase )
+  mitkClassMacroItkParent( mitk::UnstructuredGridVtkWriterFactory, itk::ObjectFactoryBase )
 
   /** Class methods used to interface with the registered factories. */
   virtual const char* GetITKSourceVersion(void) const override;

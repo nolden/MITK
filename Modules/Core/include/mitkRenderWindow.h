@@ -35,7 +35,7 @@ class vtkEventProvider;
 class MITKCORE_EXPORT RenderWindow: public mitk::RenderWindowBase, public itk::Object
 {
 public:
-  mitkClassMacro(RenderWindow, itk::Object);
+  mitkClassMacroItkParent(RenderWindow, itk::Object);
   itkFactorylessNewMacro(Self)
   itkCloneMacro(Self)
   mitkNewMacro1Param(Self, vtkRenderWindow*);

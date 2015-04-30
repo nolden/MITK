@@ -32,7 +32,7 @@ class DEPRECATED() MITKLEGACYIO_EXPORT PointSetWriterFactory : public itk::Objec
 {
 public:
 
-  mitkClassMacro( mitk::PointSetWriterFactory, itk::ObjectFactoryBase )
+  mitkClassMacroItkParent( mitk::PointSetWriterFactory, itk::ObjectFactoryBase )
 
   /** Class methods used to interface with the registered factories. */
   virtual const char* GetITKSourceVersion(void) const override;

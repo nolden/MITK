@@ -32,7 +32,7 @@ class DEPRECATED() MITKLEGACYIO_EXPORT ImageWriterFactory : public itk::ObjectFa
 {
 public:
 
-  mitkClassMacro( mitk::ImageWriterFactory, itk::ObjectFactoryBase )
+  mitkClassMacroItkParent( mitk::ImageWriterFactory, itk::ObjectFactoryBase )
 
   /** Class methods used to interface with the registered factories. */
   virtual const char* GetITKSourceVersion(void) const override;
