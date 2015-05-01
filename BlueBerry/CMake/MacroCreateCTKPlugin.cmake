@@ -19,7 +19,7 @@
 #! \param MOC_OPTIONS (optional) Additional options to pass to the Qt MOC compiler
 #! \param TEST_PLUGIN (option) Mark this plug-in as a testing plug-in.
 #! \param NO_INSTALL (option) Don't install this plug-in.
-macro(MACRO_CREATE_CTK_PLUGIN)
+macro(mitkFunctionCreatePlugin)
 
   cmake_parse_arguments(_PLUGIN "TEST_PLUGIN;NO_INSTALL;NO_QHP_TRANSFORM" "EXPORT_DIRECTIVE" "EXPORTED_INCLUDE_SUFFIXES;DOXYGEN_TAGFILES;MOC_OPTIONS" ${ARGN})
 

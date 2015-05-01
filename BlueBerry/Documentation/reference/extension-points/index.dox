@@ -20,6 +20,7 @@ of the platform infrastructure:
 <h3><a name="runtime"></a>Platform Runtime</h3>
 <ul>
   <li>\subpage xp_org_blueberry_osgi_applications
+  <li>\subpage xp_org_blueberry_core_runtime_products
 </ul>
 
 <h3><a name="workbench"></a>Workbench</h3>
@@ -54,6 +55,9 @@ of the platform infrastructure:
 
 \page xp_org_blueberry_osgi_applications org.blueberry.osgi.applications
 \htmlinclude org_blueberry_osgi_applications.html
+
+\page xp_org_blueberry_core_runtime_products org.blueberry.core.runtime.products
+\htmlinclude org_blueberry_core_runtime_products.html
 
 
 \page xp_org_blueberry_ui_elementFactories org.blueberry.ui.elementFactories
