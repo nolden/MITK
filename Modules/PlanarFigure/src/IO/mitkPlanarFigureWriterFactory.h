@@ -27,7 +27,7 @@ class PlanarFigureWriterFactory : public itk::ObjectFactoryBase
 {
 public:
 
-  mitkClassMacro( mitk::PlanarFigureWriterFactory, itk::ObjectFactoryBase )
+  mitkClassMacroItkParent( mitk::PlanarFigureWriterFactory, itk::ObjectFactoryBase )
 
   /** Class methods used to interface with the registered factories. */
   virtual const char* GetITKSourceVersion(void) const;

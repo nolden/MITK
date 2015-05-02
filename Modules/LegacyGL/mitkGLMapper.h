@@ -78,7 +78,7 @@ class MITKLEGACYGL_EXPORT GLMapper : public Mapper
    *  \return false, since all mappers deriving from this class are OpenGL mappers
    *  \deprecatedSince{2013_03} All mappers of superclass VTKMapper are vtk based, use a dynamic_cast instead
    */
-   DEPRECATED( virtual bool IsVtkBased() const );
+   DEPRECATED( virtual bool IsVtkBased() const override);
 
    /** \brief Returns whether this mapper allows picking in the renderwindow
    virtual bool IsPickable() const { return false; }*/

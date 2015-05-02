@@ -30,7 +30,7 @@ namespace mitk
   class MITKPLANARFIGURE_EXPORT ExtrudePlanarFigureFilter : public itk::ProcessObject
   {
   public:
-    mitkClassMacro(ExtrudePlanarFigureFilter, itk::ProcessObject);
+    mitkClassMacroItkParent(ExtrudePlanarFigureFilter, itk::ProcessObject);
     itkFactorylessNewMacro(Self)
     itkCloneMacro(Self)
 
