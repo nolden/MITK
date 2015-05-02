@@ -38,7 +38,7 @@ public:
     mbilog::BackendCout();
   }
 
-  void ProcessMessage(const mbilog::LogMessage &l)
+  void ProcessMessage(const mbilog::LogMessage &l) override
   {
     m_Called = true;
     mbilog::BackendCout::ProcessMessage(l);
