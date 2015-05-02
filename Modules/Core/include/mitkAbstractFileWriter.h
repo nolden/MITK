@@ -79,7 +79,7 @@ public:
    * \see GetLocalFile()
    * \see IFileWriter::Write()
    */
-  virtual void Write() = 0;
+  virtual void Write() override = 0;
 
   virtual ConfidenceLevel GetConfidenceLevel() const;
 

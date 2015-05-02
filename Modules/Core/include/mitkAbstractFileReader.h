@@ -73,7 +73,7 @@ public:
    * @see GetLocalFileName()
    * @see IFileReader::Read()
    */
-  virtual std::vector<itk::SmartPointer<BaseData> > Read() = 0;
+  virtual std::vector<itk::SmartPointer<BaseData> > Read() override = 0;
 
   virtual DataStorage::SetOfObjects::Pointer Read(mitk::DataStorage& ds);
 
