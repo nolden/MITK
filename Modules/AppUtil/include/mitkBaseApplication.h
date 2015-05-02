@@ -228,7 +228,7 @@ public:
 protected:
 
   void initialize(Poco::Util::Application& self) override;
-  void uninitialize();
+  void uninitialize() override;
 
   int getArgc() const;
   char** getArgv() const;

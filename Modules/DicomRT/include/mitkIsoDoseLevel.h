@@ -78,7 +78,7 @@ namespace mitk
 
     mitkCloneMacro(IsoDoseLevel);
 
-    void PrintSelf(std::ostream &os, itk::Indent indent) const;
+    void PrintSelf(std::ostream &os, itk::Indent indent) const override;
 
   private:
     /** Relative dose value and lower boundary of the iso level instance

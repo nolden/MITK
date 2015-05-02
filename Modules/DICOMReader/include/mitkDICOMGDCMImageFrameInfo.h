@@ -45,9 +45,9 @@ namespace mitk
 
       virtual ~DICOMGDCMImageFrameInfo();
 
-      virtual std::string GetTagValueAsString(const DICOMTag&) const;
+      virtual std::string GetTagValueAsString(const DICOMTag&) const override;
 
-      std::string GetFilenameIfAvailable() const;
+      std::string GetFilenameIfAvailable() const override;
 
       /// The frame that this objects refers to
       DICOMImageFrameInfo::Pointer GetFrameInfo() const;
