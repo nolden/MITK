@@ -241,8 +241,8 @@ bool LDAPExpr::GetMatchedObjectClasses(ObjectClassSet& objClasses) const
         {
           // if AND op and classes in several operands,
           // then only the intersection is possible.
-          LDAPExpr::ObjectClassSet::iterator it1 = objClasses.begin();
-          LDAPExpr::ObjectClassSet::iterator it2 = r.begin();
+          auto it1 = objClasses.begin();
+          auto it2 = r.begin();
           while ( (it1 != objClasses.end()) && (it2 != r.end()) )
           {
             if (*it1 < *it2)
@@ -395,7 +395,7 @@ bool LDAPExpr::Compare( const Any& obj, int op, const std::string& s ) const
     else if (objType == typeid(std::list<std::string>))
     {
       const std::list<std::string>& list = ref_any_cast<std::list<std::string> >(obj);
-      for (std::list<std::string>::const_iterator it = list.begin();
+      for (auto it = list.begin();
            it != list.end(); ++it)
       {
          if (CompareString(*it, op, s))
@@ -453,7 +453,7 @@ bool LDAPExpr::Compare( const Any& obj, int op, const std::string& s ) const
     else if (objType == typeid(float))
     {
       errno = 0;
-      char* endptr = 0;
+      char* endptr = nullptr;
       double sFloat = strtod(s.c_str(), &endptr);
       if ((errno == ERANGE && (sFloat == 0 || sFloat == HUGE_VAL || sFloat == -HUGE_VAL)) ||
           (errno != 0 && sFloat == 0) || endptr == s.c_str())
@@ -477,7 +477,7 @@ bool LDAPExpr::Compare( const Any& obj, int op, const std::string& s ) const
     else if (objType == typeid(double))
     {
       errno = 0;
-      char* endptr = 0;
+      char* endptr = nullptr;
       double sDouble = strtod(s.c_str(), &endptr);
       if ((errno == ERANGE && (sDouble == 0 || sDouble == HUGE_VAL || sDouble == -HUGE_VAL)) ||
           (errno != 0 && sDouble == 0) || endptr == s.c_str())
@@ -520,7 +520,7 @@ template<typename T>
 bool LDAPExpr::CompareIntegralType(const Any& obj, const int op, const std::string& s) const
 {
   errno = 0;
-  char* endptr = 0;
+  char* endptr = nullptr;
   long longInt = strtol(s.c_str(), &endptr, 10);
   if ((errno == ERANGE && (longInt == std::numeric_limits<long>::max() || longInt == std::numeric_limits<long>::min())) ||
        (errno != 0 && longInt == 0) || endptr == s.c_str())

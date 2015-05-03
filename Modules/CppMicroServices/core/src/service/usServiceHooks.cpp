@@ -146,17 +146,15 @@ void ServiceHooks::FilterServiceEventReceivers(const ServiceEvent& evt,
   {
     std::sort(eventListenerHooks.begin(), eventListenerHooks.end());
     std::map<ModuleContext*, std::vector<ServiceListenerHook::ListenerInfo> > listeners;
-    for (ServiceListeners::ServiceListenerEntries::iterator sleIter = receivers.begin(),
-         sleEnd = receivers.end(); sleIter != sleEnd; ++sleIter)
+    for (const auto & receiver : receivers)
     {
-      listeners[sleIter->GetModuleContext()].push_back(*sleIter);
+      listeners[receiver.GetModuleContext()].push_back(receiver);
     }
 
     std::map<ModuleContext*, ShrinkableVector<ServiceListenerHook::ListenerInfo> > shrinkableListeners;
-    for (std::map<ModuleContext*, std::vector<ServiceListenerHook::ListenerInfo> >::iterator iter = listeners.begin(),
-         iterEnd = listeners.end(); iter != iterEnd; ++iter)
+    for (auto & listener : listeners)
     {
-      shrinkableListeners.insert(std::make_pair(iter->first, ShrinkableVector<ServiceListenerHook::ListenerInfo>(iter->second)));
+      shrinkableListeners.insert(std::make_pair(listener.first, ShrinkableVector<ServiceListenerHook::ListenerInfo>(listener.second)));
     }
 
     ShrinkableMap<ModuleContext*, ShrinkableVector<ServiceListenerHook::ListenerInfo> > filtered(shrinkableListeners);
@@ -185,10 +183,9 @@ void ServiceHooks::FilterServiceEventReceivers(const ServiceEvent& evt,
       }
     }
     receivers.clear();
-    for(std::map<ModuleContext*, std::vector<ServiceListenerHook::ListenerInfo> >::iterator iter = listeners.begin(),
-        iterEnd = listeners.end(); iter != iterEnd; ++iter)
+    for(auto & listener : listeners)
     {
-      receivers.insert(iter->second.begin(), iter->second.end());
+      receivers.insert(listener.second.begin(), listener.second.end());
     }
   }
 }
@@ -254,10 +251,9 @@ void ServiceHooks::HandleServiceListenerUnreg(const std::vector<ServiceListenerE
   if (!srl.empty())
   {
     std::vector<ServiceListenerHook::ListenerInfo> lis;
-    for (std::vector<ServiceListenerEntry>::const_iterator sleIter = set.begin(),
-         sleEnd = set.end(); sleIter != sleEnd; ++sleIter)
+    for (const auto & elem : set)
     {
-      lis.push_back(*sleIter);
+      lis.push_back(elem);
     }
 
     std::sort(srl.begin(), srl.end());

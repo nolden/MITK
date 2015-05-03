@@ -20,26 +20,24 @@ public:
 
   void Added(const std::vector<ListenerInfo>& listeners) override
   {
-    for (std::vector<ListenerInfo>::const_iterator iter = listeners.begin(),
-         endIter = listeners.end(); iter != endIter; ++iter)
+    for (const auto & listener : listeners)
     {
       // Lock the tracked object for thread-safe access
 
-      if (iter->IsRemoved()) return;
-      tracked.insert(std::make_pair(*iter, Tracked()));
+      if (listener.IsRemoved()) return;
+      tracked.insert(std::make_pair(listener, Tracked()));
     }
   }
 
   void Removed(const std::vector<ListenerInfo>& listeners) override
   {
-    for (std::vector<ListenerInfo>::const_iterator iter = listeners.begin(),
-         endIter = listeners.end(); iter != endIter; ++iter)
+    for (const auto & listener : listeners)
     {
       // Lock the tracked object for thread-safe access
 
       // If we got a corresponding "Added" event before, the Tracked
       // destructor will do some cleanup...
-      tracked.erase(*iter);
+      tracked.erase(listener);
     }
   }
 };

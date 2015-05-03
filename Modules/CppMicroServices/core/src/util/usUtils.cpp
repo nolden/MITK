@@ -71,11 +71,11 @@ const char DIR_SEP = '/';
 bool load_impl(const std::string& modulePath)
 {
   void* handle = dlopen(modulePath.c_str(), RTLD_NOW | RTLD_LOCAL);
-  if (handle == NULL)
+  if (handle == nullptr)
   {
     US_WARN << dlerror();
   }
-  return (handle != NULL);
+  return (handle != nullptr);
 }
 
 #elif defined(US_PLATFORM_WINDOWS)
@@ -138,10 +138,10 @@ std::vector<std::string> AutoLoadModulesFromPath(const std::string& absoluteBase
   }
 #endif
 
-  if (dir != NULL)
+  if (dir != nullptr)
   {
-    struct dirent *ent = NULL;
-    while ((ent = readdir(dir)) != NULL)
+    struct dirent *ent = nullptr;
+    while ((ent = readdir(dir)) != nullptr)
     {
       bool loadFile = true;
 #ifdef _DIRENT_HAVE_D_TYPE
@@ -199,7 +199,7 @@ std::vector<std::string> AutoLoadModules(const ModuleInfo& moduleInfo)
   std::size_t indexOfLastSeparator = moduleInfo.location.find_last_of(DIR_SEP);
   std::string moduleBasePath = moduleInfo.location.substr(0, indexOfLastSeparator);
 
-  for (ModuleSettings::PathList::iterator i = autoLoadPaths.begin();
+  for (auto i = autoLoadPaths.begin();
        i != autoLoadPaths.end(); ++i)
   {
     if (*i == ModuleSettings::CURRENT_MODULE_PATH())
@@ -213,7 +213,7 @@ std::vector<std::string> AutoLoadModules(const ModuleInfo& moduleInfo)
   // We could have introduced a duplicate above, so remove it.
   std::sort(autoLoadPaths.begin(), autoLoadPaths.end());
   autoLoadPaths.erase(std::unique(autoLoadPaths.begin(), autoLoadPaths.end()), autoLoadPaths.end());
-  for (ModuleSettings::PathList::iterator i = autoLoadPaths.begin();
+  for (auto i = autoLoadPaths.begin();
        i != autoLoadPaths.end(); ++i)
   {
     if (i->empty()) continue;
@@ -258,7 +258,7 @@ std::string GetLastErrorStr()
 #endif
 }
 
-static MsgHandler handler = 0;
+static MsgHandler handler = nullptr;
 
 MsgHandler installMsgHandler(MsgHandler h)
 {
@@ -309,7 +309,7 @@ US_Core_EXPORT ::std::string GetDemangledName(const ::std::type_info& typeInfo)
   ::std::string result;
 #ifdef US_HAVE_CXXABI_H
   int status = 0;
-  char* demangled = abi::__cxa_demangle(typeInfo.name(), 0, 0, &status);
+  char* demangled = abi::__cxa_demangle(typeInfo.name(), nullptr, nullptr, &status);
   if (demangled && status == 0)
   {
     result = demangled;
