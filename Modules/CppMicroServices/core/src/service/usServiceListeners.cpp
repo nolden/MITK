@@ -96,10 +96,9 @@ void ServiceListeners::ModuleChanged(const ModuleEvent& evt)
   ModuleListenerMap filteredModuleListeners;
   coreCtx->moduleHooks.FilterModuleEventReceivers(evt, filteredModuleListeners);
 
-  for(ModuleListenerMap::iterator iter = filteredModuleListeners.begin(), end = filteredModuleListeners.end();
-      iter != end; ++iter)
+  for(auto & filteredModuleListener : filteredModuleListeners)
   {
-    for (ModuleListenerMap::mapped_type::iterator iter2 = iter->second.begin(), end2 = iter->second.end();
+    for (ModuleListenerMap::mapped_type::iterator iter2 = filteredModuleListener.second.begin(), end2 = filteredModuleListener.second.end();
          iter2 != end2; ++iter2)
     {
       try
@@ -244,10 +243,9 @@ std::vector<ServiceListenerHook::ListenerInfo> ServiceListeners::GetListenerInfo
   US_UNUSED(Lock(this));
   std::vector<ServiceListenerHook::ListenerInfo> result;
   result.reserve(serviceSet.size());
-  for (ServiceListenerEntries::const_iterator iter = serviceSet.begin(),
-       iterEnd = serviceSet.end(); iter != iterEnd; ++iter)
+  for (const auto & elem : serviceSet)
   {
-    result.push_back(*iter);
+    result.push_back(elem);
   }
   return result;
 }

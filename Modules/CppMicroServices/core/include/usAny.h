@@ -167,7 +167,7 @@ public:
   /**
    * Creates an empty any type.
    */
-  Any(): _content(0)
+  Any(): _content(nullptr)
   { }
 
   /**
@@ -192,7 +192,7 @@ public:
    * \param other The Any to copy
    */
   Any(const Any& other)
-    : _content(other._content ? other._content->Clone() : 0)
+    : _content(other._content ? other._content->Clone() : nullptr)
   { }
 
   ~Any()
@@ -378,7 +378,7 @@ ValueType* any_cast(Any* operand)
 {
   return operand && operand->Type() == typeid(ValueType)
       ? &static_cast<Any::Holder<ValueType>*>(operand->_content)->_held
-      : 0;
+      : nullptr;
 }
 
 /**
@@ -506,7 +506,7 @@ std::string any_value_to_string(const std::map<K, Any>& m)
   std::stringstream ss;
   ss << "{";
   typedef typename std::map<K, Any>::const_iterator Iterator;
-  Iterator i1 = m.begin();
+  auto i1 = m.begin();
   const Iterator begin = i1;
   const Iterator end = m.end();
   for ( ; i1 != end; ++i1)
@@ -524,7 +524,7 @@ std::string any_value_to_string(const std::map<K, V>& m)
   std::stringstream ss;
   ss << "{";
   typedef typename std::map<K, V>::const_iterator Iterator;
-  Iterator i1 = m.begin();
+  auto i1 = m.begin();
   const Iterator begin = i1;
   const Iterator end = m.end();
   for ( ; i1 != end; ++i1)
@@ -542,7 +542,7 @@ std::string any_value_to_json(const std::map<K, Any>& m)
   std::stringstream ss;
   ss << "{";
   typedef typename std::map<K, Any>::const_iterator Iterator;
-  Iterator i1 = m.begin();
+  auto i1 = m.begin();
   const Iterator begin = i1;
   const Iterator end = m.end();
   for ( ; i1 != end; ++i1)
@@ -560,7 +560,7 @@ std::string any_value_to_json(const std::map<K, V>& m)
   std::stringstream ss;
   ss << "{";
   typedef typename std::map<K, V>::const_iterator Iterator;
-  Iterator i1 = m.begin();
+  auto i1 = m.begin();
   const Iterator begin = i1;
   const Iterator end = m.end();
   for ( ; i1 != end; ++i1)

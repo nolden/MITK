@@ -191,7 +191,7 @@ struct MakeInterfaceMap
    */
   template<class Impl>
   MakeInterfaceMap(Impl* impl)
-    : m_factory(NULL)
+    : m_factory(nullptr)
     , m_interface1(static_cast<I1*>(impl))
     , m_interface2(static_cast<I2*>(impl))
     , m_interface3(static_cast<I3*>(impl))
@@ -208,7 +208,7 @@ struct MakeInterfaceMap
     , m_interface2(NULL)
     , m_interface3(NULL)
   {
-    if (factory == NULL)
+    if (factory == nullptr)
     {
       throw ServiceException("The service factory argument must not be NULL.");
     }
@@ -241,7 +241,7 @@ struct MakeInterfaceMap<I1,I2,void>
 
   template<class Impl>
   MakeInterfaceMap(Impl* impl)
-    : m_factory(NULL)
+    : m_factory(nullptr)
     , m_interface1(static_cast<I1*>(impl))
     , m_interface2(static_cast<I2*>(impl))
   {}
@@ -251,7 +251,7 @@ struct MakeInterfaceMap<I1,I2,void>
     , m_interface1(NULL)
     , m_interface2(NULL)
   {
-    if (factory == NULL)
+    if (factory == nullptr)
     {
       throw ServiceException("The service factory argument must not be NULL.");
     }
@@ -281,7 +281,7 @@ struct MakeInterfaceMap<I1,void,void>
 
   template<class Impl>
   MakeInterfaceMap(Impl* impl)
-    : m_factory(NULL)
+    : m_factory(nullptr)
     , m_interface1(static_cast<I1*>(impl))
   {}
 
@@ -289,7 +289,7 @@ struct MakeInterfaceMap<I1,void,void>
     : m_factory(factory)
     , m_interface1(NULL)
   {
-    if (factory == NULL)
+    if (factory == nullptr)
     {
       throw ServiceException("The service factory argument must not be NULL.");
     }

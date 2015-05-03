@@ -45,7 +45,7 @@ ServicePropertiesImpl::ServicePropertiesImpl(const ServiceProperties& p)
   keys.reserve(p.size());
   values.reserve(p.size());
 
-  for (ServiceProperties::const_iterator iter = p.begin();
+  for (auto iter = p.begin();
        iter != p.end(); ++iter)
   {
     if (Find(iter->first) > -1)

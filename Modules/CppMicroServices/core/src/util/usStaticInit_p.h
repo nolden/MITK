@@ -57,7 +57,7 @@ struct DefaultGlobalStaticDeleter
   void operator()(GlobalStatic<T>& globalStatic) const
   {
     delete globalStatic.pointer;
-    globalStatic.pointer = 0;
+    globalStatic.pointer = nullptr;
     globalStatic.destroyed = true;
   }
 };
