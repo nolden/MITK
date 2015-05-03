@@ -67,9 +67,29 @@ namespace mitk
     };
 
     typedef std::vector<ContourPositionInformation> ContourPositionInformationList;
-    typedef std::map<mitk::Image*, ContourPositionInformationList> ContourListMap;
+    typedef std::vector<ContourPositionInformationList> ContourPositionInformationVec2D;
+    //typedef std::map<mitk::Image*, ContourPositionInformationList> ContourListMap;
+    typedef std::map<mitk::Image*, ContourPositionInformationVec2D> ContourListMap;
 
     static SurfaceInterpolationController* GetInstance();
+
+    void SetCurrentTimeStep( unsigned int ts )
+    {
+      if ( m_CurrentTimeStep != ts )
+      {
+        m_CurrentTimeStep = ts;
+
+        if ( m_SelectedSegmentation )
+        {
+          this->ReinitializeInterpolation();
+        }
+      }
+    };
+
+    unsigned int GetCurrentTimeStep()
+    {
+      return m_CurrentTimeStep;
+    };
 
     /**
      * @brief Adds a new extracted contour to the list
