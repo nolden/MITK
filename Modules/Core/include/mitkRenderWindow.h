@@ -83,7 +83,7 @@ public:
   void ReinitEventProvider();
 
 protected:
-  RenderWindow(vtkRenderWindow * existingRenderWindow = NULL , const char* name = "unnamed renderer", mitk::RenderingManager* rm = NULL, mitk::BaseRenderer::RenderingMode::Type rmtype = mitk::BaseRenderer::RenderingMode::Standard );
+  RenderWindow(vtkRenderWindow * existingRenderWindow = nullptr , const char* name = "unnamed renderer", mitk::RenderingManager* rm = nullptr, mitk::BaseRenderer::RenderingMode::Type rmtype = mitk::BaseRenderer::RenderingMode::Standard );
 
     void ResetView();
     vtkRenderWindow *               m_vtkRenderWindow;
