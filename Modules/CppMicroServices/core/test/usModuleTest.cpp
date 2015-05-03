@@ -300,10 +300,9 @@ int usModuleTest(int /*argc*/, char* /*argv*/[])
   //US_TEST_BEGIN("ModuleTest");
 
   std::vector<Module*> modules = ModuleRegistry::GetModules();
-  for (std::vector<Module*>::iterator iter = modules.begin(), iterEnd = modules.end();
-       iter != iterEnd; ++iter)
+  for (auto & module : modules)
   {
-    std::cout << "----- " << (*iter)->GetName() << std::endl;
+    std::cout << "----- " << (module)->GetName() << std::endl;
   }
 
   frame01();

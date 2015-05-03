@@ -127,7 +127,7 @@ bool ModuleManifest::Contains(const std::string& key) const
 
 Any ModuleManifest::GetValue(const std::string& key) const
 {
-  AnyMap::const_iterator iter = m_Properties.find(key);
+  auto iter = m_Properties.find(key);
   if (iter != m_Properties.end())
   {
     return iter->second;
@@ -138,7 +138,7 @@ Any ModuleManifest::GetValue(const std::string& key) const
 std::vector<std::string> ModuleManifest::GetKeys() const
 {
   std::vector<std::string> keys;
-  for (AnyMap::const_iterator iter = m_Properties.begin();
+  for (auto iter = m_Properties.begin();
        iter != m_Properties.end(); ++iter)
   {
     keys.push_back(iter->first);

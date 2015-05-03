@@ -103,10 +103,9 @@ void ModuleHooks::FilterModuleEventReceivers(const ModuleEvent& evt,
   if(!eventHooks.empty())
   {
     std::vector<ModuleContext*> moduleContexts;
-    for (ServiceListeners::ModuleListenerMap::iterator le = moduleListeners.begin(),
-         leEnd = moduleListeners.end(); le != leEnd; ++le)
+    for (auto & moduleListener : moduleListeners)
     {
-      moduleContexts.push_back(le->first);
+      moduleContexts.push_back(moduleListener.first);
     }
     std::sort(moduleContexts.begin(), moduleContexts.end());
     moduleContexts.erase(std::unique(moduleContexts.begin(), moduleContexts.end()), moduleContexts.end());
