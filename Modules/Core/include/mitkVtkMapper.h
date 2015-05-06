@@ -67,7 +67,7 @@ class MITKCORE_EXPORT VtkMapper : public Mapper
      * \brief Returns whether this is an vtk-based mapper
      * \deprecatedSince{2013_03} All mappers of superclass VTKMapper are vtk based, use a dynamic_cast instead
      */
-    DEPRECATED( virtual bool IsVtkBased() const );
+    DEPRECATED( virtual bool IsVtkBased() const override );
 
 
     /** \brief Determines which geometry should be rendered
