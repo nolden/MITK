@@ -41,7 +41,7 @@ public:
   typedef std::map<const BaseRenderer*,LayouterMap > LayouterRendererMap;
   typedef std::map<const BaseRenderer*,vtkSmartPointer<vtkRenderer> > ForegroundRendererMap;
 
-  mitkClassMacroItkParent(OverlayManager, itk::LightObject);
+  mitkClassMacro(OverlayManager, itk::LightObject);
   itkFactorylessNewMacro(Self)
   itkCloneMacro(Self)
 

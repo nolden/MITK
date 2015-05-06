@@ -81,7 +81,7 @@ class MITKCORE_EXPORT RenderingManager : public itk::Object
 {
 public:
 
-  mitkClassMacroItkParent(RenderingManager,itk::Object);
+  mitkClassMacro(RenderingManager,itk::Object);
 
   typedef std::vector< vtkRenderWindow* > RenderWindowVector;
   typedef std::vector< float > FloatVector;

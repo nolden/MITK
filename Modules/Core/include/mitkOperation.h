@@ -21,7 +21,7 @@ See LICENSE.txt or http://www.mitk.org for details.
 #include <MitkCoreExports.h>
 #include <itkEventObject.h>
 
-#include <mitkCommon.h>
+#include <itkMacro.h>
 
 namespace mitk {
 typedef int OperationType ;
@@ -33,7 +33,7 @@ typedef int OperationType ;
 class MITKCORE_EXPORT Operation
 {
 public:
-  mitkClassMacroNoParent(Operation)
+  itkTypeMacroNoParent(Operation)
 
   //##Documentation
   //## Constructor

@@ -32,7 +32,7 @@ namespace mitk {
   class MITKCORE_EXPORT Action : public itk::Object
   {
   public:
-    mitkClassMacroItkParent(Action, itk::Object);
+    mitkClassMacro(Action, itk::Object);
 
     /**
     * @brief static New method to use SmartPointer

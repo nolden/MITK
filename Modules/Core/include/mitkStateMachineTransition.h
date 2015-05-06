@@ -51,7 +51,7 @@ namespace mitk
     friend class StateMachineContainer;
 
   public:
-    mitkClassMacroItkParent(StateMachineTransition, itk::LightObject);
+    mitkClassMacro(StateMachineTransition, itk::LightObject);
     mitkNewMacro3Param(Self, const std::string&, const std::string&, const std::string&);
 
     SpStateMachineState GetNextState() const;

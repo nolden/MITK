@@ -48,7 +48,7 @@ namespace mitk {
   class MITKCORE_EXPORT DataStorage : public itk::Object
   {
   public:
-    mitkClassMacroItkParent(DataStorage, itk::Object);
+    mitkClassMacro(DataStorage, itk::Object);
 
     //##Documentation
     //## @brief A Container of objects that is used as a result set of GetSubset() query operations (Set of SmartPointers to DataNodes).

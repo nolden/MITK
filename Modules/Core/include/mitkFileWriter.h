@@ -31,7 +31,7 @@ namespace mitk {
 class MITKCORE_EXPORT FileWriter : public itk::ProcessObject
 {
   public:
-    mitkClassMacroItkParent(FileWriter,itk::ProcessObject);
+    mitkClassMacro(FileWriter,itk::ProcessObject);
     //##Documentation
     //## @brief Get the specified the file to write
     //##

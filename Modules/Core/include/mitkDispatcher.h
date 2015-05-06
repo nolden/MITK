@@ -48,7 +48,7 @@ namespace mitk
   {
 
   public:
-    mitkClassMacroItkParent(Dispatcher, itk::LightObject);
+    mitkClassMacro(Dispatcher, itk::LightObject);
     mitkNewMacro1Param(Self, const std::string&);
 
     typedef std::list<DataInteractor::Pointer> ListInteractorType;

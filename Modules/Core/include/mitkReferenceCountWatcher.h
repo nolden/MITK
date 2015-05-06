@@ -38,7 +38,7 @@ class ReferenceCountWatcher : public itk::Object
 public:
   typedef itk::SimpleMemberCommand<ReferenceCountWatcher> CommandType;
 
-  mitkClassMacroItkParent(ReferenceCountWatcher, itk::Object);
+  mitkClassMacro(ReferenceCountWatcher, itk::Object);
 
 protected:
   //##Documentation

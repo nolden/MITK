@@ -390,7 +390,7 @@ public:
 
   bool IsForceInForeground() const;
 
-  mitkClassMacroItkParent(Overlay, itk::Object);
+  mitkClassMacro(Overlay, itk::Object);
 
   static mitk::Point2D TransformDisplayPointToViewport(mitk::Point2D point, mitk::BaseRenderer *renderer);
 

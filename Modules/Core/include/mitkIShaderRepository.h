@@ -52,7 +52,7 @@ struct MITKCORE_EXPORT IShaderRepository
 
   public:
 
-    mitkClassMacroItkParent( Shader, itk::LightObject )
+    mitkClassMacro( Shader, itk::LightObject )
     itkFactorylessNewMacro( Self )
 
     ~Shader();
@@ -84,7 +84,7 @@ struct MITKCORE_EXPORT IShaderRepository
   public:
     virtual void Activate() = 0;
     virtual void Deactivate() = 0;
-    mitkClassMacroItkParent( ShaderProgram, itk::LightObject )
+    mitkClassMacro( ShaderProgram, itk::LightObject )
   };
 
 

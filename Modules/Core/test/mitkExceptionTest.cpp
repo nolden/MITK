@@ -30,7 +30,7 @@ class SpecializedTestException : public mitk::Exception
 class ExceptionTestClass : public itk::Object
 {
 public:
-  mitkClassMacroItkParent( ExceptionTestClass , itk::Object );
+  mitkClassMacro( ExceptionTestClass , itk::Object );
   itkFactorylessNewMacro(Self)
   itkCloneMacro(Self)
 

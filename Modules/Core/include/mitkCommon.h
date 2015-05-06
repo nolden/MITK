@@ -47,7 +47,7 @@ typedef unsigned int MapperSlotId;
   typedef itk::SmartPointer<Self> Pointer; \
   typedef itk::SmartPointer<const Self>  ConstPointer; \
   static const char* GetStaticNameOfClass() { return #className; } \
-  virtual std::vector<std::string> GetClassHierarchy() const override { return mitk::GetClassHierarchy<Self>(); } \
+  virtual std::vector<std::string> GetClassHierarchy() const { return mitk::GetClassHierarchy<Self>(); } \
   itkTypeMacro(className,SuperClassName)
 
 #define mitkClassMacroItkParent(className,SuperClassName) \

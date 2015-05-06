@@ -19,7 +19,7 @@ See LICENSE.txt or http://www.mitk.org for details.
 #define FILEREADER_H_HEADER_INCLUDED_C1E7E521
 
 #include <MitkCoreExports.h>
-#include <mitkCommon.h>
+#include <itkMacro.h>
 
 namespace mitk {
 
@@ -30,7 +30,7 @@ namespace mitk {
 class MITKCORE_EXPORT FileReader
 {
   public:
-    mitkClassMacroNoParent(FileReader)
+    itkTypeMacroNoParent(FileReader)
 
     //##Documentation
     //## @brief Get the specified the file to load.

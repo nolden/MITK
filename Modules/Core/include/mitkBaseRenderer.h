@@ -107,7 +107,7 @@ namespace mitk
 #pragma GCC visibility pop
 
     /** Standard class typedefs. */
-    mitkClassMacroItkParent(BaseRenderer, itk::Object);
+    mitkClassMacro(BaseRenderer, itk::Object);
 
     BaseRenderer(const char* name = NULL, vtkRenderWindow * renWin = NULL, mitk::RenderingManager* rm = NULL,RenderingMode::Type mode = RenderingMode::Standard);
 

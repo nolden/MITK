@@ -52,7 +52,7 @@ namespace mitk {
 class MITKCORE_EXPORT Stepper : public itk::Object
 {
 public:
-  mitkClassMacroItkParent(Stepper, itk::Object);
+  mitkClassMacro(Stepper, itk::Object);
   itkFactorylessNewMacro(Self)
   itkCloneMacro(Self)
 

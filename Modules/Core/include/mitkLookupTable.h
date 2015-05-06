@@ -53,7 +53,7 @@ public:
    */
   typedef unsigned char RawLookupTableType;
 
-  mitkClassMacroItkParent( LookupTable, itk::DataObject );
+  mitkClassMacro( LookupTable, itk::DataObject );
 
   itkFactorylessNewMacro(Self)
   itkCloneMacro(Self)

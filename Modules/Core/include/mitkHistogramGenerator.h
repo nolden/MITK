@@ -30,7 +30,7 @@ namespace mitk {
 class MITKCORE_EXPORT HistogramGenerator : public itk::Object
 {
 public:
-  mitkClassMacroItkParent(HistogramGenerator,itk::Object);
+  mitkClassMacro(HistogramGenerator,itk::Object);
 
   itkFactorylessNewMacro(Self)
   itkCloneMacro(Self)

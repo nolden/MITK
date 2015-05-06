@@ -32,7 +32,7 @@ namespace mitk
   {
 
   public:
-    mitkClassMacroItkParent(InteractionEvent,itk::LightObject)
+    mitkClassMacro(InteractionEvent,itk::LightObject)
     mitkNewMacro1Param(Self,BaseRenderer*)
 
     void SetSender(BaseRenderer* sender);
