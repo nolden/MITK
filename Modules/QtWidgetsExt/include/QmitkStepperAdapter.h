@@ -52,7 +52,7 @@ public:
   class MITKQTWIDGETSEXT_EXPORT ItkEventListener : public itk::Command
   {
     public:
-      mitkClassMacro(ItkEventListener, itk::Command);
+      mitkClassMacroItkParent(ItkEventListener, itk::Command);
       ItkEventListener(QmitkStepperAdapter* receiver) :
         m_Receiver(receiver)
       {

@@ -46,14 +46,14 @@ protected:
   {
     public:
 
-    mitkClassMacro( Shader, itk::Object )
+    mitkClassMacro( Shader, IShaderRepository::Shader )
     itkFactorylessNewMacro( Self )
 
     class Uniform : public itk::Object
     {
       public:
 
-      mitkClassMacro( Uniform, itk::Object )
+      mitkClassMacroItkParent( Uniform, itk::Object )
       itkFactorylessNewMacro( Self )
 
       enum Type
