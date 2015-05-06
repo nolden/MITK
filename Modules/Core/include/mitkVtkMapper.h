@@ -76,7 +76,7 @@ class MITKCORE_EXPORT VtkMapper : public Mapper
     *
     * Called by mitk::VtkPropRenderer::Render
     */
-    void MitkRender(mitk::BaseRenderer* renderer, mitk::VtkPropRenderer::RenderType type);
+    void MitkRender(mitk::BaseRenderer* renderer, mitk::VtkPropRenderer::RenderType type) override;
 
     /** \brief Checks visibility and renders the overlay */
     virtual void MitkRenderOverlay(BaseRenderer* renderer);
@@ -129,7 +129,7 @@ class MITKCORE_EXPORT VtkMapper : public Mapper
     * \brief Apply color and opacity properties read from the PropertyList.
     * Called by mapper subclasses.
     */
-    virtual void ApplyColorAndOpacityProperties(mitk::BaseRenderer* renderer, vtkActor * actor);
+    virtual void ApplyColorAndOpacityProperties(mitk::BaseRenderer* renderer, vtkActor * actor) override;
 
     /**
     * \brief  Release vtk-based graphics resources that are being consumed by this mapper.
