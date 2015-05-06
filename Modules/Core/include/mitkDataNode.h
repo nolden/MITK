@@ -78,7 +78,7 @@ public:
    */
   itkEventMacro(InteractorChangedEvent, itk::AnyEvent);
 
-  mitkClassMacro(DataNode, itk::DataObject);
+  mitkClassMacroItkParent(DataNode, itk::DataObject);
 
   itkFactorylessNewMacro(Self)
   itkCloneMacro(Self)

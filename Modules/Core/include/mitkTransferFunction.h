@@ -64,7 +64,7 @@ public:
   typedef std::vector<std::pair<double, itk::RGBPixel<double> > > RGBControlPoints;
 
 
-  mitkClassMacro(TransferFunction, itk::DataObject);
+  mitkClassMacroItkParent(TransferFunction, itk::DataObject);
 
   itkFactorylessNewMacro(Self)
   itkCloneMacro(Self)
