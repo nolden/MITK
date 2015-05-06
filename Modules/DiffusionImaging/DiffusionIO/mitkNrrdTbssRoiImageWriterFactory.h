@@ -27,7 +27,7 @@ class NrrdTbssRoiImageWriterFactory : public itk::ObjectFactoryBase
 {
 public:
 
-  mitkClassMacro( mitk::NrrdTbssRoiImageWriterFactory, itk::ObjectFactoryBase )
+  mitkClassMacroItkParent( mitk::NrrdTbssRoiImageWriterFactory, itk::ObjectFactoryBase )
 
   /** Class methods used to interface with the registered factories. */
   virtual const char* GetITKSourceVersion(void) const;

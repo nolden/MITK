@@ -41,7 +41,7 @@ class MITKDATATYPESEXT_EXPORT LookupTableSource : public itk::ProcessObject
 {
 public:
 
-    mitkClassMacro( LookupTableSource, itk::ProcessObject )
+    mitkClassMacroItkParent( LookupTableSource, itk::ProcessObject )
     itkFactorylessNewMacro(Self)
     itkCloneMacro(Self)
 

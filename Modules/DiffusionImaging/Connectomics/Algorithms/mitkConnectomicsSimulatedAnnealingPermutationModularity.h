@@ -36,7 +36,7 @@ namespace mitk
     /** Standard class typedefs. */
     /** Method for creation through the object factory. */
 
-    mitkClassMacro(ConnectomicsSimulatedAnnealingPermutationModularity, itk::Object);
+    mitkClassMacroItkParent(ConnectomicsSimulatedAnnealingPermutationModularity, itk::Object);
     itkFactorylessNewMacro(Self)
     itkCloneMacro(Self)
 
