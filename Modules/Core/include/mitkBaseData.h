@@ -159,7 +159,7 @@ public:
   //## that the geometry is updated by calling
   //## GetTimeGeometry()->UpdateInformation()
   //## \em after calling its source's BaseProcess::UpdateOutputInformation().
-  void UpdateOutputInformation();
+  void UpdateOutputInformation() override;
 
   //##Documentation
   //## @brief Set the RequestedRegion to the LargestPossibleRegion.
@@ -205,7 +205,7 @@ public:
   //## The default implementation of this method copies the time sliced geometry
   //## and the property list of an object. If a subclass overrides this
   //## method, it should always call its superclass' version.
-  void CopyInformation(const itk::DataObject* data);
+  void CopyInformation(const itk::DataObject* data) override;
 
   //##Documentation
   //## @brief Check whether the data has been initialized, i.e.,
@@ -254,7 +254,7 @@ public:
   //##
   //## Empty by default. Overwrite and implement all the necessary operations here
   //## and get the necessary information from the parameter operation.
-  void ExecuteOperation(Operation* operation);
+  void ExecuteOperation(Operation* operation) override;
 
   /**
   * \brief Set the BaseGeometry of the data, which will be referenced (not copied!).
@@ -363,12 +363,12 @@ public:
   //##Documentation
   //## @brief Get the modified time of the last change of the contents
   //## this data object or its geometry.
-  virtual unsigned long GetMTime() const;
+  virtual unsigned long GetMTime() const override;
 
   /**
    * \sa itk::ProcessObject::Graft
    */
-  virtual void Graft(const DataObject*);
+  virtual void Graft(const DataObject*) override;
 
 protected:
   BaseData();
@@ -403,7 +403,7 @@ protected:
   virtual void InitializeEmpty(){}
 
 
-  virtual void PrintSelf(std::ostream& os, itk::Indent indent) const;
+  virtual void PrintSelf(std::ostream& os, itk::Indent indent) const override;
 
   bool m_LastRequestedRegionWasOutsideOfTheBufferedRegion;
 
