@@ -45,8 +45,8 @@ public:
 
   virtual ~RenderWindow();
 
-  virtual vtkRenderWindow* GetVtkRenderWindow();
-  virtual vtkRenderWindowInteractor* GetVtkRenderWindowInteractor();
+  virtual vtkRenderWindow* GetVtkRenderWindow() override;
+  virtual vtkRenderWindowInteractor* GetVtkRenderWindowInteractor() override;
 
   // Set Layout Index to define the Layout Type
   void SetLayoutIndex( unsigned int layoutIndex );
