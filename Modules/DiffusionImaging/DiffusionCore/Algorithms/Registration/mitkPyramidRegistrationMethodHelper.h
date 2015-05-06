@@ -83,7 +83,7 @@ public:
   itkFactorylessNewMacro(Self)
   itkCloneMacro(Self)
 
-  void Execute(itk::Object *caller, const itk::EventObject & /*event*/)
+  void Execute(itk::Object *caller, const itk::EventObject & /*event*/) override
   {
     RegistrationType* registration = dynamic_cast< RegistrationType* >( caller );
 
@@ -111,7 +111,7 @@ public:
    // optimizer->SetNumberOfIterations( optimizer->GetNumberOfIterations() * 1.5f );
   }
 
-  void Execute(const itk::Object * /*object*/, const itk::EventObject & /*event*/){}
+  void Execute(const itk::Object * /*object*/, const itk::EventObject & /*event*/) override{}
 };
 
 #include <itkGradientDescentLineSearchOptimizerv4.h>
@@ -127,7 +127,7 @@ public:
   itkFactorylessNewMacro(Self)
   itkCloneMacro(Self)
 
-  void Execute(itk::Object *caller, const itk::EventObject & /*event*/)
+  void Execute(itk::Object *caller, const itk::EventObject & /*event*/) override
   {
     RegistrationType* registration = dynamic_cast< RegistrationType* >( caller );
 
@@ -153,7 +153,7 @@ public:
 
   }
 
-  void Execute(const itk::Object * /*object*/, const itk::EventObject & /*event*/){}
+  void Execute(const itk::Object * /*object*/, const itk::EventObject & /*event*/) override{}
 };
 
 
@@ -165,7 +165,7 @@ public:
   itkFactorylessNewMacro(Self)
   itkCloneMacro(Self)
 
-  void Execute(itk::Object *caller, const itk::EventObject & /*event*/)
+  void Execute(itk::Object *caller, const itk::EventObject & /*event*/) override
   {
 
     OptimizerType* optimizer = dynamic_cast< OptimizerType* >( caller );
@@ -175,7 +175,7 @@ public:
 
   }
 
-  void Execute(const itk::Object * /*object*/, const itk::EventObject & /*event*/)
+  void Execute(const itk::Object * /*object*/, const itk::EventObject & /*event*/) override
   {
 
   }
@@ -187,7 +187,7 @@ class OptimizerIterationCommandv4 : public itk::Command
 public:
   itkNewMacro( OptimizerIterationCommandv4 )
 
-  void Execute(itk::Object *object, const itk::EventObject & event)
+  void Execute(itk::Object *object, const itk::EventObject & event) override
   {
     OptimizerType* optimizer = dynamic_cast< OptimizerType* >( object );
 
@@ -201,7 +201,7 @@ public:
 
   }
 
-  void Execute(const itk::Object * /*object*/, const itk::EventObject & /*event*/)
+  void Execute(const itk::Object * /*object*/, const itk::EventObject & /*event*/) override
   {
 
 

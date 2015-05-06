@@ -64,7 +64,7 @@ class MITKLEGACYGL_EXPORT GLMapper : public Mapper
     /** \brief Apply color and opacity properties read from the PropertyList.
     * The actor is not used in the GLMappers. Called by mapper subclasses.
     */
-     virtual void ApplyColorAndOpacityProperties(mitk::BaseRenderer* renderer, vtkActor* actor = NULL);
+     virtual void ApplyColorAndOpacityProperties(mitk::BaseRenderer* renderer, vtkActor* actor = NULL) override;
 
 
     /** \brief Checks visibility and calls the paint method
@@ -72,7 +72,7 @@ class MITKLEGACYGL_EXPORT GLMapper : public Mapper
     * Note: The enumeration is disregarded, since OpenGL rendering only needs a
     * single render pass.
     */
-    void MitkRender(mitk::BaseRenderer* renderer, mitk::VtkPropRenderer::RenderType type);
+    void MitkRender(mitk::BaseRenderer* renderer, mitk::VtkPropRenderer::RenderType type) override;
 
    /** \brief Returns  whether this is a vtk-based mapper
    *  \return false, since all mappers deriving from this class are OpenGL mappers
