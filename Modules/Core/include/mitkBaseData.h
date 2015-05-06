@@ -166,7 +166,7 @@ public:
   //##
   //## This forces a filter to produce all of the output in one execution
   //## (i.e. not streaming) on the next call to Update().
-  virtual void SetRequestedRegionToLargestPossibleRegion()=0;
+  virtual void SetRequestedRegionToLargestPossibleRegion() override = 0;
 
   //##Documentation
   //## @brief Determine whether the RequestedRegion is outside of the BufferedRegion.
@@ -179,7 +179,7 @@ public:
   //## inside the BufferedRegion from the previous execution (and the
   //## current filter is up to date), then a given filter does not need
   //## to re-execute
-  virtual bool RequestedRegionIsOutsideOfTheBufferedRegion()=0;
+  virtual bool RequestedRegionIsOutsideOfTheBufferedRegion() override = 0;
 
   //##Documentation
   //## @brief Verify that the RequestedRegion is within the LargestPossibleRegion.
@@ -192,7 +192,7 @@ public:
   //## PropagateRequestedRegion().  PropagateRequestedRegion() throws a
   //## InvalidRequestedRegionError exception if the requested region is
   //## not within the LargestPossibleRegion.
-  virtual bool VerifyRequestedRegion() = 0;
+  virtual bool VerifyRequestedRegion() override = 0;
 
   //##Documentation
   //## @brief Copy information from the specified data set.
@@ -247,7 +247,7 @@ public:
   //## region of the data object passed in as a parameter.
   //##
   //## This method is implemented in the concrete subclasses of BaseData.
-  virtual void SetRequestedRegion(const itk::DataObject *data)=0;
+  virtual void SetRequestedRegion(const itk::DataObject *data) override = 0;
 
   //##Documentation
   //##@brief overwrite if the Data can be called by an Interactor (StateMachine).
