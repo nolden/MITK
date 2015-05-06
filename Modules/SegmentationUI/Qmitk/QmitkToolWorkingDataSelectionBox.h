@@ -60,7 +60,7 @@ public:
   */
   enum DisplayMode { ListDataIfAllToolsMatch, ListDataIfAnyToolMatches};
 
-  QmitkToolWorkingDataSelectionBox(QWidget* parent = 0);
+  QmitkToolWorkingDataSelectionBox(QWidget* parent = nullptr);
   virtual ~QmitkToolWorkingDataSelectionBox();
 
   mitk::DataStorage* GetDataStorage();
