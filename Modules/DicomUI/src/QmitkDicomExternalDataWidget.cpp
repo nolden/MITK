@@ -175,7 +175,7 @@ void QmitkDicomExternalDataWidget::OnStartDicomImport(const QString &directory)
   // appears by receiving the progress signal from the external indexer
 
   m_LastImportDirectory = directory;
-  m_ExternalIndexer->addDirectory(*m_ExternalDatabase, m_LastImportDirectory);
+  m_ExternalIndexer->addDirectory(m_ExternalDatabase, m_LastImportDirectory);
 }
 
 void QmitkDicomExternalDataWidget::OnSeriesSelectionChanged(const QStringList &s)

@@ -934,7 +934,8 @@ void QmitkExtWorkbenchWindowAdvisor::PostWindowCreate()
 void QmitkExtWorkbenchWindowAdvisor::PreWindowOpen()
 {
   berry::IWorkbenchWindowConfigurer::Pointer configurer = GetWindowConfigurer();
-
+  QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+  std::cout << "Setting high dpi" << std::endl;
   // show the shortcut bar and progress indicator, which are hidden by
   // default
   //configurer->SetShowPerspectiveBar(true);

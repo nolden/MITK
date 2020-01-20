@@ -41,9 +41,8 @@ if(NOT DEFINED GDCM_DIR)
 
   ExternalProject_Add(${proj}
      LIST_SEPARATOR ${sep}
-     URL ${MITK_THIRDPARTY_DOWNLOAD_PREFIX_URL}/gdcm-2.6.3.tar.bz2
-     URL_MD5 52d398f48e672f1949914f6b3e2d528c
-     PATCH_COMMAND ${PATCH_COMMAND} -N -p1 -i ${CMAKE_CURRENT_LIST_DIR}/GDCM.patch
+     URL https://sourceforge.net/projects/gdcm/files/gdcm%202.x/GDCM%202.8.8/gdcm-2.8.8.tar.bz2/download
+     # PATCH_COMMAND ${PATCH_COMMAND} -N -p1 -i ${CMAKE_CURRENT_LIST_DIR}/GDCM.patch
      CMAKE_GENERATOR ${gen}
      CMAKE_GENERATOR_PLATFORM ${gen_platform}
      CMAKE_ARGS
