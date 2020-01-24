@@ -20,6 +20,7 @@ found in the LICENSE file.
 // Qt
 #include <QCheckBox>
 #include <QMessageBox>
+#include <QTemporaryFile>
 
 const std::string QmitkDicomExternalDataWidget::Widget_ID = "org.mitk.Widgets.QmitkDicomExternalDataWidget";
 
@@ -81,7 +82,12 @@ void QmitkDicomExternalDataWidget::Initialize()
 
   try
   {
-    m_ExternalDatabase->openDatabase(QString(":memory:"), QString("EXTERNAL-DB"));
+      // this used to be an in-memory database, but latest CTK enhancements made it difficult
+      // to maintain this mechanism
+      QTemporaryFile tmpDatabaseFile;
+      tmpDatabaseFile.open();
+      tmpDatabaseFile.setAutoRemove(false);
+      m_ExternalDatabase->openDatabase(tmpDatabaseFile.fileName(), QString("EXTERNAL-DB"));
   }
   catch (const std::exception&)
   {
