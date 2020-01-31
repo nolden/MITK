@@ -30,8 +30,8 @@ if(MITK_USE_DCMTK)
 
     ExternalProject_Add(${proj}
       LIST_SEPARATOR ${sep}
-      URL ftp://dicom.offis.de/pub/dicom/offis/software/dcmtk/dcmtk364/dcmtk-3.6.4.tar.gz
-      URL_MD5 97597439a2ae7a39086066318db5f3bc
+      URL ftp://dicom.offis.de/pub/dicom/offis/software/dcmtk/dcmtk365/dcmtk-3.6.5.tar.gz
+      URL_MD5 e19707f64ee5695c496b9c1e48e39d07
       CMAKE_GENERATOR ${gen}
       CMAKE_GENERATOR_PLATFORM ${gen_platform}
       CMAKE_ARGS
