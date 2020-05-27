@@ -13,6 +13,7 @@ found in the LICENSE file.
 #ifndef PIXELTYPETRAITS_H
 #define PIXELTYPETRAITS_H
 
+#include <itkCommonEnums.h>
 #include <itkDiffusionTensor3D.h>
 #include <itkImage.h>
 #include <itkImageIOBase.h>
@@ -47,8 +48,6 @@ namespace itk
 
 namespace mitk
 {
-  static const int PixelUserType = itk::ImageIOBase::MATRIX + 1;
-  static const int PixelComponentUserType = itk::ImageIOBase::DOUBLE + 1;
 
   /**
    * Maps pixel component types (primitive types like int, short, double, etc. and custom

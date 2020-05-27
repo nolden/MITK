@@ -13,13 +13,11 @@ found in the LICENSE file.
 #ifndef BaseGeometry_H_HEADER_INCLUDED
 #define BaseGeometry_H_HEADER_INCLUDED
 
-#include "mitkOperationActor.h"
 #include <MitkCoreExports.h>
 #include <mitkCommon.h>
 
 #include "itkScalableAffineTransform.h"
 #include "mitkNumericTypes.h"
-#include <itkAffineGeometryFrame.h>
 #include <itkBoundingBox.h>
 #include <itkIndex.h>
 #include <itkQuaternionRigidTransform.h>
@@ -44,8 +42,6 @@ namespace mitk
   //## @brief Standard typedef for time-bounds
   typedef itk::FixedArray<ScalarType, 2> TimeBounds;
   typedef itk::FixedArray<ScalarType, 3> FixedArrayType;
-
-  typedef itk::AffineGeometryFrame<ScalarType, 3> AffineGeometryFrame3D;
 
   //##Documentation
   //## @brief BaseGeometry Describes the geometry of a data object

@@ -375,18 +375,18 @@ namespace mitk
     {
       AbstractDelegate *msgCmd = delegate.Clone();
 
-      m_Mutex.Lock();
+      m_Mutex.lock();
       for (auto iter = m_Listeners.begin(); iter != m_Listeners.end(); ++iter)
       {
         if ((*iter)->operator==(msgCmd))
         {
           delete msgCmd;
-          m_Mutex.Unlock();
+          m_Mutex.unlock();
           return;
         }
       }
       m_Listeners.push_back(msgCmd);
-      m_Mutex.Unlock();
+      m_Mutex.unlock();
     }
 
     void operator+=(const AbstractDelegate &delegate) const { this->AddListener(delegate); }
