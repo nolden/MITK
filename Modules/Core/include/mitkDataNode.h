@@ -547,13 +547,13 @@ namespace mitk
      * \brief Get the timestamp of the last change of the contents of this node or
      * the referenced BaseData.
      */
-    unsigned long GetMTime() const override;
+    itk::ModifiedTimeType GetMTime() const override;
 
     /**
      * \brief Get the timestamp of the last change of the reference to the
      * BaseData.
      */
-    unsigned long GetDataReferenceChangedTime() const { return m_DataReferenceChangedTime.GetMTime(); }
+    itk::ModifiedTimeType GetDataReferenceChangedTime() const { return m_DataReferenceChangedTime.GetMTime(); }
 
   protected:
     DataNode();
