@@ -40,7 +40,7 @@ itk::ImageIOBase::IOPixelType mitk::PixelType::GetPixelType() const
   return m_PixelType;
 }
 
-itk::ItkIOComponentType mitk::PixelType::GetComponentType() const
+itk::CommonEnums::IOComponent mitk::PixelType::GetComponentType() const
 {
   return m_ComponentType;
 }
@@ -84,7 +84,7 @@ mitk::PixelType::~PixelType()
 {
 }
 
-mitk::PixelType::PixelType(const int componentType,
+mitk::PixelType::PixelType(itk::CommonEnums::IOComponent componentType,
                            const ItkIOPixelType pixelType,
                            std::size_t bytesPerComponent,
                            std::size_t numberOfComponents,

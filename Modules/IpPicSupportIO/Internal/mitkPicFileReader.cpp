@@ -72,7 +72,7 @@ static mitk::ImageDescriptor::Pointer CastToImageDescriptor(mitkIpPicDescriptor 
   return imDescriptor;
 }
 
-static mitkIpPicType_t CastToIpPicType(int intype)
+static mitkIpPicType_t CastToIpPicType(itk::CommonEnums::IOComponent intype)
 {
   const bool isSignedIntegralType = (intype == itk::ImageIOBase::INT || intype == itk::ImageIOBase::SHORT ||
     intype == itk::ImageIOBase::CHAR || intype == itk::ImageIOBase::LONG);

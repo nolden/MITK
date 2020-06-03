@@ -35,7 +35,7 @@ void mitk::LoggingBackend::EnableAdditionalConsoleWindow(bool enable)
 
 void mitk::LoggingBackend::ProcessMessage(const mbilog::LogMessage &l)
 {
-  logMutex.Lock();
+  logMutex.lock();
 #ifdef _WIN32
   FormatSmart(l, (int)GetCurrentThreadId());
 #else
@@ -94,7 +94,7 @@ void mitk::LoggingBackend::SetLogFile(const char *file)
     bool closed = false;
     std::string closedFileName;
 
-    logMutex.Lock();
+    logMutex.lock();
     if (logFile)
     {
       closed = true;
@@ -114,7 +114,7 @@ void mitk::LoggingBackend::SetLogFile(const char *file)
   // opening new logfile
   if (file)
   {
-    logMutex.Lock();
+    logMutex.lock();
 
     logFileName = file;
     logFile = new std::ofstream();
