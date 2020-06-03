@@ -65,7 +65,7 @@ void mitk::LoggingBackend::ProcessMessage(const mbilog::LogMessage &l)
 #endif
     itk::OutputWindow::GetInstance()->DisplayText(outputWindow->str().c_str());
   }
-  logMutex.Unlock();
+  logMutex.unlock();
 }
 
 void mitk::LoggingBackend::Register()
@@ -104,7 +104,7 @@ void mitk::LoggingBackend::SetLogFile(const char *file)
       logFile = nullptr;
       logFileName = "";
     }
-    logMutex.Unlock();
+    logMutex.unlock();
     if (closed)
     {
       MITK_INFO << "closing logfile (" << closedFileName << ")";
@@ -123,14 +123,14 @@ void mitk::LoggingBackend::SetLogFile(const char *file)
 
     if (logFile->good())
     {
-      logMutex.Unlock();
+      logMutex.unlock();
       MITK_INFO << "Logfile: " << logFileName;
     }
     else
     {
       delete logFile;
       logFile = nullptr;
-      logMutex.Unlock();
+      logMutex.unlock();
       MITK_WARN << "opening logfile '" << file << "' for writing failed";
     }
 

@@ -66,7 +66,7 @@ ITK_THREAD_RETURN_TYPE ThreadMethod(void *data)
     {
       testMutex.Lock();
       mitk::ImageDataItem *iDi = im->GetSliceData(rand() % nrSlices);
-      testMutex.Unlock();
+      testMutex.unlock();
       while (!iDi->IsComplete())
       {
       }
@@ -104,7 +104,7 @@ ITK_THREAD_RETURN_TYPE ThreadMethod(void *data)
     {
       testMutex.Lock();
       mitk::ImageDataItem *iDi = im->GetSliceData(rand() % nrSlices);
-      testMutex.Unlock();
+      testMutex.unlock();
       while (!iDi->IsComplete())
       {
       }

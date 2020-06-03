@@ -64,7 +64,7 @@ namespace mitk
      * may contain m_NumberOfComponents (more than one) of these scalars.
      *
      */
-    int GetComponentType() const;
+    itk::CommonEnums::IOComponent GetComponentType() const;
 
     /**
      * \brief Returns a string containing the ITK pixel type name.
@@ -143,7 +143,7 @@ namespace mitk
     /** \brief the \a type_info of the scalar (!) component type. Each element
       may contain m_NumberOfComponents (more than one) of these scalars.
     */
-    int m_ComponentType;
+    ItkIOComponentType m_ComponentType;
 
     ItkIOPixelType m_PixelType;
 

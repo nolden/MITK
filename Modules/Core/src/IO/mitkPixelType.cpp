@@ -40,7 +40,7 @@ itk::ImageIOBase::IOPixelType mitk::PixelType::GetPixelType() const
   return m_PixelType;
 }
 
-int mitk::PixelType::GetComponentType() const
+itk::ItkIOComponentType mitk::PixelType::GetComponentType() const
 {
   return m_ComponentType;
 }

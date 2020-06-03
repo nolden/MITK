@@ -354,10 +354,10 @@ function(mitk_create_module)
     if(NOT MODULE_WARNINGS_NO_ERRORS)
       if(MSVC_VERSION)
         mitkFunctionCheckCAndCXXCompilerFlags("/WX" module_c_flags module_cxx_flags)
-	# this would turn on unused parameter warnings, but unfortunately MSVC cannot
-	# distinguish yet between internal and external headers so this would be triggered
-	# a lot by external code. There is support for it on the way so this line could be
-	# reactivated after https://gitlab.kitware.com/cmake/cmake/issues/17904 has been fixed.
+        # this would turn on unused parameter warnings, but unfortunately MSVC cannot
+        # distinguish yet between internal and external headers so this would be triggered
+        # a lot by external code. There is support for it on the way so this line could be
+        # reactivated after https://gitlab.kitware.com/cmake/cmake/issues/17904 has been fixed.
         # mitkFunctionCheckCAndCXXCompilerFlags("/w34100" module_c_flags module_cxx_flags)
       else()
         mitkFunctionCheckCAndCXXCompilerFlags(-Werror module_c_flags module_cxx_flags)
@@ -384,6 +384,8 @@ function(mitk_create_module)
         mitkFunctionCheckCAndCXXCompilerFlags("-Wno-error=inconsistent-missing-override" module_c_flags module_cxx_flags)
         mitkFunctionCheckCAndCXXCompilerFlags("-Wno-error=deprecated-copy" module_c_flags module_cxx_flags)
         mitkFunctionCheckCAndCXXCompilerFlags("-Wno-error=cast-function-type" module_c_flags module_cxx_flags)
+        mitkFunctionCheckCAndCXXCompilerFlags("-Wno-error=deprecated-declarations" module_c_flags module_cxx_flags)
+
       endif()
     endif()
 

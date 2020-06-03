@@ -578,7 +578,7 @@ namespace mitk
       {
         this->m_Mutex.Lock();
         listeners.assign(this->m_Listeners.begin(), this->m_Listeners.end());
-        this->m_Mutex.Unlock();
+        this->m_Mutex.unlock();
       }
 
       for (auto iter = listeners.begin(); iter != listeners.end(); ++iter)
@@ -604,9 +604,9 @@ namespace mitk
       ListenerList listeners;
 
       {
-        this->m_Mutex.Lock();
+        this->m_Mutex.lock();
         listeners.assign(this->m_Listeners.begin(), this->m_Listeners.end());
-        this->m_Mutex.Unlock();
+        this->m_Mutex.unlock();
       }
 
       for (auto iter = listeners.begin(); iter != listeners.end(); ++iter)
@@ -634,7 +634,7 @@ namespace mitk
       {
         this->m_Mutex.Lock();
         listeners.assign(this->m_Listeners.begin(), this->m_Listeners.end());
-        this->m_Mutex.Unlock();
+        this->m_Mutex.unlock();
       }
 
       for (auto iter = listeners.begin(); iter != listeners.end(); ++iter)
@@ -662,7 +662,7 @@ namespace mitk
       {
         this->m_Mutex.Lock();
         listeners.assign(this->m_Listeners.begin(), this->m_Listeners.end());
-        this->m_Mutex.Unlock();
+        this->m_Mutex.unlock();
       }
 
       for (typename ListenerList::iterator iter = listeners.begin(); iter != listeners.end(); ++iter)
@@ -690,7 +690,7 @@ namespace mitk
       {
         this->m_Mutex.Lock();
         listeners.assign(this->m_Listeners.begin(), this->m_Listeners.end());
-        this->m_Mutex.Unlock();
+        this->m_Mutex.unlock();
       }
 
       for (typename ListenerList::iterator iter = listeners.begin(); iter != listeners.end(); ++iter)

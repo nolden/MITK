@@ -15,7 +15,7 @@ found in the LICENSE file.
 
 #include <MitkCoreExports.h>
 #include <mitkCommon.h>
-
+#include <mitkOperationActor.h>
 #include "itkScalableAffineTransform.h"
 #include "mitkNumericTypes.h"
 #include <itkBoundingBox.h>

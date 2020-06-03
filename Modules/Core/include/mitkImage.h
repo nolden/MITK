@@ -736,9 +736,9 @@ namespace mitk
     mutable std::vector<ImageAccessorBase *> m_VtkReaders;
 
     /** A mutex, which needs to be locked to manage m_Readers and m_Writers */
-    std::mutex m_ReadWriteLock;
+    mutable std::mutex m_ReadWriteLock;
     /** A mutex, which needs to be locked to manage m_VtkReaders */
-    std::mutex m_VtkReadersLock;
+    mutable std::mutex m_VtkReadersLock;
   };
 
   /**

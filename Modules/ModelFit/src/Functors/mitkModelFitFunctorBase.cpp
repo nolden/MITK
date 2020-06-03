@@ -119,7 +119,7 @@ mitk::ModelFitFunctorBase::ResetEvaluationParameters()
 
   m_CostFunctionMap.clear();
 
-  m_Mutex.Unlock();
+  m_Mutex.unlock();
 };
 
 void
@@ -132,7 +132,7 @@ mitk::ModelFitFunctorBase::RegisterEvaluationParameter(const std::string& parame
 
   m_CostFunctionMap.insert(std::make_pair(parameterName, costFunctPtr));
 
-  m_Mutex.Unlock();
+  m_Mutex.unlock();
 };
 
 mitk::ModelFitFunctorBase::ParameterNamesType
@@ -148,7 +148,7 @@ mitk::ModelFitFunctorBase::GetEvaluationParameterNames() const
     result.push_back(pos->first);
   }
 
-  m_Mutex.Unlock();
+  m_Mutex.unlock();
 
   return result;
 };
@@ -168,7 +168,7 @@ const
     result = (pos->second).GetPointer();
   }
 
-  m_Mutex.Unlock();
+  m_Mutex.unlock();
 
   return result;
 };
@@ -235,7 +235,7 @@ mitk::ModelFitFunctorBase::GetEvaluationParameters(const ModelBase* model,
     result[i] = costFct->GetValue(parameters);
   }
 
-  m_Mutex.Unlock();
+  m_Mutex.unlock();
 
   return result;
 };

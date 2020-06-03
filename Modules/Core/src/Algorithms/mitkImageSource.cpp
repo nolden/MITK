@@ -128,7 +128,8 @@ void mitk::ImageSource::GenerateData()
   ThreadStruct str;
   str.Filter = this;
 
-  this->GetMultiThreader()->SetNumberOfThreads(this->GetNumberOfThreads());
+  this->GetMultiThreader()->SetMaximumNumberOfThreads(this->GetNumberOfWorkUnits());
+  this->GetMultiThreader()->SetNumberOfWorkUnits(this->GetMultiThreader()->GetMaximumNumberOfThreads());
   this->GetMultiThreader()->SetSingleMethod(this->ThreaderCallback, &str);
 
   // multithread the execution
@@ -151,15 +152,15 @@ void mitk::ImageSource::ThreadedGenerateData(const OutputImageRegionType &, itk:
 // the ThreadedGenerateData method after setting the correct region for this
 // thread.
 
-ITK_THREAD_RETURN_TYPE mitk::ImageSource::ThreaderCallback(void *arg)
+itk::ITK_THREAD_RETURN_TYPE mitk::ImageSource::ThreaderCallback(void *arg)
 {
   ThreadStruct *str;
   itk::ThreadIdType total, threadId, threadCount;
 
-  threadId = ((itk::MultiThreader::ThreadInfoStruct *)(arg))->ThreadID;
-  threadCount = ((itk::MultiThreader::ThreadInfoStruct *)(arg))->NumberOfThreads;
+  threadId = ((itk::MultiThreaderBase::ThreadInfoStruct *)(arg))->ThreadID;
+  threadCount = ((itk::MultiThreaderBase::ThreadInfoStruct *)(arg))->NumberOfThreads;
 
-  str = (ThreadStruct *)(((itk::MultiThreader::ThreadInfoStruct *)(arg))->UserData);
+  str = (ThreadStruct *)(((itk::MultiThreaderBase::ThreadInfoStruct *)(arg))->UserData);
 
   // execute the actual method with appropriate output region
   // first find out how many pieces extent can be split into.
@@ -177,7 +178,7 @@ ITK_THREAD_RETURN_TYPE mitk::ImageSource::ThreaderCallback(void *arg)
   //   few threads idle.
   //   }
 
-  return ITK_THREAD_RETURN_VALUE;
+  return itk::ITK_THREAD_RETURN_DEFAULT_VALUE;
 }
 
 void mitk::ImageSource::PrepareOutputs()

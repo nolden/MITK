@@ -57,7 +57,7 @@ namespace mitk
   template <typename T>
   struct MapPixelComponentType
   {
-    static const int value = itk::ImageIOBase::MapPixelType<T>::CType;
+    static const itk::CommonEnums::IOComponent value = itk::ImageIOBase::MapPixelType<T>::CType;
   };
 
   /**
@@ -254,15 +254,15 @@ namespace mitk
   struct MapPixelType
   {
     static const itkIOPixelType IOPixelType = MapCompositePixelType<T>::IOCompositeType;
-    static const int IOComponentType = MapPixelComponentType<typename GetComponentType<T>::ComponentType>::value;
+    static const itk::CommonEnums::IOComponent IOComponentType = MapPixelComponentType<typename GetComponentType<T>::ComponentType>::value;
   };
 
   /** \brief Partial specialization for setting the IOPixelType for primitive types to SCALAR */
   template <class T>
   struct MapPixelType<T, true>
   {
-    static const itkIOPixelType IOPixelType = itk::ImageIOBase::SCALAR;
-    static const int IOComponentType = MapPixelComponentType<T>::value;
+    static const itk::CommonEnums::IOPixel IOPixelType = itk::ImageIOBase::SCALAR;
+    static const itk::CommonEnums::IOComponent IOComponentType = MapPixelComponentType<T>::value;
   };
 
 } // end namespace mitk
